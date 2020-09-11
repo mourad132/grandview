@@ -1,0 +1,18 @@
+<h1>Copy This Name And Paste it In The Photo Input When Registering</h1>
+
+<div class="container">
+	<input type="text" value="<%= name %>" id="myInput">
+	<button onclick="myFunction()" class="btn btn-success">Copy Name</button>
+	<a class="btn btn-primary" href="/users/register">Go And Register</a>
+</div>
+
+
+
+<script>
+function myFunction() {
+  var copyText = document.getElementById("myInput");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999)
+  document.execCommand("copy");
+}
+</script>

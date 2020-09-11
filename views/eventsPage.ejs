@@ -1,0 +1,87 @@
+<%- include("./partials/header.ejs") %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+  <a class="navbar-brand" href="/">Grand View</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/profiles">Profiles</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		More
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		  <a class="dropdown-item" href="/profile">My Profile</a>
+		  <a class="dropdown-item" href="/search">Search</a>
+          <a class="dropdown-item" href="/users/logout">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<% events.forEach(event => { %>
+<div class="ui card">
+	<div class="content">
+			<div class="right floated meta"><%= event.type %></div>
+		Event
+	</div>
+		<div class="content">
+    <div class="right floated meta"><%= event.created %> <%= event.createdTime %></div>
+    <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= event.author.image %>">
+		mourad132 
+	</div>
+	<div class="image">
+		<% if(!event.image){ %>
+			<img src="https://semantic-ui.com/images/wireframe/image.png">
+		<% } else { %>
+			<img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= event.image %>">
+		<% } %>
+	</div>
+	<h1>
+		<%= event.title %>
+	</h1>
+	<p>
+		<%= event.body %>
+	</p>
+  <div class="extra content">
+	  <form action="/comment/Event/<%= event._id %>" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="<%= moment().format('dddd') %>">
+			<input type="hidden" name="createdTime" value="<%= moment().format('h:mm a') %>">
+    	</div>
+	  </form>
+  </div>
+	<div class="extra content">
+      <button class='reserve'>
+        <img class='reserveImg' src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQq8N3dSWad5RKfCiLsW70dLYbs88dwOuRUgg&usqp=CAU">
+      </button>
+    </div>
+</div>
+<div class="ui threaded comments">
+  <h3 class="ui dividing header">Comments</h3>
+	<% for(var i = 0; i < event.comments.length; i++){ %>
+		<div class="comment">
+			<a class="avatar">
+			  <img src="http://grand-view.herokuapp.com/image/<%= event.comments[i].image %>">
+			</a>
+		<div class="content">
+		  <a class="author"><%= event.comments[i].username %></a>
+		  <div class="metadata">
+			<span class="date"><%= event.comments[i].created %> <%= event.comments[i].createdTime %></span>
+		  </div>
+		  <div class="text">
+		   <%= event.comments[i].body %>
+	  </div>
+</div>
+	</div>
+</div> 
+<% } %>
+<% }) %>

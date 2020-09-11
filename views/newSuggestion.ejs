@@ -1,0 +1,10 @@
+<form action="/new/suggestion" method="POST">
+	<input name="title">
+	<input name="body">
+	<input type="hidden" name="created" value="<%= moment().format('dddd') %>">
+	<input type="hidden" name="createdTime" value="<%= moment().format('h:mm a') %>">
+	<input name="vote" type="checkbox">
+	<input name="voteBy" type="radio" value="Person">
+	<input name="voteBy" type="radio" value='Unit'>
+	<input type="submit">
+</form>

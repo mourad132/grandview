@@ -1,0 +1,30 @@
+<% complainers.forEach(complain => { %>
+		<div class="ui card">
+	<div class="content">
+			<div class="right floated meta"><%= complain.type %></div>
+		Complain
+	</div>
+		<div class="content">
+    <div class="right floated meta"><%= complain.created %> <%= complain.createdTime %></div>
+    <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= complain.author.image %>">
+		<%= complain.username %>
+	</div>
+	<div class="image">
+		<% if(!complain.image){ %>
+			<img src="https://semantic-ui.com/images/wireframe/image.png">
+		<% } else { %>
+			<img src="http://grand-view.herokuapp.com/image/<%= complain.image %>">
+		<% } %>
+	</div>
+	<h1>
+		<%= complain.title %>
+	</h1>
+	<p>
+		<%= complain.body %>
+	</p>
+	<div class="extra content">
+		<a href="/done/<%= complain._id %>" class="btn btn-success">Done</a>
+		<a></a>
+	</div>
+
+</div> 

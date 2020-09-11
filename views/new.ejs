@@ -1,0 +1,70 @@
+<%- include("./partials/header.ejs") %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+  <a class="navbar-brand" href="/">Grand View</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/profiles">Profiles</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		More
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		  <a class="dropdown-item" href="/profile">My Profile</a>
+		  <a class="dropdown-item" href="/search">Search</a>
+          <a class="dropdown-item" href="/users/logout">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="card" style="width: 18rem; margin-bottom: 10px;">
+  <div class="card-body">
+    <h5 class="card-title">Suggestion</h5>
+    <p class="card-text">Do You Have An Idea And You Don't Know How To Tell It to Others?</p>
+	<p class="card-text">Don't Wait For The Next Meeting To Present It, That's The Old Way.In A Click Suggest And Get Real Votes</p>
+    <a href="/new/suggestion" class="card-link">Create Now</a>
+  </div>
+</div>
+<div class="card" style="width: 18rem; margin-bottom: 10px;">
+  <div class="card-body">
+    <h5 class="card-title">Service</h5>
+	<h6 class="card-subtitle mb-2 text-muted">If It Is Buisness Then It Will Be Saved In The Service Page</h6>
+    <p class="card-text">You Have A Buisness Or A Specifiec Service And Want To Other Know And Order?</p>
+	<p class="card-text">Even If It Is For A Limited Time Service Or A Buisness It Can Be Made By Just A Click</p>
+    <a href="/new/service" class="card-link">Create Now</a>
+	<a href="/service" class="card-link">Service Page</a>
+  </div>
+</div>
+<div class="card" style="width: 18rem;margin-bottom: 10px;ht">
+  <div class="card-body">
+    <h5 class="card-title">Event</h5>
+    <p class="card-text">There Is An Event And You Want To Let Others Know?</p>
+	<p class="card-text">Even If It Is One Time Or Repeated You Can Create One Now</p>
+    <a href="/new/event" class="card-link">Create Now</a>
+    <a href="/event" class="card-link">Events Page</a>
+  </div>
+</div>
+<div class="card" style="width: 18rem; margin-bottom: 10px;">
+  <div class="card-body">
+    <h5 class="card-title">Complain</h5>
+    <p class="card-text">Something You Don't like And You Want To Complain?</p>
+	<p class="card-text">What Are You Waiting For Go Now And Complain and It Will BeSent To The One Who Is Responsible For It</p>
+    <a href="/new/complain" class="card-link">Create Now</a>
+  </div>
+</div>
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Post</h5>
+    <p class="card-text">You Just Want A Simple Post With Nothing else? Create One Now.</p>
+    <a href="/new/post" class="card-link">Create Now</a>
+  </div>
+</div>

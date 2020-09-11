@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Grand View</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./public/stylesheets/landing.css">
+		<style>
+		body {
+  background-color: #000;
+}
+
+#landing-header {
+  z-index: 1;
+  position: relative;
+  text-align: center;
+  padding-top: 25vh;
+}
+
+#landing-header h1 {
+  color: #fff;
+}
+
+.slideshow { 
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.slideshow li { 
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  z-index: 0;
+  animation: imageAnimation 50s linear infinite; 
+}	
+.slideshow li:nth-child(1) { 
+  	background-image: url(https://grand-view.herokuapp.com/image/ffa0a26d5188ff69c7aad40e0bedcab1.jpg)
+}
+.slideshow li:nth-child(2) { 
+  background-image: url(https://grand-view.herokuapp.com/image/ffa0a26d5188ff69c7aad40e0bedcab1.jpg);
+  animation-delay: 10s; 
+}
+.slideshow li:nth-child(3) { 
+  background-image: url(https://grand-view.herokuapp.com/image/ffa0a26d5188ff69c7aad40e0bedcab1.jpg);
+  animation-delay: 20s; 
+}
+.slideshow li:nth-child(4) { 
+  background-image: url(https://grand-view.herokuapp.com/image/ffa0a26d5188ff69c7aad40e0bedcab1.jpg);
+  animation-delay: 30s; 
+}
+.slideshow li:nth-child(5) { 
+  background-image: url(https://grand-view.herokuapp.com/image/ffa0a26d5188ff69c7aad40e0bedcab1.jpg);
+  animation-delay: 30s; 
+}
+.slideshow li:nth-child(6) { 
+  background-image: url(https://grand-view.herokuapp.com/image/ffa0a26d5188ff69c7aad40e0bedcab1.jpg);
+  animation-delay: 40s; 
+}
+
+	a img {
+		width: 300px;
+		margin-bottom: 10px;
+		}
+
+@keyframes imageAnimation { 
+  0% { 
+    opacity: 0; 
+    animation-timing-function: ease-in;
+  }
+  10% {
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  20% {
+    opacity: 1
+  }
+  30% {
+    opacity: 0
+  }
+}
+
+/* Older browser support - class added by modernizr */
+.no-cssanimations .slideshow li {
+	opacity: 1;
+}		
+		</style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+    </head>
+    <body>
+    <div id="landing-header">
+ 		<h1>Welcome to Grand View!</h1>
+		<h5>Developed By: <a href="/profile/5f5b84113c90da046d1df8fa">Mourad Sherif</a></h5>
+		<a href="https://www.google.com/maps/@30.9737307,29.6599599,15.5z"><img src="http://grand-view.herokuapp.com/image/6622f0c30cf7d249ab545f0ee7f63590.PNG"></a>
+		<div style="display: block">
+			<a href="/users/login" class="btn btn-lg btn-primary">Log In</a>
+			<a href="/users/register" class="btn btn-lg btn-secondary">Register</a>
+		</div>
+    </div>
+    
+    <ul class="slideshow">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+	  <li></li>
+    </ul>
+
+<% include("./partials/footer") %>

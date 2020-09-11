@@ -1,0 +1,89 @@
+<%- include("partials/header.ejs") %>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Grand View</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/profiles">Profiles</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          More
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/new">Create A New Post</a>
+		  <a class="dropdown-item" href="/photo">Profile Picture</a>
+          <a class="dropdown-item" href="/users/logout">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+  <% for(var i = 0; i < posts.length; i++){ %>
+        <div class="ui card">
+  <div class="content">
+    <div class="right floated meta">14h</div>
+    <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> Elliot
+  </div>
+  <div class="image">
+    <img>
+  </div>
+  <div class="content">
+    <span class="right floated">
+      <i class="heart outline like icon"></i>
+      17 likes
+    </span>
+    <i class="comment icon"></i>
+    3 comments
+  </div>
+  <div class="extra content">
+    <div class="ui large transparent left icon input">
+      <i class="heart outline icon"></i>
+      <input type="text" placeholder="Add Comment...">
+    </div>
+  </div>
+</div>
+		<% //for(var i = 0; i < posts[i].comments.length; i++){ %>
+			<div class="ui comments">
+			  <div class="comment">
+				<a class="avatar">
+				  <img src="/images/avatar/small/joe.jpg">
+				</a>
+				<div class="content">
+				  <a class="author">Joe Henderson</a>
+				  <div class="metadata">
+					<div class="date">1 day ago</div>
+				  </div>
+				  <div class="text">
+					<p>The hours, minutes and seconds stand as visible reminders that your effort put them all there. 						
+					  </p>
+					<p>Preserve until your next run, when the watch lets you see how Impermanent your efforts are.						</p>
+				  </div>
+				  <div class="actions">
+					<a class="reply">Reply</a>
+				  </div>
+				</div>
+			  </div>
+			  <form class="ui reply form">
+				<div class="field">
+				  <textarea></textarea>
+				</div>
+				<div class="ui primary submit labeled icon button">
+				  <i class="icon edit"></i> Add Comment
+				</div>
+			  </form>
+			</div>
+<% //} %>
+<% } %> 
+	</div>
+
+
+<%- include("partials/footer.ejs") %>
