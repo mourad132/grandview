@@ -146,27 +146,8 @@ app.post('/new/post', function(req, res){
 		author: {image: req.user.photo, username: req.user.username, id: req.user._id},
 		created: req.body.created,
 		createdTime: req.body.createdTime,
-	}, function(err, posted){
-		if(err){
-			console.log(err)
-		} else {
-			req.user.posts.push(posted._id);
-			req.user.save();
-			for(var i  = 0; i < req.user.followers.length; i++){
-				User.findById(req.user.follower[i], (err, found) => {
-					if(err){
-						console.log(err)
-					} else {
-						found.noifications.push(posted._id)
-						found.history.push(posted._id);
-						found.save();
-						res.redirect("/home")
-					}
-				})
-			}
-			res.redirect("/home")
-		}
 	})
+	res.redirect("/home")
 })
 
 //NEW SUGGESTION ROUTE @GET
