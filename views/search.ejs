@@ -1,0 +1,60 @@
+<%- include("./partials/header.ejs") %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+  <a class="navbar-brand" href="/">Grand View</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/profiles">Profiles</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		More
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/new">Create New</a>
+		  <a class="dropdown-item" href="/profile">My Profile</a>
+		  <a class="dropdown-item" href="/search">Search</a>
+          <a class="dropdown-item" href="/users/logout">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+	 <form class="form-inline my-2 my-lg-0" action="/profiles" method="GET">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search By User Name" aria-label="Search" name="username">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">@</span>
+  </div>
+  <form action="/profiles" method="GET">
+	<input type="text" placeholder="search by Unit" name="apartment" class="form-control" placeholder="Apartment" aria-label="Apartment" aria-describedby="basic-addon1">
+	</form>
+</div>
+
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">@</span>
+  </div>
+  <form action="/profiles" method="GET">
+	<input type="text" placeholder="search by Name" name="name" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1">
+	</form>
+</div>
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">@</span>
+  </div>
+  <form action="/profiles" method="GET">
+	<input type="number" placeholder="search by Phone Number" name="number" class="form-control" placeholder="Phone Number" aria-label="Phone Number" aria-describedby="basic-addon1">
+	</form>
+</div>

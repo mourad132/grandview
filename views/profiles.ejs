@@ -1,0 +1,43 @@
+<%- include("./partials/header.ejs") %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+  <a class="navbar-brand" href="/">Grand View</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/profiles">Profiles</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		More
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/new">Create New</a>
+		  <a class="dropdown-item" href="/profile">My Profile</a>
+		  <a class="dropdown-item" href="/search">Search</a>
+          <a class="dropdown-item" href="/users/logout">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+	 <form class="form-inline my-2 my-lg-0" action="/profiles" method="GET">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search By User Name" aria-label="Search" name="username">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+	<% for(var i = 0; i < profiles.length; i++){ %>
+		<div class="card">
+	  <div class="card-body">
+		<h5 class="card-title"><%= profiles[i].name %></h5>
+		<p class="card-text"><%= profiles[i].bio %></p>
+		<a href="/profile/<%= profiles[i]._id %>" class="btn btn-primary">Go To Profile</a>
+	  </div>
+	</div>
+<% } %>
+<%- include("./partials/footer.ejs") %>

@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+  <a class="navbar-brand" href="/">Grand View</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/profiles">Profiles</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          More
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/new">Create A New</a>
+		  <a class="dropdown-item" href="/profile">My Profile</a>
+		  <a class="dropdown-item" href="/search">Search</a>
+          <a class="dropdown-item" href="/users/logout">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="card" style="width: 18rem;">
+	<% if(profile.photo){ %>
+		   <img src="http://grand-view.herokuapp.com/image/<%= profile.photo %>" alt="{{ image }}" class="card-img-top">
+	<% } else { %>
+		<img src="http://grand-view.herokuapp.com/image/84941b39d22531eba8b409f6a9b8969b.png" alt="{{ image }}" class="card-img-top">
+	<% } %>
+  <div class="card-body">
+
+    <h5 class="card-title">Name: <%= profile.name %></h5>
+    <p class="card-text"><%= profile.bio %></p>
+	<p class="card-text">Unit: <%= profile.apartment %></p>
+	<p class="card-text">Phone Number: <a href="tel:<%= profile.number %>"><%= profile.number %></a></p>
+	<% related.forEach(relative => { %>
+	  <% if(relative._id == profile._id){ %>
+			<% unit.push(relative) %>
+			<% unit.pop() %>
+	  <% }else { %>
+		  <%  unit.push(relative)%>
+	  <% } %>
+		  <p>In This Unit: <a href="/profile/<%= relative._id %>"><%= relative.username %> </a></p>
+	 <% }) %>
+		<a href="/home" class="btn btn-primary btn-block">Go To The Home Page</a>
+		<a href="/profiles" class="btn btn-secondary btn-block">Browse More Profiles</a>
+  </div>
+</div>
