@@ -785,12 +785,6 @@ app.post('/upload', ensureAuthenticated, upload.single('file'), (req, res) => {
 		if(err){
 			console.log(err)
 		} else {
-			if(found.photo){
-				gfs.remove({ filename: found.photo, root: 'uploads' }, (err, gridStore) => {
-				if (err) {
-				  return res.status(404).json({ err: err });
-				}
-			})}
 			found.photo = req.file.filename
 			found.save()
 			found.posts.forEach(post => {
