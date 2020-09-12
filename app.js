@@ -310,7 +310,7 @@ app.post('/reserve/:type/:id', (req, res) => {
 				found.save()
 				res.redirect('/home')
 			} else {
-				res.sendStatus(400)
+				res.send("you have been reserved <a href='/home'>Return Back</a>")
 			}
 		}
 	})
@@ -381,7 +381,7 @@ app.post('/vote/:type/:id', (req, res) => {
 					found.save()
 					res.redirect('/home')
 				} else {
-					res.sendStatus(400)
+					res.send("you have already been voted <a href='/home'>Return Back</a>")
 				}
 			} else if(found.voteBy== "Unit"){
 				if(found.voteArr.indexOf(req.user.apartment) == -1){
@@ -390,7 +390,7 @@ app.post('/vote/:type/:id', (req, res) => {
 					found.save()
 					res.redirect('/home')
 				} else {
-					res.sendStatus(400)
+					res.sendStatus("you have already been voted or someone from your Unit <a href='/home'>Return Back</a>")
 				}
 			} else {
 				res.sendStatus(500)
