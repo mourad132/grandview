@@ -785,11 +785,8 @@ app.post('/upload', ensureAuthenticated, upload.single('file'), (req, res) => {
 		if(err){
 			console.log(err)
 		} else {
-			found.photo = req.file.filename
+			found.photo = req.file.filename;
 			found.save()
-			found.posts.forEach(post => {
-				post.author.image = req.file.filename;
-			})
 			res.redirect('/profile/' + req.user._id)
 		}
 	})
