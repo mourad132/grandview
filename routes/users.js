@@ -64,7 +64,7 @@ router.post('/register', (req, res) => {
 		  username,
 		  apartment,
 		  number,
-		photo: "69734b83c1a854201b18987f11f840e0.jpg",
+		photo: "7f03fb0337f736dbac24841dcc5257a7.jpg",
         });
 
         bcrypt.genSalt(10, (err, salt) => {
