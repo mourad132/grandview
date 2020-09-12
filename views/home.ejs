@@ -34,8 +34,10 @@
 	</div>
 		<div class="content">
     <div class="right floated meta"><%= suggestion.created %> <%= suggestion.createdTime %></div>
+	<a href="/profile/<%= suggestion.author.id %>">
     <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= suggestion.author.image %>">
 		<%= suggestion.author.username %>
+			</a>
 	</div>
 	<div class="image">
 		<% if(!suggestion.image){ %>
@@ -62,6 +64,7 @@
 	<% if(suggestion.author.id == user._id){ %>
 		<a class="btn btn-secondary" href="/suggestion/image/<%= suggestion._id %>">Add An Image</a>
 		<a class="btn btn-primary" href="/voters/<%= suggestion._id %>">View Voters</a>
+		<a class="btn btn-danger" href="/delete/suggestion/<%= suggestion._id %>?_method=DELETE">Delete</a>
 <% } else { %>
 <div class="extra content">
 <form action="/vote/no/<%= suggestion._id %>" method="POST">	
@@ -110,8 +113,10 @@
 	</div>
 		<div class="content">
     <div class="right floated meta"><%= complain.created %> <%= complain.createdTime %></div>
+	<a href="/profile/<%= complain.author.id %>">
     <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= complain.author.image %>">
-		<%= complain.username %>
+		<%= complain.author.username %>
+			</a>
 	</div>
 	<div class="image">
 		<% if(!complain.image){ %>
@@ -128,7 +133,8 @@
 	</p>
 	<% if(complain.author.id == user._id){ %>
 		<a class="btn btn-secondary" href="/complain/image/<%= complain._id %>">Add An Image</a>
-		<a class="btn btn-secondary" href="/complain/status/<%= complain._id %>">View Complain Status</a>
+		<a class="btn btn-primary" href="/complain/status/<%= complain._id %>">View Complain Status</a>
+		<a class="btn btn-danger" href="/delete/suggestion/<%= complain._id %>?_method=DELETE">Delete</a>
 	<% } %>
 <div class="extra content">
 	  <form action="/comment/Complain/<%= complain._id %>" method="POST">
@@ -187,6 +193,7 @@
 	</p>  
 	<% if(post.author.id == user._id){ %>
 		<a class="btn btn-secondary" href="/post/image/<%= post._id %>">Add An Image</a>
+		<a class="btn btn-danger" href="/delete/suggestion/<%= post._id %>?_method=DELETE">Delete</a>
 	<% } %>
   <div class="extra content">
 	  <form action="/comment/Post/<%= post._id %>" method="POST">
@@ -228,8 +235,10 @@
 	</div>
 		<div class="content">
     <div class="right floated meta"><%= service.created %> <%= service.createdTime %></div>
+	<a href="/profile/<%= service.author.id %>">
     <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= service.author.image %>">
 		<%= service.author.username %> 
+	</a>
 	</div>
 	<div class="image">
 		<% if(!service.image){ %>
@@ -254,8 +263,9 @@
 	  </form>
   </div>
 	<% if(service.author.id == user._id){ %>
-		<a class="btn btn-secondary" href="/service/image/<%= service._id %>">Add An Image</a>
 		<a href="/reservers/service/<%= service._id %>"class="btn btn-primary">View Reservers</a>
+		<a class="btn btn-secondary" href="/service/image/<%= service._id %>">Add An Image</a>
+		<a class="btn btn-danger" href="/delete/suggestion/<%= service._id %>?_method=DELETE">Delete</a>
 	<% } else { %>
 	<form action="/reserve/service/<%= service._id %>" method="POST">
 	 <div class="extra content">
@@ -294,8 +304,10 @@
 	</div>
 		<div class="content">
     <div class="right floated meta"><%= event.created %> <%= event.createdTime %></div>
+	<a href="/profile/<%= event.author.id %>">
     <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= event.author.image %>">
-		mourad132 
+		<%= event.author.username %> 
+		</a>
 	</div>
 	<div class="image">
 		<% if(!event.image){ %>
@@ -320,8 +332,9 @@
 	  </form>
   </div>
 	<% if(event.author.id == user._id){ %>
-		<a class="btn btn-secondary" href="/event/image/<%= event._id %>">Add An Image</a>
 		<a href="/reservers/event/<%= event._id %>"class="btn btn-primary">View Reservers</a>
+		<a class="btn btn-secondary" href="/event/image/<%= event._id %>">Add An Image</a>
+		<a href="/delete/event/<%= event._id %>"class="btn btn-danger">Delete</a>
 	<% } else { %>
 	<form action="/reserve/event/<%= event._id %>" method="POST">
 	 <div class="extra content">
