@@ -40,11 +40,16 @@ router.post('/register', (req, res) => {
   }
   if (errors.length > 0) {
     res.render('register', {
-      errors,
-      name,
-      email,
-      password,
-      password2
+          errors,
+          name,
+          email,
+          password,
+          password2,
+	  bio,
+	  number,
+	  apartment,
+	  username,
+	  pass,
     });
   } else {
     User.findOne({ email: email }).then(user => {
@@ -60,6 +65,7 @@ router.post('/register', (req, res) => {
 	  apartment,
 	  username,
 	  pass,
+	  number,
         });
       } else {
         const newUser = new User({
