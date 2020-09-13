@@ -30,7 +30,7 @@ router.post('/register', (req, res) => {
   }
 
   if(pass != "grandview4532"){
-	  errors.push("Registeration Password Is Not Valid, Please Contact The Developer To Get It")
+	  errors.push({msg: "Registeration Password Is Not Valid, Please Contact The Developer To Get It"})
   }
   if (password.length < 6) {
     errors.push({ msg: 'Password must be at least 6 characters' });
