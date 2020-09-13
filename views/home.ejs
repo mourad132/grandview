@@ -312,11 +312,19 @@
 	  </form>
   </div>
 	 <div class="extra content">
+	 <% if(complain.author.id == user._id){ %>
+		<a class="btn btn-secondary" href="/complain/image/<%= complain._id %>">Add An Image</a>
+		<a class="btn btn-primary" href="/complain/status/<%= complain._id %>">View Complain Status</a>
+		<form action="/delete/complain/<%= complain._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block">Delete</button>
+		</form>
+	<% } else { %>
 	 <form action="/reserve/service/<%= service._id %>" method="POST">
       <button class='reserve'>
         <img class='reserveImg' src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQq8N3dSWad5RKfCiLsW70dLYbs88dwOuRUgg&usqp=CAU">
       </button>
       <form>
+      <% } %>
     </div>
 </div>
 <div class="ui threaded comments">
