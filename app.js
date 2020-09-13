@@ -315,16 +315,7 @@ app.get("/reservers/:type/:id", (req, res) => {
 			if(err){
 				console.log(err)
 			} else {
-				const users = found.reserveUser.forEach(user => {
-					User.findById(user, (err, users) => {
-						if(err){
-							console.log(err)
-						} else {
-							return users
-						}
-					})
-				})
-				res.render('reservers', {profiles: users, page: "Reserved Users"})
+				res.render('reservers', {profiles: found, page: "Reserved Users"})
 			}
 		})
 	}
