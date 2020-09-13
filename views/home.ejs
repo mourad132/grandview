@@ -347,25 +347,25 @@
 </div>
 <% }) %>
 <% events.forEach(event => { %>
-<% if(events.indexOf(event) == 0){ %>
+<% if(suggestions.indexOf(suggestion) == 0){ %>
 <div class="ui card" id="events">
 	<div class="content">
-			<div class="right floated meta"><%= event.type %></div>
+		 <div class="right floated meta"><%= event.voteBy %></div>
 		Event
 	</div>
-	<% } else { %>
+	<% }else { %>
 	<div class="ui card">
 	<div class="content">
-			<div class="right floated meta"><%= event.type %></div>
+		 <div class="right floated meta"><%= event.voteBy %></div>
 		Event
 	</div>
-	<% } %>
+		<% } %>
 		<div class="content">
     <div class="right floated meta"><%= event.created %> <%= event.createdTime %></div>
 	<a href="/profile/<%= event.author.id %>">
     <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= event.author.image %>">
-		<%= event.author.username %> 
-		</a>
+		<%= event.author.username %>
+			</a>
 	</div>
 	<div class="image">
 		<% if(!event.image){ %>
