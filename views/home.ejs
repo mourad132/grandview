@@ -23,15 +23,35 @@
           <a class="dropdown-item" href="/users/logout">Logout</a>
         </div>
       </li>
+		<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Navigate
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/home#suggestions">Suggestions</a>
+		  <a class="dropdown-item" href="/home#complains">Complains</a>
+          <a class="dropdown-item" href="/home#posts">Posts</a>
+		  <a class="dropdown-item" href="/home#services">Services</a>
+		  <a class="dropdown-item" href="/home#events">Events</a>
+        </div>
+      </li>
     </ul>
   </div>
 </nav>
 <% suggestions.forEach(suggestion => { %>
-<div class="ui card">
+<% if(suggestions.indexOf(suggestion) == 0){ %>
+<div class="ui card" id="suggestions">
 	<div class="content">
 		 <div class="right floated meta"><%= suggestion.voteBy %></div>
 		Suggestion
 	</div>
+	<% }else { %>
+	<div class="ui card">
+	<div class="content">
+		 <div class="right floated meta"><%= suggestion.voteBy %></div>
+		Suggestion
+	</div>
+		<% } %>
 		<div class="content">
     <div class="right floated meta"><%= suggestion.created %> <%= suggestion.createdTime %></div>
 	<a href="/profile/<%= suggestion.author.id %>">
@@ -64,7 +84,9 @@
 	<% if(suggestion.author.id == user._id){ %>
 		<a class="btn btn-secondary" href="/suggestion/image/<%= suggestion._id %>">Add An Image</a>
 		<a class="btn btn-primary" href="/voters/<%= suggestion._id %>">View Voters</a>
-		<a class="btn btn-danger" href="/delete/suggestion/<%= suggestion._id %>?_method=DELETE">Delete</a>
+		<form action="/delete/suggestion/<%= suggestion._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block">Delete</button>
+		</form>
 <% } else { %>
 <div class="extra content">
 <form action="/vote/no/<%= suggestion._id %>" method="POST">	
@@ -103,14 +125,22 @@
 	<% } %>
 	<% } %>
 </div>
+	
 <% }) %>
-<hr>
 <% complains.forEach(complain => { %>
-		<div class="ui card">
+<% if(complains.indexOf(complain) == 0){ %>
+<div class="ui card" id="complains">
 	<div class="content">
-			<div class="right floated meta"><%= complain.type %></div>
+		 <div class="right floated meta"><%= complain.type %></div>
 		Complain
 	</div>
+	<% }else { %>
+	<div class="ui card">
+	<div class="content">
+		 <div class="right floated meta"><%= complain.type %></div>
+		Complain
+	</div>
+		<% } %>
 		<div class="content">
     <div class="right floated meta"><%= complain.created %> <%= complain.createdTime %></div>
 	<a href="/profile/<%= complain.author.id %>">
@@ -134,7 +164,9 @@
 	<% if(complain.author.id == user._id){ %>
 		<a class="btn btn-secondary" href="/complain/image/<%= complain._id %>">Add An Image</a>
 		<a class="btn btn-primary" href="/complain/status/<%= complain._id %>">View Complain Status</a>
-		<a class="btn btn-danger" href="/delete/suggestion/<%= complain._id %>?_method=DELETE">Delete</a>
+		<form action="/delete/complain/<%= complain._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block">Delete</button>
+		</form>
 	<% } %>
 <div class="extra content">
 	  <form action="/comment/Complain/<%= complain._id %>" method="POST">
@@ -167,10 +199,17 @@
 <% } %>
 <% }) %>
 <% posts.forEach(post => { %>
-<div class="ui card">
+<% if(posts.indexOf(post) == 0){ %>
+<div class="ui card" id="posts">
 	<div class="content">
 		Post
 	</div>
+	<% }else { %>
+	<div class="ui card">
+	<div class="content">
+		Post
+	</div>
+		<% } %>
 		<div class="content">
     <div class="right floated meta"><%= post.created %> <%= post.createdTime %></div>
 	<a href="/profile/<%= post.author.id %>">
@@ -189,11 +228,13 @@
 		<%= post.title %>
 	</h1>  
 	<p>
-		<%= post.body %>
+		<%= post.post %>
 	</p>  
 	<% if(post.author.id == user._id){ %>
 		<a class="btn btn-secondary" href="/post/image/<%= post._id %>">Add An Image</a>
-		<a class="btn btn-danger" href="/delete/suggestion/<%= post._id %>?_method=DELETE">Delete</a>
+		<form action="/delete/post/<%= post._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block">Delete</button>
+		</form>
 	<% } %>
   <div class="extra content">
 	  <form action="/comment/Post/<%= post._id %>" method="POST">
@@ -228,11 +269,19 @@
 </div>
 <% }) %>
 <% services.forEach(service => { %>
-<div class="ui card">
+<% if(services.indexOf(service) == 0){ %>
+<div class="ui card" id="services">
 	<div class="content">
-			<div class="right floated meta"><%= service.type %></div>
+		 <div class="right floated meta"><%= service.type %></div>
 		Service
 	</div>
+	<% }else { %>
+	<div class="ui card">
+	<div class="content">
+		 <div class="right floated meta"><%= service.type %></div>
+		Service
+	</div>
+		<% } %>
 		<div class="content">
     <div class="right floated meta"><%= service.created %> <%= service.createdTime %></div>
 	<a href="/profile/<%= service.author.id %>">
@@ -265,8 +314,10 @@
 	<% if(service.author.id == user._id){ %>
 		<a href="/reservers/service/<%= service._id %>"class="btn btn-primary">View Reservers</a>
 		<a class="btn btn-secondary" href="/service/image/<%= service._id %>">Add An Image</a>
-		<a class="btn btn-danger" href="/delete/suggestion/<%= service._id %>?_method=DELETE">Delete</a>
-	<% } else { %>
+		<form action="/delete/service/<%= service._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block">Delete</button>
+		</form>
+		<% } else { %>
 	<form action="/reserve/service/<%= service._id %>" method="POST">
 	 <div class="extra content">
       <button class='reserve'>
@@ -293,15 +344,22 @@
 	  </div>
 </div>
 <% } %>
-	</div>
 </div>
 <% }) %>
 <% events.forEach(event => { %>
-<div class="ui card">
+<% if(events.indexOf(event) == 0){ %>
+<div class="ui card" id="events">
 	<div class="content">
 			<div class="right floated meta"><%= event.type %></div>
 		Event
 	</div>
+	<% } else { %>
+	<div class="ui card">
+	<div class="content">
+			<div class="right floated meta"><%= event.type %></div>
+		Event
+	</div>
+		<% } %>
 		<div class="content">
     <div class="right floated meta"><%= event.created %> <%= event.createdTime %></div>
 	<a href="/profile/<%= event.author.id %>">
@@ -334,7 +392,9 @@
 	<% if(event.author.id == user._id){ %>
 		<a href="/reservers/event/<%= event._id %>"class="btn btn-primary">View Reservers</a>
 		<a class="btn btn-secondary" href="/event/image/<%= event._id %>">Add An Image</a>
-		<a href="/delete/event/<%= event._id %>"class="btn btn-danger">Delete</a>
+		<form action="/delete/event/<%= event._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block">Delete</button>
+		</form>
 	<% } else { %>
 	<form action="/reserve/event/<%= event._id %>" method="POST">
 	 <div class="extra content">
