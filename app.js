@@ -733,65 +733,65 @@ app.get("/:type/image/:id", ensureAuthenticated, (req, res) => {
 	res.render("image", {type: req.params.type, id: req.params.id})
 })
 //POST PHOTO'S ROUTE @GET
-app.post("/:type/image/:id", upload.single('file'), (req, res) => {
+app.post('/:type/image/:id', ensureAuthenticated, upload.single('file'), (req, res) => {
+	if(req.file){
 	if(req.params.type == "suggestion"){
-		Suggestion.findById(req.params.id, (err, found) => {
-		if(err){
-			console.log(err)
-		} else {
-			if(found.image){
-				gfs.remove({ filename: found.photo, root: 'uploads' }, (err, gridStore) => {
-				if (err) {
-				  return res.status(404).json({ err: err });
-				}
-			})}
-			found.image = req.file.filename;
-			found.save()
-			res.redirect("/home")
-		}
-	})
-	} else if(req.params.type == "service"){
-		Service.findById(req.params.id, (err, found) => {
+	Suggestion.findById(req.params.id, (err, found) => {
 		if(err){
 			console.log(err)
 		} else {
 			found.image = req.file.filename;
 			found.save()
-			res.redirect("/home")
-		}
-	})
-	} else if(req.params.type == "event"){
-		Event.findById(req.params.id, (err, found) => {
-		if(err){
-			console.log(err)
-		} else {
-			found.image = req.file.filename;
-			found.save()
-			res.redirect("/home")
+			res.redirect('/home')
 		}
 	})
 	} else if(req.params.type == "complain"){
-		Complain.findById(req.params.id, (err, found) => {
+	Complain.findById(req.params.id, (err, found) => {
 		if(err){
 			console.log(err)
 		} else {
 			found.image = req.file.filename;
 			found.save()
-			res.redirect("/home")
+			res.redirect('/home')
 		}
 	})
-	} else if(req.params.type == "post"){
-		Post.findById(req.params.id, (err, found) => {
+	} else if(req.params.type == "service"){
+	Service.findById(req.params.id, (err, found) => {
 		if(err){
 			console.log(err)
 		} else {
 			found.image = req.file.filename;
 			found.save()
-			res.redirect("/home")
+			res.redirect('/home')
 		}
 	})
+	} else if(req.params.type == "event"){
+	Event.findById(req.params.id, (err, found) => {
+		if(err){
+			console.log(err)
+		} else {
+			found.image = req.file.filename;
+			found.save()
+			res.redirect('/home')
+		}
+	})
+	} else if(req.params.type == "Post"){
+	Post.findById(req.params.id, (err, found) => {
+		if(err){
+			console.log(err)
+		} else {
+			found.image = req.file.filename;
+			found.save()
+			res.redirect('/home')
+		}
+	})
+	} else {
+		res.sendStatus(400)
 	}
-})
+	} else {
+		res.send("Please Enter An Image <a href='/home'>Return Back</a>")
+	}
+});
 //SEARCH ROUTE @GET 
 app.get("/search", (req, res) => {
 	res.render("search", {page: "Search"}) 
@@ -800,6 +800,7 @@ app.get("/search", (req, res) => {
 // @route POST /upload
 // @desc  Uploads file to DB
 app.post('/upload', ensureAuthenticated, upload.single('file'), (req, res) => {
+	if(req.file){
 	User.findById(req.user, (err, found) => {
 		if(err){
 			console.log(err)
@@ -809,6 +810,9 @@ app.post('/upload', ensureAuthenticated, upload.single('file'), (req, res) => {
 			res.redirect('/profile/' + req.user._id)
 		}
 	})
+	} else {
+		res.send("Please Enter An Image <a href='/profile'>Return Back</a>")
+	}
 });
 // FILES ROUTE @GET
 // @desc  Display all files in JSON
