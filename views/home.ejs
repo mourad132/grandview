@@ -32,7 +32,7 @@
 		  <a class="dropdown-item" href="/home#complains">Complains</a>
           <a class="dropdown-item" href="/home#posts">Posts</a>
 		  <a class="dropdown-item" href="/home#services">Services</a>
-		  <a class="dropdown-item" href="/home#events">Events</a>
+		  <a class="dropdown-item" href="/home#event">Event</a>
         </div>
       </li>
     </ul>
@@ -178,10 +178,11 @@
 	  </form>
   </div>
 </div> 
-<div class="ui threaded comments"  id="<%= complain._id %>">
+<div class="ui threaded comments" id="<%= complain._id %>">
   <h3 class="ui dividing header">Comments</h3>
 	<% for(var i = 0; i < complain.comments.length; i++){ %>
-		<div class="comment">
+	<% if(complain.comments[i].body){ %>
+	<div class="comment">
 			<a class="avatar">
 			  <img src="http://grand-view.herokuapp.com/image/<%= complain.comments[i].image %>">
 			</a>
@@ -191,12 +192,13 @@
 			<span class="date"><%= complain.comments[i].created %> <%= complain.comments[i].createdTime %></span>
 		  </div>
 		  <div class="text">
-			<%= complain.comments[i].body %>  
-</div>
+		   <%= complain.comments[i].body %>
+	  </div>
 </div>
 	</div>
-</div> 
-<% } %>
+	<% } %>
+	<% } %>
+</div>
 <% }) %>
 <% posts.forEach(post => { %>
 <% if(posts.indexOf(post) == 0){ %>
@@ -284,10 +286,8 @@
 		<% } %>
 		<div class="content">
     <div class="right floated meta"><%= service.created %> <%= service.createdTime %></div>
-	<a href="/profile/<%= service.author.id %>">
     <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= service.author.image %>">
-		<%= service.author.username %> 
-	</a>
+		<%= service.username %> 
 	</div>
 	<div class="image">
 		<% if(!service.image){ %>
@@ -311,23 +311,13 @@
     	</div>
 	  </form>
   </div>
-	<% if(service.author.id == user._id){ %>
-		<a href="/reservers/service/<%= service._id %>"class="btn btn-primary">View Reservers</a>
-		<a class="btn btn-secondary" href="/service/image/<%= service._id %>">Add An Image</a>
-		<form action="/delete/service/<%= service._id %>?_method=DELETE" method="POST">
-			<button class="btn btn-danger btn-block">Delete</button>
-		</form>
-		<% } else { %>
-	<form action="/reserve/service/<%= service._id %>" method="POST">
 	 <div class="extra content">
       <button class='reserve'>
-        <img class='reserveImg' src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQq8N3dSWad5RKfCiLsW70dLYbs88dwOuRUgg&usqp=CAU">
+        <img class='reserveImg' src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQq8N3dSWad5RKfCiLsW70dLYbs88dwOuRUgg&usqp=CAU"> 50
       </button>
     </div>
-</form>
-<% } %>
 </div>
-<div class="ui threaded comments"  id="<%= service._id %>">
+<div class="ui threaded comments">
   <h3 class="ui dividing header">Comments</h3>
 	<% for(var i = 0; i < service.comments.length; i++){ %>
 	<div class="comment">
@@ -344,28 +334,27 @@
 	  </div>
 </div>
 <% } %>
+	</div>
 </div>
 <% }) %>
 <% events.forEach(event => { %>
 <% if(events.indexOf(event) == 0){ %>
-<div class="ui card" id="events">
+<div class="ui card" id="event">
 	<div class="content">
-		 <div class="right floated meta"><%= event.voteBy %></div>
+		 <div class="right floated meta"><%= event.type %></div>
 		Event
 	</div>
 	<% }else { %>
 	<div class="ui card">
 	<div class="content">
-		 <div class="right floated meta"><%= event.voteBy %></div>
+		 <div class="right floated meta"><%= event.type %></div>
 		Event
 	</div>
 		<% } %>
 		<div class="content">
     <div class="right floated meta"><%= event.created %> <%= event.createdTime %></div>
-	<a href="/profile/<%= event.author.id %>">
     <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= event.author.image %>">
-		<%= event.author.username %>
-			</a>
+		mourad132 
 	</div>
 	<div class="image">
 		<% if(!event.image){ %>
@@ -389,23 +378,13 @@
     	</div>
 	  </form>
   </div>
-	<% if(event.author.id == user._id){ %>
-		<a href="/reservers/event/<%= event._id %>"class="btn btn-primary">View Reservers</a>
-		<a class="btn btn-secondary" href="/event/image/<%= event._id %>">Add An Image</a>
-		<form action="/delete/event/<%= event._id %>?_method=DELETE" method="POST">
-			<button class="btn btn-danger btn-block">Delete</button>
-		</form>
-	<% } else { %>
-	<form action="/reserve/event/<%= event._id %>" method="POST">
-	 <div class="extra content">
+	<div class="extra content">
       <button class='reserve'>
         <img class='reserveImg' src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQq8N3dSWad5RKfCiLsW70dLYbs88dwOuRUgg&usqp=CAU">
       </button>
     </div>
-</form>
-<% } %>
 </div>
-<div class="ui threaded comments" id="<%= event._id %>">
+<div class="ui threaded comments">
   <h3 class="ui dividing header">Comments</h3>
 	<% for(var i = 0; i < event.comments.length; i++){ %>
 		<div class="comment">
