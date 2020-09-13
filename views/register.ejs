@@ -78,7 +78,7 @@
             name="bio"
             class="form-control"
             placeholder="bio"
-			><%= bio %></textarea>
+			><% if(bio){<%= bio %>}  %></textarea>
         </div>
 		<label for="pass">Phone Number(Optional)</label>
           <input
