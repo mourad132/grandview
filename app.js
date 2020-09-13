@@ -392,6 +392,53 @@ app.get("/complain/status/:id", (req, res) => {
 	})
 })
 
+//DELETE ROUTE @DELETE
+app.delete("/delete/:type/:id", (req, res) => {
+	if(req.params.type == "suggestion"){
+		Suggestion.findByIdAndDelete(req.params.id, (err, found) => {
+			if(err){
+				console.log(err)
+			} else {
+				res.redirect("/home#" + req.params.type)
+			}
+		})
+	} else if(req.params.type == "complain"){
+		Complain.findByIdAndDelete(req.params.id, (err, found) => {
+			if(err){
+				console.log(err)
+			} else {
+				res.redirect("/home#" + req.params.type)
+			}
+		})
+	} else if(req.params.type == "service"){
+		Service.findByIdAndDelete(req.params.id, (err, found) => {
+			if(err){
+				console.log(err)
+			} else {
+				res.redirect("/home#" + req.params.type)
+			}
+		})
+	} else if(req.params.type == "event"){
+		Event.findByIdAndDelete(req.params.id, (err, found) => {
+			if(err){
+				console.log(err)
+			} else {
+				res.redirect("/home#" + req.params.type)
+			}
+		})
+	} else if(req.params.type == "post"){
+		Post.findByIdAndDelete(req.params.id, (err, found) => {
+			if(err){
+				console.log(err)
+			} else {
+				res.redirect("/home#" + req.params.type)
+			}
+		})
+	} else {
+		res.sendStatus(400)
+	}
+})
+
 //COMPLAIN FINISHING ROUTE @GET
 app.get('/done/:id', (req, res) => {
 	Complain.findById(req.params.id, (err, found) => {
