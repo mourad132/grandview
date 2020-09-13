@@ -85,7 +85,7 @@ app.use('/users', require('./routes/users.js'));
 
 //LANDING PAGE @GET
 app.get('/', (req, res) => {
-	res.render('beta', {page: "Landing"})
+	res.render('beta', {page: "Landing", user: req.user})
 })
 
 //HOME PAGE @GET
