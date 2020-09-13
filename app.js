@@ -315,7 +315,7 @@ app.get("/reservers/:type/:id", (req, res) => {
 			if(err){
 				console.log(err)
 			} else {
-				res.render('reservers', {profiles: found, page: "Reserved Users"})
+				res.render('reservers', {profiles: found.reserveUser, page: "Reserved Users"})
 			}
 		})
 	}
