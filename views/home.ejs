@@ -388,12 +388,20 @@
     	</div>
 	  </form>
   </div>
+   <% if(event.author.id == user._id){ %>
+		<a class="btn btn-secondary btn-block" href="/event/image/<%= event._id %>">Add An Image</a>
+		<a class="btn btn-primary btn-block" href="/reservers/event/<%= event._id %>">View Reservers</a>
+		<form action="/delete/event/<%= event._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block">Delete</button>
+		</form>
+	<% } else { %>
 	<div class="extra content">
        <form action="/reserve/event/<%= event._id %>" method="POST">
       <button class='reserve'>
         <img class='reserveImg' src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQq8N3dSWad5RKfCiLsW70dLYbs88dwOuRUgg&usqp=CAU">
       </button>
       <form>
+      <% } %>
     </div>
 </div>
 <div class="ui threaded comments">
