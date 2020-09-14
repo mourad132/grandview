@@ -313,8 +313,8 @@
   </div>
 	 <div class="extra content">
 	 <% if(service.author.id == user._id){ %>
-		<a class="btn btn-secondary btn-block" href="/service/image/<%= service._id %>">Add An Image</a>
-		<a class="btn btn-primary btn-block" href="/reservers/service/<%= service._id %>">View Reservers</a>
+		<a class="btn btn-secondary btn-block" href="/service/image/<%= service._id %>" style="color: white">Add An Image</a>
+		<a class="btn btn-primary btn-block" href="/reservers/service/<%= service._id %>" style="color: white">View Reservers</a>
 		<form action="/delete/service/<%= service._id %>?_method=DELETE" method="POST">
 			<button class="btn btn-danger btn-block">Delete</button>
 		</form>
