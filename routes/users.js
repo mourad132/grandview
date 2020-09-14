@@ -21,7 +21,7 @@ router.post('/register', (req, res) => {
 	  const { name, email, bio, password, password2, username, apartment, number, pass } = req.body;
   let errors = [];
 
-  if (!name || !username || !apartment || !email || !password || !password2 || !pass) {
+  if (!name || !username || !apartment || !email || !password || !password2 || !pass || !number) {
     errors.push({ msg: 'Please enter all fields' });
   }	
 
@@ -34,9 +34,6 @@ router.post('/register', (req, res) => {
   }
   if (password.length < 6) {
     errors.push({ msg: 'Password must be at least 6 characters' });
-  }
-  if(bio == undefined){
-  	bio = ''
   }
   if (errors.length > 0) {
     res.render('register', {
@@ -61,7 +58,6 @@ router.post('/register', (req, res) => {
           email,
           password,
           password2,
-	  bio,
 	  apartment,
 	  username,
 	  pass,
@@ -72,11 +68,10 @@ router.post('/register', (req, res) => {
           name,
           email,
           password,
-		  bio,
 		  username,
 		  apartment,
 		  number,
-		photo: "7f03fb0337f736dbac24841dcc5257a7.jpg",
+		photo: "974b774b2288748fb57c2668708493eb.jpg",
         });
 
         bcrypt.genSalt(10, (err, salt) => {
