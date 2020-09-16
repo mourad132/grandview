@@ -21,12 +21,13 @@
           <a class="dropdown-item" href="/new">Create New</a>
 		  <a class="dropdown-item" href="/profile">My Profile</a>
 		  <a class="dropdown-item" href="/search">Search</a>
+		  <a onclick="dark()" class="dropdown-item" id="click" style="cursor: pointer">Dark Mode</a>
           <a class="dropdown-item" href="/users/logout">Logout</a>
         </div>
       </li>
     </ul>
   </div>
-	 <form class="form-inline my-2 my-lg-0" action="/profiles" method="GET">
+	 <form class="form-inline my-2 my-lg-0 inverted" action="/profiles" method="GET">
       <input class="form-control mr-sm-2" type="search" placeholder="Search By User Name" aria-label="Search" name="username">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
@@ -36,7 +37,7 @@
 	  <div class="card-body">
 		<h5 class="card-title"><%= profiles[i].name %></h5>
 		<p class="card-text"><%= profiles[i].bio %></p>
-		<a href="/profile/<%= profiles[i]._id %>" class="btn btn-primary">Go To Profile</a>
+		<a href="/profile/<%= profiles[i]._id %>" class="btn btn-primary inverted">Go To Profile</a>
 	  </div>
 	</div>
 <% } %>
