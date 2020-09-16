@@ -1,4 +1,9 @@
 <%- include("./partials/header.ejs") %>
+<% if(user.dark == true){ %>
+<input type="hidden" id="dark" value="true">
+<% } else { %>
+<input type="hidden" id="dark" value="false">
+<% } %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
   <a class="navbar-brand" href="/">Grand View</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,6 +25,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 		  <a class="dropdown-item" href="/profile">My Profile</a>
 		  <a class="dropdown-item" href="/search">Search</a>
+		  <a onclick="dark()" class="dropdown-item" id="click" style="cursor: pointer">Dark Mode</a>
           <a class="dropdown-item" href="/users/logout">Logout</a>
         </div>
       </li>
@@ -68,3 +74,4 @@
     <a href="/new/post" class="card-link">Create Now</a>
   </div>
 </div>
+<%- include("./partials/footer.ejs") %>
