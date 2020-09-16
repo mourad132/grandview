@@ -129,7 +129,7 @@ app.get("/home", ensureAuthenticated, (req, res) => {
 })
 
 //NEW ROUTE @GET
-app.get("/new", (req, res) => {
+app.get("/new", ensureAuthenticated, (req, res) => {
 	res.render("new")
 })
 
