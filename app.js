@@ -134,7 +134,7 @@ app.get("/new", ensureAuthenticated, (req, res) => {
 })
 
 //NEW POST ROUTE @GET
-app.get('/new/post', function(req, res){
+app.get('/new/post', ensureAuthenticated, function(req, res){
     res.render("post", {page: "New Post"})
 })
 
