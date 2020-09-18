@@ -115,7 +115,7 @@ app.get("/home", ensureAuthenticated, (req, res) => {
 											const invcomplain = complains.reverse();
 											const invservice = services.reverse();
 											const invevents = events.reverse(); 
-											res.render("home", {suggestions: invsuggestion, posts: invposts, complains: invcomplains, 												services: invservice, events: invevents, user: req.user, page: "home"})
+											res.render("home", {suggestions: invsuggestion, posts: invposts, complains: invcomplain, 												services: invservice, events: invevents, user: req.user, page: "home"})
 										}
 									})
 								}
