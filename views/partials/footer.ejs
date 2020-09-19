@@ -1,7 +1,7 @@
 <script>
 	const root = document.querySelector(":root");
 	function dark() {
-		document.documentElement.classList.toggle("dark-mode");
+		root.classList.toggle("dark-mode");
 		document.querySelectorAll(".inverted").forEach((result) => {
 			result.classList.toggle("invert")	
 		})
