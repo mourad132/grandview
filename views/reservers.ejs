@@ -1,3 +1,12 @@
+if(!profiles) {
+<div class="jumbotron">
+  <h1 class="display-4"No Reserves Yet</h1>
+  <p class="lead">NO One Has Reserved Yet When They Reserve They Will Appear Here</p>
+  <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+</div>
+} else {
 <% profiles.forEach(profile => { %>
 		<div class="card">
 	  <div class="card-body">
@@ -7,3 +16,4 @@
 	  </div>
 	</div>
 	<% }) %>
+	}
