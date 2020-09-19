@@ -139,13 +139,13 @@ app.get('/new/post', ensureAuthenticated, function(req, res){
 })
 
 //NEW ROUTE @POST
-app.post('/new/post', function(req, res){
+app.get('/new/post', function(req, res){
 	Post.create({
-		title: req.body.title,
-		post: req.body.post,
-		author: {image: req.user.photo, username: req.user.username, id: req.user._id},
-		created: req.body.created,
-		createdTime: req.body.createdTime,
+		title: req.query.title,
+		post: req.query.post,
+		// author: {image: req.user.photo, username: req.user.username, id: req.user._id},
+// 		created: req.body.created,
+// 		createdTime: req.body.createdTime,
 	})
 	res.redirect("/home")
 })
