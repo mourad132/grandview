@@ -139,7 +139,7 @@ app.get('/new/post', ensureAuthenticated, function(req, res){
 })
 
 //NEW ROUTE @POST
-app.get('/new/post', function(req, res){
+app.post('/new/post', function(req, res){
 	Post.create({
 		title: req.query.title,
 		post: req.query.post,
