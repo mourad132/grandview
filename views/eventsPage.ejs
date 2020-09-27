@@ -1,4 +1,4 @@
-<%- include("./partials/header.ejs") %>
+a<%- include("./partials/header.ejs") %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
   <a class="navbar-brand" href="/">Grand View</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@
 		<% if(!event.image){ %>
 			<img src="https://semantic-ui.com/images/wireframe/image.png">
 		<% } else { %>
-			<img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= event.image %>">
+			<img src="http://grand-view.herokuapp.com/image/<%= event.image %>">
 		<% } %>
 	</div>
 	<h1>
