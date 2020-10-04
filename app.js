@@ -775,7 +775,7 @@ app.post('/:type/image/:id', ensureAuthenticated, upload.single('file'), (req, r
 			res.redirect('/home')
 		}
 	})
-	} else if(req.params.type == "Post"){
+	} else if(req.params.type == "post"){
 	Post.findById(req.params.id, (err, found) => {
 		if(err){
 			console.log(err)
