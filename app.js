@@ -781,7 +781,9 @@ app.post('/:type/image/:id', ensureAuthenticated, upload.single('file'), (req, r
 		if(err){
 			console.log(err)
 		} else {
-			res.send(found.image);
+			found.image = req.file.filename;
+			found.save()
+			res.send({found: found.image, filename: req.body.filename});
 		}
 	})
 	} else {
