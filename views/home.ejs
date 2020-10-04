@@ -213,7 +213,7 @@
 	<div class="ui card">
 	<div class="content">
 		 <div class="right floated meta"><%= post.type %></div>
-		Complain
+		Post
 	</div>
 		<% } %>
 		<div class="content">
@@ -224,11 +224,7 @@
 			</a>
 	</div>
 	<div class="image">
-		<% if(!post.image){ %>
 			<img src="https://semantic-ui.com/images/wireframe/image.png" class="inverted">
-		<% } else { %>
-			<img src="http://grand-view.herokuapp.com/image/<%= post.image %>" class="inverted">
-		<% } %>
 	</div>
 	<h1>
 		<%= post.title %>
@@ -237,7 +233,6 @@
 		<%= post.body %>
 	</p>
 	<% if(post.author.id == user._id){ %>
-		<a class="btn btn-secondary inverted" href="/post/image/<%= post._id %>">Add An Image</a>
 		<form action="/delete/post/<%= post._id %>?_method=DELETE" method="POST">
 			<button class="btn btn-danger btn-block inverted">Delete</button>
 		</form>
