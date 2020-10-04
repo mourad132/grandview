@@ -223,14 +223,11 @@
 		<%= post.author.username %>
 			</a>
 	</div>
-	<div class="image">
-			<img src="https://semantic-ui.com/images/wireframe/image.png" class="inverted">
-	</div>
 	<h1>
 		<%= post.title %>
 	</h1>
 	<p>
-		<%= post.body %>
+		<%= post.post %>
 	</p>
 	<% if(post.author.id == user._id){ %>
 		<form action="/delete/post/<%= post._id %>?_method=DELETE" method="POST">
