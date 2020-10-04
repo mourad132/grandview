@@ -783,7 +783,7 @@ app.post('/:type/image/:id', ensureAuthenticated, upload.single('file'), (req, r
 		} else {
 			found.image = req.file.filename;
 			found.save()
-			res.send({found: found.image, filename: req.body.filename});
+			res.redirect('/home')
 		}
 	})
 	} else {
