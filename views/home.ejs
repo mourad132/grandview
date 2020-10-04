@@ -238,8 +238,7 @@
 	</p>
 	<% if(post.author.id == user._id){ %>
 		<a class="btn btn-secondary inverted" href="/post/image/<%= post._id %>">Add An Image</a>
-		<a class="btn btn-primary inverted" href="/post/status/<%= post._id %>">View Complain Status</a>
-		<form action="/delete/complain/<%= complain._id %>?_method=DELETE" method="POST">
+		<form action="/delete/post/<%= post._id %>?_method=DELETE" method="POST">
 			<button class="btn btn-danger btn-block inverted">Delete</button>
 		</form>
 	<% } %>
