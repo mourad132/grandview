@@ -202,80 +202,6 @@
 	<% } %>
 </div>
 <% }) %>
-<% posts.forEach(post => { %>
-<% if(posts.indexOf(post) == 0){ %>
-<div class="ui card" id="posts">
-	<div class="content">
-		 <div class="right floated meta"><%= post.type %></div>
-		Post
-	</div>
-	<% }else { %>
-	<div class="ui card">
-	<div class="content">
-		 <div class="right floated meta"><%= post.type %></div>
-		Post
-	</div>
-		<% } %>
-		<div class="content">
-    <div class="right floated meta"><%= post.created %> <%= post.createdTime %></div>
-	<a href="/profile/<%= post.author.id %>" class="inverted">
-    <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= post.author.image %>">
-		<%= post.author.username %>
-			</a>
-	</div>
-	<div class="ui card">
-  <div class="content">
-    <div class="header"><%= post.title %></div>
-  </div>
-  <div class="content">
-    <div class="ui small feed">
-      <div class="event">
-        <div class="content">
-          <div class="summary">
-             <a>Elliot Fu</a> added <a>Jenny Hess</a> to the project
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <% if(post.author.id == user._id) %>
-  <div class="extra content">
-    <button class="ui button">Delete</button>
-  </div>
-  <% } %>
-</div>
-<div class="extra content">
-	  <form action="/comment/Post/<%= post._id %>" method="POST">
-		<div class="ui large transparent left icon input">
-      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
-			<input type="hidden" name="created" value="<%= moment().format('dddd') %>">
-			<input type="hidden" name="createdTime" value="<%= moment().format('h:mm a') %>">
-    	</div>
-	  </form>
-  </div>
-</div> 
-<div class="ui threaded comments" id="<%= post._id %>">
-  <h3 class="ui dividing header">Comments</h3>
-	<% for(var i = 0; i < post.comments.length; i++){ %>
-	<% if(post.comments[i].body){ %>
-	<div class="comment">
-			<a class="avatar">
-			  <img src="http://grand-view.herokuapp.com/image/<%= post.comments[i].image %>" class="inverted">
-			</a>
-		<div class="content">
-		  <a class="author"><%= post.comments[i].username %></a>
-		  <div class="metadata">
-			<span class="date"><%= post.comments[i].created %> <%= post.comments[i].createdTime %></span>
-		  </div>
-		  <div class="text">
-		   <%= post.comments[i].body %>
-	  </div>
-</div>
-	</div>
-	<% } %>
-	<% } %>
-</div>
-<% }) %>
 <% services.forEach(service => { %>
 <% if(services.indexOf(service) == 0){ %>
 <div class="ui card" id="services">
@@ -283,7 +209,7 @@
 		 <div class="right floated meta"><%= service.type %></div>
 		Service
 	</div>
-	<% }else { %>
+	<% } else { %>
 	<div class="ui card">
 	<div class="content">
 		 <div class="right floated meta"><%= service.type %></div>
