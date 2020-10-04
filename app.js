@@ -141,8 +141,9 @@ app.get('/new/post', ensureAuthenticated, function(req, res){
 //NEW ROUTE @POST
 app.post('/new/post', ensureAuthenticated, function(req, res){
 	Post.create({
-		title: req.query.title,
-		post: req.query.post,
+		title: req.body.title,
+		post: req.body.post,
+		image: req.body.image,
 		author: {image: req.user.photo, username: req.user.username, id: req.user._id},
 		created: req.body.created,
 		createdTime: req.body.createdTime,
@@ -780,9 +781,7 @@ app.post('/:type/image/:id', ensureAuthenticated, upload.single('file'), (req, r
 		if(err){
 			console.log(err)
 		} else {
-			found.image = req.file.filename;
-			found.save()
-			res.redirect('/home')
+			res.send(found.image);
 		}
 	})
 	} else {
