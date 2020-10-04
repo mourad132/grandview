@@ -223,17 +223,27 @@
 		<%= post.author.username %>
 			</a>
 	</div>
-	<h1>
-		<%= post.title %>
-	</h1>
-	<p>
-		<%= post.post %>
-	</p>
-	<% if(post.author.id == user._id){ %>
-		<form action="/delete/post/<%= post._id %>?_method=DELETE" method="POST">
-			<button class="btn btn-danger btn-block inverted">Delete</button>
-		</form>
-	<% } %>
+	<div class="ui card">
+  <div class="content">
+    <div class="header"><%= post.title %></div>
+  </div>
+  <div class="content">
+    <div class="ui small feed">
+      <div class="event">
+        <div class="content">
+          <div class="summary">
+             <a>Elliot Fu</a> added <a>Jenny Hess</a> to the project
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if(post.author.id == user._id) %>
+  <div class="extra content">
+    <button class="ui button">Delete</button>
+  </div>
+  <% } %>
+</div>
 <div class="extra content">
 	  <form action="/comment/Post/<%= post._id %>" method="POST">
 		<div class="ui large transparent left icon input">
