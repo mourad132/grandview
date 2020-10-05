@@ -219,7 +219,7 @@
     <p><%= post.post %></p>
   </div>
     <div class="extra content">
-	  <form action="/comment/Suggestion/<%= suggestion._id %>" method="POST">
+	  <form action="/comment/Post/<%= post._id %>" method="POST">
 		<div class="ui large transparent left icon input">
       		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
 			<input type="hidden" name="created" value="<%= moment().format('dddd') %>">
