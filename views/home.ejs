@@ -211,8 +211,10 @@
     <div class="header"><%= post.title %></div>
 <% } %>
     <div class='meta'>
-    	<a href="/profile/<%= post.author.id %> "><%= post.author.name %></a>
-    </div>
+	<a href="/profile/<%= post.author.id %>" class="inverted">
+		<img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= post.author.image %>">
+		<%= post.author.username %> 
+	</a>    </div>
     <div class="meta">
       <span><%= post.created %> <%= post.createdTime %></span>
     </div>
