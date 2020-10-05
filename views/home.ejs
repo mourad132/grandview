@@ -205,16 +205,17 @@
 <% posts.forEach(post => { %>
 <div class="ui card">
   <div class="content">
+  <a href="/profile/<%= post.author.id %>" class="inverted">
+		<img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= post.author.image %>">
+		<%= post.author.username %> 
+	</a> 
 <% if(posts.indexOf(post) == 0){ %>
     <div class="header" id="posts"><%= post.title %></div>
 <% } else { %>
     <div class="header"><%= post.title %></div>
 <% } %>
     <div class='meta'>
-	<a href="/profile/<%= post.author.id %>" class="inverted">
-		<img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= post.author.image %>">
-		<%= post.author.username %> 
-	</a>    </div>
+   </div>
     <div class="meta">
       <span><%= post.created %> <%= post.createdTime %></span>
     </div>
@@ -230,9 +231,10 @@
 	  </form>
   </div>
 </div>
-<div class="ui threaded comments">
+<div class="ui threaded comments" id="<%= complain._id %>">
   <h3 class="ui dividing header">Comments</h3>
 	<% for(var i = 0; i < post.comments.length; i++){ %>
+	<% if(post.comments[i].body){ %>
 	<div class="comment">
 			<a class="avatar">
 			  <img src="http://grand-view.herokuapp.com/image/<%= post.comments[i].image %>" class="inverted">
@@ -241,14 +243,14 @@
 		  <a class="author"><%= post.comments[i].username %></a>
 		  <div class="metadata">
 			<span class="date"><%= post.comments[i].created %> <%= post.comments[i].createdTime %></span>
-			</div>
 		  </div>
 		  <div class="text">
 		   <%= post.comments[i].body %>
 	  </div>
-	  </div>
 </div>
-<% } %>
+	</div>
+	<% } %>
+	<% } %>
 <% }) %>
 <% services.forEach(service => { %>
 <% if(services.indexOf(service) == 0){ %>
