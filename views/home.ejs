@@ -202,6 +202,20 @@
 	<% } %>
 </div>
 <% }) %>
+<% posts.forEach(post => { %>
+<div class="ui card">
+  <div class="content">
+    <div class="header"><%= post.title %></div>
+    <div class='meta'>
+    	<span><%= post.created %> <%= post.createdTime %></span>
+    </div>
+    <div class="meta">
+      <span>2 days ago</span>
+    </div>
+    <p></p>
+  </div>
+</div>
+<% }) %>
 <% services.forEach(service => { %>
 <% if(services.indexOf(service) == 0){ %>
 <div class="ui card" id="services">
