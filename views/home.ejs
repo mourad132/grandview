@@ -217,6 +217,15 @@
     </div>
     <p><%= post.post %></p>
   </div>
+    <div class="extra content">
+	  <form action="/comment/Suggestion/<%= suggestion._id %>" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="<%= moment().format('dddd') %>">
+			<input type="hidden" name="createdTime" value="<%= moment().format('h:mm a') %>">
+    	</div>
+	  </form>
+  </div>
 </div>
 <div class="ui threaded comments">
   <h3 class="ui dividing header">Comments</h3>
