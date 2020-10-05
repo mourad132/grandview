@@ -17,6 +17,7 @@ const session = require('express-session');
 var passportLocalMongoose = require("passport-local-mongoose");
 var localStrategy = require("passport-local").Strategy;
 var app = express();
+const cors = require('cors');
 
 //Local Models
 var { ensureAuthenticated } = require("./config/auth.js");
@@ -42,6 +43,13 @@ var conn = mongoose.createConnection('mongodb+srv://kbibi:Mrgamer1017$@cluster0-
 require('./config/passport')(passport);
 
 //App Config
+app.use(cors());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 app.use(bodyParser.urlencoded({ extended: true}))
 app.use(bodyParser.json())
 app.set("view engine", "ejs");
