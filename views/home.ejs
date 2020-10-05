@@ -206,8 +206,9 @@
 <div class="ui card">
   <div class="content">
 <% if(posts.indexOf(post) == 0){ %>
-    <div class="header"><%= post.title %></div>
+    <div class="header" id="#posts"><%= post.title %></div>
 <% } %>
+    <div class="header"><%= post.title %></div>
     <div class='meta'>
     	<a href="/profile/<%= post.author.id %> "><%= post.author.name %></a>
     </div>
