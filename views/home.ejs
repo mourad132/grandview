@@ -205,7 +205,7 @@
 <% posts.forEach(post => { %>
 <div class="ui card">
   <div class="content">
-  <a href="/profile/<%= post.author.id %>" class="inverted">
+  <a href="/profile/<%= post.author.id %>" style="margin-bottom: 20px;" class="inverted">
 		<img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= post.author.image %>">
 		<%= post.author.username %> 
 	</a> 
