@@ -241,9 +241,11 @@
 		  <a class="author"><%= post.comments[i].username %></a>
 		  <div class="metadata">
 			<span class="date"><%= post.comments[i].created %> <%= post.comments[i].createdTime %></span>
+			</div>
 		  </div>
 		  <div class="text">
 		   <%= post.comments[i].body %>
+	  </div>
 	  </div>
 </div>
 <% } %>
