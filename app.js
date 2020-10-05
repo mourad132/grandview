@@ -88,6 +88,10 @@ app.get('/', (req, res) => {
 	res.render('beta', {page: "Landing", user: req.user})
 })
 
+app.get('/api', (req, res) => {
+	res.send(JSON.stringify({name: 'the api is working'}))
+})
+
 //HOME PAGE @GET
 app.get("/home", ensureAuthenticated, (req, res) => {
 	Suggestion.find({}, (err, found) => {
