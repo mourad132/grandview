@@ -229,6 +229,9 @@
 			<input type="hidden" name="createdTime" value="<%= moment().format('h:mm a') %>">
     	</div>
 	  </form>
+	  <form action="/delete/post/<%= post._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted">Delete</button>
+	</form>
   </div>
 </div>
 <div class="ui threaded comments" id="<%= post._id %>">
