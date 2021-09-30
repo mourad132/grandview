@@ -17,7 +17,6 @@ const session = require('express-session');
 var passportLocalMongoose = require("passport-local-mongoose");
 var localStrategy = require("passport-local").Strategy;
 var app = express();
-// const cors = require('cors');
 
 //Local Models
 var { ensureAuthenticated } = require("./config/auth.js");
@@ -43,18 +42,12 @@ var conn = mongoose.createConnection('mongodb+srv://kbibi:Mrgamer1017$@cluster0-
 require('./config/passport')(passport);
 
 //App Config
-// app.use(cors());
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-//   });
 app.use(bodyParser.urlencoded({ extended: true}))
 app.use(bodyParser.json())
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"))
 app.locals.moment = require("moment");
+
 // EJS
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
@@ -86,47 +79,68 @@ app.use(function(req, res, next) {
   next();
 });
 
-// Routes
+// --------------
+// *** Routes ***
+// --------------
 
-// "/users" ROUTES
+
+// Users Routes
 app.use('/users', require('./routes/users.js'));
 
-//LANDING PAGE @GET
-app.get('/', (req, res) => {
+// Landing Page
+app.get('/', (req, res) => {7
+	//renders the landing page and sends current user along
 	res.render('beta', {page: "Landing", user: req.user})
 })
 
-app.get('/api', (req, res) => {
-	res.send(JSON.stringify({name: 'the api is working'}))
-})
-
-//HOME PAGE @GET
+//Home Page *
 app.get("/home", ensureAuthenticated, (req, res) => {
+	// find all Suggestions
 	Suggestion.find({}, (err, found) => {
+		//if there is an error
 		if(err){
+			//print it out
 			console.log(err)
 		} else {
+			// find all posts 
 			Post.find({}, (err, posts) => {
+				//if there is an error
 				if(err){
+					//print it out
 					console.log(err)
 				} else {
+					// find all complains
 					Complain.find({}, (err, complains) => {
+						//if there is an error
 						if(err){
+							// print it out
 							console.log(err)
 						} else {
+							//find all services
 							Service.find({}, (err, services) => {
+								//if there is an error
 								if(err){
+									//print it out
 									console.log(err)
 								} else {
+									//find all events 
 									Event.find({}, (err, events) => {
+										//if there is an error
 										if(err){
+											//print it out
 											console.log(err)
 										} else {
+											// reverse suggestions to be from newest
 											const invsuggestion = found.reverse();
+											// reverse posts to be from newest
 											const invposts = posts.reverse();
+											// reverse complains to be from newest
 											const invcomplain = complains.reverse();
+											// reverse services to be from newest
 											const invservice = services.reverse();
+											// reverse events to be from newest
 											const invevents = events.reverse(); 
+											//renders the home page and sends all posts, suggestions, etc... along
 											res.render("home", {suggestions: invsuggestion, posts: invposts, complains: invcomplain, 												services: invservice, events: invevents, user: req.user, page: "home"})
 										}
 									})
@@ -140,18 +154,15 @@ app.get("/home", ensureAuthenticated, (req, res) => {
 	})
 })
 
-//NEW ROUTE @GET
+//Create New Page *
 app.get("/new", ensureAuthenticated, (req, res) => {
+	//renders the 'create new' page
 	res.render("new")
 })
 
-//NEW POST ROUTE @GET
-app.get('/new/post', ensureAuthenticated, function(req, res){
-    res.render("post", {page: "New Post"})
-})
-
-//NEW ROUTE @POST
+//Create New Route *
 app.post('/new/post', ensureAuthenticated, function(req, res){
+	//create new post
 	Post.create({
 		title: req.body.title,
 		post: req.body.post,
@@ -160,16 +171,13 @@ app.post('/new/post', ensureAuthenticated, function(req, res){
 		created: req.body.created,
 		createdTime: req.body.createdTime,
 	})
+	//redirects to the home page
 	res.redirect("/home")
 })
 
-//NEW SUGGESTION ROUTE @GET
-app.get('/new/suggestion', ensureAuthenticated, (req, res) => {
-	res.render("suggestion", {page: "New Suggestion"})
-})
-
-//SUGGESTION ROUTE @POST
+//New Suggestion Route *
 app.post("/new/suggestion", (req, res) => {
+	//create new suggestion
 		Suggestion.create({
 			image: req.body.image,
 			agree: 0,
@@ -185,107 +193,97 @@ app.post("/new/suggestion", (req, res) => {
 			voters: [],
 			comments: [],
 		})
+		//redirect to the home page
 	res.redirect('/home')
 })
 
-//SUGGESTIONS ROUTE @GET
-app.get('/suggestions', (req, res) => {
-	Suggestion.find({}, (err, found) => {
-		if(err){
-			console.log(err)
-		} else {
-			res.render("suggestions", {suggestions: found, page: "Suggestions"})
-		}
-	})
-})
-
-//COMMENTS ROUTE @POST
+//Create New Comment Route *
 app.post('/comment/:type/:id', ensureAuthenticated, (req, res) => {
+	//initiate schema
 	let schema;
+	//if the post type is 'post'
 	if(req.params.type == "Post"){
 		schema = Post;
-	} else if(req.params.type == "Suggestion"){
+	}
+	//if the post type is 'Suggestion'  
+	else if(req.params.type == "Suggestion"){
 		schema = Suggestion;
-	} else if(req.params.type == "Event"){
+	} 
+	//if the post type is 'Event'
+	else if(req.params.type == "Event"){
 		schema = Event
-	} else if(req.params.type == "Complain"){
+	} 
+	//if the post type is 'Complain'
+	else if(req.params.type == "Complain"){
 		schema = Complain 
 	} else {
-		res.sendStatus(400)
+		//send status of 404 (not found)
+		res.sendStatus(404)
 	}
+	//find the schema initiated above
 	schema.findById(req.params.id, (err, found) => {
+		//if there is an error
 		if(err){
+			//print it out
 			console.log(err)
 		} else {
+			//add the new comment to the comments array(list) 
 			found.comments.push({username: req.user.username, image: req.user.photo, body: req.body.comment, created: 					req.body.created, createdTime: req.body.createdTime})
+			//save it
 			found.save()
+			//redirect the user to the home page(the targeted post)
 			res.redirect("/home#" + req.params.id)
 		}
 })
 })
 
-app.post('/service/comment/:id', (req, res) => {
+//post comments to service
+app.post('/service/comment/:id', ensureAuthenticated, (req, res) => {
+	//find the targeted service
 	Service.findById(req.params.id, (err, found) => {
-			if(err){
+		//if there is an error	
+		if(err){
+			//print it out
 				console.log(err)
 			} else {
+				//add new comment to the comments list
 				found.comments.push({username: req.user.username, image: req.user.photo, body: req.body.comment, created:
 				req.body.created, createdTime: req.body.createdTime})
-				res.redirect("/home")
+				//redirect the user to the home page(the targeted service)
+				res.redirect("/home#" + req.params.id)
+				//save it
 				found.save()
 			}
 })
 })
 
-//EDIT ROUTE @GET
+//Edit Post Route *
 app.get("/edit/:type/:id", ensureAuthenticated, function(req, res){
+	//initiate schema
+	let schema;
+	//check the post type
+	// then assign schema to it
 	if(req.params.type == "post"){
-		Post.findById(req.params.id, function(err, found){
-			if(err){
-				console.log(err)
-			} else {
-				res.render('edit', {post: found, page: "Edit Post"})
-			}
-		})
+		schema = Post
 	} else if(req.params.type == "service"){
-		Service.findById(req.params.id, function(err, found){
-			if(err){
-				console.log(err)
-			} else {
-				res.render('edit', {post: found, page: "Edit Post"})
-			}
-		})
+		schema = Service
 	} else if(req.params.type == "suggestion"){
-		Suggestion.findById(req.params.id, function(err, found){
-			if(err){
-				console.log(err)
-			} else {
-				res.render('edit', {post: found, page: "Edit Post"})
-			}
-		})
+		schema = Suggestion
 	} else if(req.params.type == "event"){
-		Event.findById(req.params.id, function(err, found){
-			if(err){
-				console.log(err)
-			} else {
-				res.render('edit', {post: found, page: "Edit Post"})
-			}
-		})
+		schema = Event
 	} else if(req.params.type == "complain"){
-		Complain.findById(req.params.id, function(err, found){
-			if(err){
-				console.log(err)
-			} else {
-				res.render('edit', {post: found, page: "Edit Post"})
-			}
-		})
+		schema = Complain
 	}
+	
 })
 
-//RESERVE ROUTE @POST
-app.post('/reserve/:type/:id', (req, res) => {
+//Reserve On Event Or Service *
+app.post('/reserve/:type/:id', ensureAuthenticated, (req, res) => {
+	//check the post type
+	//find post by Id
 	if(req.params.type == 'event'){
 		Event.findById(req.params.id, (err, found) => {
+			//check if user is already reserved
 			if(found.reserveUser.indexOf(req.user) == -1){
 				found.reserveUser.push(req.user);
 				found.save()
@@ -313,14 +311,17 @@ app.post('/reserve/:type/:id', (req, res) => {
 	}
 })
 
-//RESERVERS PAGE @GET
+//Reserve On Event Or Service Page
 app.get("/reservers/:type/:id", (req, res) => {
+	//check post type
+	//find post by id
+	//renders reservers page
 	if(req.params.type == "service"){
 		Service.findById(req.params.id, (err, found) => {
 			if(err){
 				console.log(err)
 			} else {
-				res.render("reservers", {profiles: found.reserveUser, page: "Edit Post"})
+				res.render("reservers", {profiles: found.reserveUser, page: "Reserved Users"})
 			}
 		})
 	} else if(req.params.type == "event"){
@@ -334,11 +335,12 @@ app.get("/reservers/:type/:id", (req, res) => {
 	}
 })
 
-//VOTERS ROUTE @GET
+//Voting Page
 app.get('/voters/:id', (req, res) => {
+	//initiate yes & no variables
 	let yes = 0;
 	let no = 0;
-	let undef;
+	//find suggestion by id
 	Suggestion.findById(req.params.id, (err, found) => {
 		found.voteArr.forEach(vote => {
 			if(vote.vote == "yes"){
@@ -346,35 +348,50 @@ app.get('/voters/:id', (req, res) => {
 			} else if(vote.vote == "no"){
 				no = no + 1
 			} else {
-				undef = undefined
+				return undefined
 			}
 		})
 		res.render("voters", {yes: yes, no: no, page: "Voters"})
 	})
 })
 
-//VOTE ROUTE @POST
+//Voting Route
 app.post('/vote/:type/:id', (req, res) => {
+	//find suggestion using id
 	Suggestion.findById(req.params.id, (err, found) => {
+		//if there is an error
 		if(err){
+			//print it out
 			console.log(err)
 		} else {
+			//check voting option by: [person, unit]
 			if(found.voteBy == "Person"){
+				//if it is by person then..
+				//search for the user
+				//if he is not in the list then let him vote
 				if(found.voteArr.indexOf(req.user._id) == -1){
 					found.voteArr.push(req.user._id)
 					found.voteArr.push({user: req.user._id, vote: req.params.type, id: req.user._id})
 					found.save()
 					res.redirect('/home')
 				} else {
+					//if he already voted
+					//tgen do nothing
 					res.sendStatus(400)
 				}
 			} else if(found.voteBy== "Unit"){
+				//if it is by unit then...
+				//search for the user apartment
 				if(found.voteArr.indexOf(req.user.apartment) == -1){
+					//if no one voted from the unit then...
+					//let this user vote
 					found.voteArr.push(req.user.apartment)
 					found.voteArr.push({user: req.user.apartment, vote: req.params.type, id: req.user._id})
 					found.save()
 					res.redirect('/home')
 				} else {
+					//if someone voted already
+					//do nothing
 					res.sendStatus(400)
 				}
 			} else {
@@ -385,7 +402,7 @@ app.post('/vote/:type/:id', (req, res) => {
 	})
 })
 
-//COMPLAIN STATUS ROUTE @GET
+//Complain Status Page
 app.get("/complain/status/:id", (req, res) => {
 	Complain.findById(req.params.id, (err, found) => {
 		if(err){
@@ -396,13 +413,16 @@ app.get("/complain/status/:id", (req, res) => {
 	})
 })
 
-//DELETE ROUTE @DELETE
+//Delete Route
 app.delete("/delete/:type/:id", (req, res) => {
+	//check the post type
 	if(req.params.type == "suggestion"){
+		//find the post and delete it
 		Suggestion.findByIdAndDelete(req.params.id, (err, found) => {
 			if(err){
 				console.log(err)
 			} else {
+				//then redirect to the home page again
 				res.redirect("/home#" + req.params.type)
 			}
 		})
@@ -443,20 +463,24 @@ app.delete("/delete/:type/:id", (req, res) => {
 	}
 })
 
-//COMPLAIN FINISHING ROUTE @GET
+//Complain Finishing Route
 app.get('/done/:id', (req, res) => {
+	//find Complain Using id
 	Complain.findById(req.params.id, (err, found) => {
 		if(err){
 			console.log(err)
 		} else {
+			//then assign it to done
 			found.status = 'Done';
+			//save it
 			found.save()
 		}
 	})
 })
 
-//NEW COMPLAIN @POST
+//Add new complain route
 app.post("/new/complain", (req, res) => {
+	//create new complain
 	Complain.create({
 	title: req.body.title,
 	body: req.body.body,
@@ -493,28 +517,7 @@ app.post("/new/complain", (req, res) => {
 	// 				if(err){
 	// 					console.log(err)
 	// 				} else {
-	// 					
-	// 					user.complainers.push(complain)
-		// found.save()
-	// 				}
-	// 			})
-	// 		}else if(complain.type == "Garden"){
-	// 			User.findById("5f5a48aad6156303d43a579b", (err, user) => {
-	// 				if(err){
-	// 					console.log(err)
-	// 				} else {
-	// 					
-	// 					user.complainers.push(complain)
-		// found.save()
-	// 				}
-	// 			})
-	// 		} else if(complain.type == "Security"){
-	// 			User.findById("5f5a48aad6156303d43a579b", (err, user) => {
-	// 				if(err){
-	// 					console.log(err)
-	// 				} else {
-	// 					
-	// 					user.complainers.push(complain)
+// 	user.complainers.push(complain)
 		// found.save()
 	// 				}
 	// 			})
@@ -522,10 +525,11 @@ app.post("/new/complain", (req, res) => {
 	// 		res.sendStatus(500)	
 	//}
 	})
+	//redirect to the home page
 	res.redirect("/home")
 })
 
-//COMPLAINERS ROUTE @GET
+//Complainer Route
 app.get("/complainers/:id", (req, res) => {
 	User.findById(req.params.id, (err, found) => {
 		if(err){
@@ -540,8 +544,9 @@ app.get("/complainers/:id", (req, res) => {
 	})
 })
 
-//NEW Service @POST
+//New Service Route
 app.post("/new/service", ensureAuthenticated, (req, res) => {
+	//create new service
 	Service.create({
 		title: req.body.title,
 		body: req.body.body,
@@ -551,31 +556,35 @@ app.post("/new/service", ensureAuthenticated, (req, res) => {
 		type: req.body.type,
 		comments: [],
 	})
+	//redirect to the home page
 	res.redirect("/home")
 })
 
-//NEW SERVICE @GET
+//New Service Page
 app.get("/new/service", (req, res) => {
+	//renders new service page
 	res.render("service", {page: "New Service"})
 })
 
-//SERVICE ROUTE @GET
+//Services Page
 app.get('/service', (req, res) => {
+	//find services using type of business
 	Service.find({type: "Buisness"}, (err, found) => {
 		if(err){
 			console.log(err);
 		} else {
+			//renders the service page
 			res.render('servicePage', {services: found, page: "Service"});
 		}
 	})
 })
 
 
-//NEW COMPLAIN ROUTE @GET
+//Add New Complain Page
 app.get("/new/complain", (req, res) => {
 	res.render("complains", {page: "New Complain"})
 })
-//DELETE ROUTE @GET
+//Delete Post Route
 app.get("/delete/:id", ensureAuthenticated,function(req, res){
 	Post.findByIdAndDelete(req.params.id, function(err, destroyed){
 		if(err){
@@ -618,13 +627,14 @@ const storage = new GridFsStorage({
 });
 const upload = multer({ storage });
 
-//MY PROFILE ROUTE @GET
+//My Profile Page
 app.get('/profile', ensureAuthenticated, (req, res) => {
 	res.render("myProfile.ejs", {user: req.user})
 })
 	
-//EDIT PROFILE ROUTE @put
+//Edit Profile Route
 app.put('/edit/profile', (req, res) => {
+	//find user and update it
 	User.findOneAndUpdate({_id: req.user._id}, {
 	  name: req.body.name,
 	  email: req.user.email,
@@ -639,18 +649,20 @@ app.put('/edit/profile', (req, res) => {
 		if(err){
 			console.log(err);
 		} else {
+			//redirect to the current user profile
 			res.redirect("/profile/" + req.user._id)
 		}
 	})
 })
 
-//EDIT PROFILE ROUTE @GET
+//Edit Profile Page
 app.get("/edit/profile", ensureAuthenticated, (req, res) => {
 	res.render("profileEdit", {profile: req.user, page: "Edit Profile"})
 })
 
 //PROFILES ROUTE @GET
 app.get('/profiles', ensureAuthenticated, function(req, res){
+	//Regex Search
 		if(req.query.name){
 		var noMatch = null;
         const regex = new RegExp(escapeRegex(req.query.name), 'gi');
@@ -717,17 +729,21 @@ app.get('/profiles', ensureAuthenticated, function(req, res){
     }
 	})
 	
-//PROFILE ROUTE @GET
+//Profile Route
 app.get('/profile/:id', (req, res) => {
+	//find user using id
 	User.findById(req.params.id, function(err, found){
 		if(err){
 			console.log(err)
 		} else {
+			//find another users in the user unit
 			User.find({apartment: found.apartment}, (err, related) => {
 				if(err){
 					console.log(err)
 				} else {
-					const relative  = []
+					//init relatives
+					const relative  = [];
+					//loop through relatives
 					related.forEach(relate => {
 						if(relate._id == found._id){
 							relative.push(relate)
@@ -736,6 +752,7 @@ app.get('/profile/:id', (req, res) => {
 							relative.push(relate)
 						}
 					})
+					//render profile
 					res.render("profile" , {profile: found, related: relative, user: req.user, unit: [], page: "Profile"})
 				}
 			})
@@ -745,17 +762,24 @@ app.get('/profile/:id', (req, res) => {
 app.get("/:type/image/:id", ensureAuthenticated, (req, res) => {
 	res.render("image", {type: req.params.type, id: req.params.id})
 })
-//POST PHOTO'S ROUTE @GET
+
+//Photo Uploading Route
 app.post('/:type/image/:id', ensureAuthenticated, upload.single('file'), (req, res) => {
+	//check if there is a file
 	if(req.file){
+	//check the post type from parameters
 	if(req.params.type == "suggestion"){
+		//find this post
 	Suggestion.findById(req.params.id, (err, found) => {
 		if(err){
 			console.log(err)
 		} else {
+			//update the new file
 			found.image = req.file.filename;
+			//save it
 			found.save()
-			res.redirect('/home')
+			//redirect to the user profile
+			res.redirect('/profile/' + req.user._id)
 		}
 	})
 	} else if(req.params.type == "complain"){
@@ -765,7 +789,8 @@ app.post('/:type/image/:id', ensureAuthenticated, upload.single('file'), (req, r
 		} else {
 			found.image = req.file.filename;
 			found.save()
-			res.redirect('/home')
+			//redirect to the user profile
+			res.redirect('/profile/' + req.user._id)
 		}
 	})
 	} else if(req.params.type == "service"){
@@ -775,7 +800,8 @@ app.post('/:type/image/:id', ensureAuthenticated, upload.single('file'), (req, r
 		} else {
 			found.image = req.file.filename;
 			found.save()
-			res.redirect('/home')
+			//redirect to the user profile
+			res.redirect('/profile/' + req.user._id)
 		}
 	})
 	} else if(req.params.type == "event"){
@@ -785,7 +811,8 @@ app.post('/:type/image/:id', ensureAuthenticated, upload.single('file'), (req, r
 		} else {
 			found.image = req.file.filename;
 			found.save()
-			res.redirect('/home')
+			//redirect to the user profile
+			res.redirect('/profile/' + req.user._id)
 		}
 	})
 	} else if(req.params.type == "post"){
@@ -795,40 +822,48 @@ app.post('/:type/image/:id', ensureAuthenticated, upload.single('file'), (req, r
 		} else {
 			found.image = req.file.filename;
 			found.save()
-			res.redirect('/home')
+			//redirect to the user profile
+			res.redirect('/profile/' + req.user._id)
 		}
 	})
 	} else {
 		res.sendStatus(400)
 	}
 	} else {
-		res.send("Please Enter An Image <a href='/home'>Return Back</a>")
+		//send a return back link
+		res.send("Please Enter An Image <a href='/photo'>Return Back</a>")
 	}
 });
-//SEARCH ROUTE @GET 
+
+//Search Route
 app.get("/search", (req, res) => {
 	res.render("search", {page: "Search"}) 
 })
 
-// @route POST /upload
-// @desc  Uploads file to DB
+// User Uploading Route
 app.post('/upload', ensureAuthenticated, upload.single('file'), (req, res) => {
+	//check if there is a file
 	if(req.file){
+	//find current user by id
 	User.findById(req.user, (err, found) => {
 		if(err){
 			console.log(err)
 		} else {
+			//update the current photo
 			found.photo = req.file.filename;
+			//save it
 			found.save()
+			//redirect the user to his/her profile
 			res.redirect('/profile/' + req.user._id)
 		}
 	})
 	} else {
+		//send a return back link
 		res.send("Please Enter An Image <a href='/profile'>Return Back</a>")
 	}
 });
-// FILES ROUTE @GET
-// @desc  Display all files in JSON
+
+// files route
 app.get('/files', (req, res) => {
   gfs.files.find(req.user._id, (err, files) => {
     // Files exist
@@ -836,11 +871,11 @@ app.get('/files', (req, res) => {
   }
 )});
 
-// FILE ROUTE @GET
-// @desc  Display single file object
+// Display Single File Route
 app.get('/files/:filename', (req, res) => {
+	//search for file
   gfs.files.findOne({ _id: req.user._id }, (err, file) => {
-    // Check if file
+    // Check if it is a file
     if (!file || file.length === 0) {
       return res.status(404).json({
         err: 'No file exists'
@@ -875,35 +910,39 @@ app.get('/image/:filename', (req, res) => {
   });
 });
 
-//STORAGE ROUTE @GET
+//Storage Route
 app.get("/storage", (req, res) => {
 	storage.find({}, (err, found) => {
 		if(err){
 			console.log(err)
 		} else {
+			//send found data
 			res.json(found)
 		}
 	})
 })
 
-//NEW EVENT @GET
+//New Event Page
 app.get('/new/event', ensureAuthenticated, (req, res) => {
+	//renders new event page
 	res.render("event", {page: "New Event"})
 });
 
-//EVENTS PAGE @GET
+//Events page
 app.get('/event', (req, res) => {
 	Event.find({type: "Repeated"}, (err, found) => {
 		if(err){
 			console.log(err)
 		} else {
+			//renders events Page
 			res.render("eventsPage", {events: found, page: "Events"})
 		}
 	})
 })
 
-//NEW EVENT @POST
+//New Event Route
 app.post('/new/event', (req, res) => {
+	//create new event
 	Event.create({
 		title: req.body.title,
 		body: req.body.body,
@@ -914,62 +953,32 @@ app.post('/new/event', (req, res) => {
 		comments: [],
 		reserve: [],
 	})
+	//redirect to the home page
 	res.redirect('/home')
 })
 
-//FOLLOW ROUTE @POST
-app.post("/follow/:id", (req, res) => {
-			User.findById(req.params.id, (err, follow) => {
-				if(err){
-					console.log(err)
-				} else {
-					console.log(new Set(req.user.following).length)
-					console.log(req.user.following.length)
-					if(new Set(req.user.following).length == req.user.following.length){
-						follow.followers.push(req.user._id);
-						follow.save()
-						req.user.following.push(follow._id)
-						req.user.save()
-						res.redirect('/feed');
-					} else {
-						if(new Set(req.user.following).length == undefined && req.user.following.length == 0){
-							follow.followers.push(req.user._id);
-							follow.save()
-							req.user.following.push(follow._id)
-							req.user.save()
-							res.redirect('/feed');
-						}
-						else if(new Set(req.user.following).length == undefined && req.user.following.length > 0){
-							res.redirect('/profile/' + follow._id)
-						}
-						
-					}
-				}
-			})
-})
-
-//DELETE FILES ROUTE @DELETE
-// @desc  Delete file
+//Delete Files Route
 app.delete('/files/:id', (req, res) => {
   gfs.remove({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
     if (err) {
       return res.status(404).json({ err: err });
     }
-
+	//redirects to the upload photo profile
     res.redirect('/photo');
   });
 });
 
-//PHOTO ROUTE @GET
+//Photo Route
 app.get("/photo", ensureAuthenticated, function(req, res){
 	res.render("photo")
 })
 
-//404 HANDLER ROUTE @GET
+//Fault Requests Handler
 app.get("*", (req, res) => {
-	res.sendStatus(404)
+	res.send('<h1>404 Not Found</h1><a href="/home">Go Back</a>')
 })
 
+//Escape Regex Function
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
