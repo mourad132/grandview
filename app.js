@@ -779,7 +779,7 @@ app.post('/:type/image/:id', ensureAuthenticated, upload.single('file'), (req, r
 			//save it
 			found.save()
 			//redirect to the user profile
-			res.redirect('/profile/' + req.user._id)
+			res.redirect('/home/')
 		}
 	})
 	} else if(req.params.type == "complain"){
@@ -790,7 +790,7 @@ app.post('/:type/image/:id', ensureAuthenticated, upload.single('file'), (req, r
 			found.image = req.file.filename;
 			found.save()
 			//redirect to the user profile
-			res.redirect('/profile/' + req.user._id)
+			res.redirect('/home/')
 		}
 	})
 	} else if(req.params.type == "service"){
@@ -801,7 +801,7 @@ app.post('/:type/image/:id', ensureAuthenticated, upload.single('file'), (req, r
 			found.image = req.file.filename;
 			found.save()
 			//redirect to the user profile
-			res.redirect('/profile/' + req.user._id)
+			res.redirect('/home/')
 		}
 	})
 	} else if(req.params.type == "event"){
@@ -812,7 +812,7 @@ app.post('/:type/image/:id', ensureAuthenticated, upload.single('file'), (req, r
 			found.image = req.file.filename;
 			found.save()
 			//redirect to the user profile
-			res.redirect('/profile/' + req.user._id)
+			res.redirect('/home/')
 		}
 	})
 	} else if(req.params.type == "post"){
@@ -823,7 +823,7 @@ app.post('/:type/image/:id', ensureAuthenticated, upload.single('file'), (req, r
 			found.image = req.file.filename;
 			found.save()
 			//redirect to the user profile
-			res.redirect('/profile/' + req.user._id)
+			res.redirect('/home/')
 		}
 	})
 	} else {
