@@ -175,6 +175,10 @@ app.post('/new/post', ensureAuthenticated, function(req, res){
 	res.redirect("/home")
 })
 
+app.get('/new/suggestion', (req, res) => {
+	res.render('newSuggestion')
+})
+
 //New Suggestion Route *
 app.post("/new/suggestion", (req, res) => {
 	//create new suggestion
