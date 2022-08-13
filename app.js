@@ -501,7 +501,7 @@ app.post("/new/complain", (req, res) => {
 	if(err) throw err
 	//redirect to the home page
 	res.redirect(`/home#${complain._id}`)
-})
+)})
 
 //Complainer Route
 app.get("/complainers/:id", (req, res) => {
