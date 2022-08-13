@@ -200,9 +200,11 @@ app.post("/new/suggestion", (req, res) => {
 			voteBy: req.body.voteBy,
 			voters: [],
 			comments: [],
+		}, (err, suggestion) => {
+			if(err) throw err
+			//redirect to the home page
+			res.redirect(`/home#${suggestion._id}`)
 		})
-		//redirect to the home page
-	res.redirect(`/home#${suggestion._id}`)
 })
 
 //Create New Comment Route *
@@ -932,7 +934,7 @@ app.post('/new/event', (req, res) => {
 	}, (err, event) => {
 		if(err) throw err
 		//redirect to the home page
-		res.redirect('/home')
+		res.redirect(`/home#${event._id}`)
 	})
 })
 
