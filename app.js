@@ -202,7 +202,7 @@ app.post("/new/suggestion", (req, res) => {
 			comments: [],
 		})
 		//redirect to the home page
-	res.redirect('/home')
+	res.redirect(`/home#${suggestion._id}`)
 })
 
 //Create New Comment Route *
@@ -497,44 +497,10 @@ app.post("/new/complain", (req, res) => {
 	author: {image: req.user.photo, username: req.user.username, id: req.user._id},
 	type: req.body.type,
 	status: 'In Progress',
-	// }, (err, complain) => {
-	// 	if(err){
-	// 		console.log(err)
-	// 	} else {
-	// 		if(complain.type == "Club House"){
-	// 			User.findById("5f5a48aad6156303d43a579b", (err, user) => {
-	// 				if(err){
-	// 					console.log(err)
-	// 				} else {
-	// 					user.complainers.push(complain)
-		// found.save()
-	// 				}
-	// 			})
-	// 		} else if(complain.type == "Pool"){
-	// 			User.findById("5f5a48aad6156303d43a579b", (err, user) => {
-	// 				if(err){
-	// 					console.log(err)
-	// 				} else {
-	// 					
-	// 					user.complainers.push(complain)
-		// found.save()
-	// 				}
-	// 			})
-	// 		} else if(complain.type == "Maintenance"){
-	// 			User.findById("5f5a48aad6156303d43a579b", (err, user) => {
-	// 				if(err){
-	// 					console.log(err)
-	// 				} else {
-// 	user.complainers.push(complain)
-		// found.save()
-	// 				}
-	// 			})
-	// 		} else {
-	// 		res.sendStatus(500)	
-	//}
-	})
+}, (err, complain) => {
+	if(err) throw err
 	//redirect to the home page
-	res.redirect("/home")
+	res.redirect(`/home#${complain._id}`)
 })
 
 //Complainer Route
@@ -563,9 +529,11 @@ app.post("/new/service", ensureAuthenticated, (req, res) => {
 		author: {image: req.user.photo, username: req.user.username, id: req.user._id},
 		type: req.body.type,
 		comments: [],
+	}, (err, service) => {
+		if(err) throw err
+		//redirect to the home page
+		res.redirect(`/home#${service._id}`)
 	})
-	//redirect to the home page
-	res.redirect("/home")
 })
 
 //New Service Page
