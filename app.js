@@ -170,9 +170,10 @@ app.post('/new/post', ensureAuthenticated, function(req, res){
 		author: {image: req.user.photo, username: req.user.username, id: req.user._id},
 		created: req.body.created,
 		createdTime: req.body.createdTime,
+	}, (err, post) => {
+		if(err) throw err
+		res.redirect(`/home#${post._id}`
 	})
-	//redirects to the home page
-	res.redirect("/home")
 })
 
 app.get('/new/suggestion', (req, res) => {
