@@ -43,12 +43,12 @@
 <% suggestions.forEach(suggestion => { %>
 <% if(suggestions.indexOf(suggestion) == 0){ %>
 <div class="ui card" id="suggestions">
-	<div class="content">
+	<div class="content" id="<%= suggestion._id %>">
 		 <div class="right floated meta"><%= suggestion.voteBy %></div>
 		Suggestion
 	</div>
-	<% }else { %>
-	<div class="ui card">
+	<% } else { %>
+	<div class="ui card" id="suggestion._id">
 	<div class="content">
 		 <div class="right floated meta"><%= suggestion.voteBy %></div>
 		Suggestion
@@ -131,12 +131,12 @@
 <% complains.forEach(complain => { %>
 <% if(complains.indexOf(complain) == 0){ %>
 <div class="ui card" id="complains">
-	<div class="content">
+	<div class="content" id="<%= complain._id %>">
 		 <div class="right floated meta"><%= complain.type %></div>
 		Complain
 	</div>
 	<% }else { %>
-	<div class="ui card">
+	<div class="ui card" id="<%= complain._id %>">
 	<div class="content">
 		 <div class="right floated meta"><%= complain.type %></div>
 		Complain
@@ -257,12 +257,12 @@
 <% services.forEach(service => { %>
 <% if(services.indexOf(service) == 0){ %>
 <div class="ui card" id="services">
-	<div class="content">
+	<div class="content" id="<%= service._id %>">
 		 <div class="right floated meta"><%= service.type %></div>
 		Service
 	</div>
 	<% } else { %>
-	<div class="ui card">
+	<div class="ui card" id="<%= service._id %>">
 	<div class="content">
 		 <div class="right floated meta"><%= service.type %></div>
 		Service
@@ -337,12 +337,12 @@
 <% events.forEach(event => { %>
 <% if(events.indexOf(event) == 0){ %>
 <div class="ui card" id="event">
-	<div class="content">
+	<div class="content" id="<%= event._id %>">
 		 <div class="right floated meta"><%= event.type %></div>
 		Event
 	</div>
 	<% }else { %>
-	<div class="ui card">
+	<div class="ui card" id="<%= event._id %>">
 	<div class="content">
 		 <div class="right floated meta"><%= event.type %></div>
 		Event
