@@ -88,7 +88,7 @@ app.use(function(req, res, next) {
 app.use('/users', require('./routes/users.js'));
 
 // Landing Page
-app.get('/', (req, res) => {7
+app.get('/', (req, res) => {
 	//renders the landing page and sends current user along
 	res.render('beta', {page: "Landing", user: req.user})
 })
@@ -180,6 +180,9 @@ app.get('/new/suggestion', (req, res) => {
 	res.render('suggestion')
 })
 
+app.get('/new/post', (req, res) => {
+	res.render('post')
+})
 //New Suggestion Route *
 app.post("/new/suggestion", (req, res) => {
 	//create new suggestion
