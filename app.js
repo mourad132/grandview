@@ -386,8 +386,8 @@ app.post('/vote/:type/:id', (req, res) => {
 					res.redirect('/home')
 				} else {
 					//if he already voted
-					//tgen do nothing
-					res.sendStatus(400)
+					//then do nothing
+					res.redirect("/home#${found._id}")
 				}
 			} else if(found.voteBy== "Unit"){
 				//if it is by unit then...
@@ -398,7 +398,7 @@ app.post('/vote/:type/:id', (req, res) => {
 					found.voteArr.push(req.user.apartment)
 					found.voteArr.push({user: req.user.apartment, vote: req.params.type, id: req.user._id})
 					found.save()
-					res.redirect('/home')
+					res.redirect('/home#${found._id}')
 				} else {
 					//if someone voted already
 					//do nothing
