@@ -172,7 +172,7 @@ app.post('/new/post', ensureAuthenticated, function(req, res){
 		createdTime: req.body.createdTime,
 	}, (err, post) => {
 		if(err) throw err
-		res.redirect(`/home#${post._id}`
+		res.redirect(`/home#${post._id}`)
 	})
 })
 
