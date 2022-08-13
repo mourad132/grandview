@@ -19,7 +19,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/new">Create A New</a>
-		  <a class="dropdown-item" href="/profile">My Profile</a>
+		  <a onclick="dark()" class="dropdown-item">Dark Mode</a>
           <a class="dropdown-item" href="/users/logout">Logout</a>
         </div>
       </li>
@@ -58,3 +58,12 @@
   </div>
 	<input type="submit" class="btn btn-success">
 </form>
+<script>
+	const root = document.querySelector(":root");
+	function dark() {
+		root.classList.toggle("dark-mode");
+		document.querySelectorAll(".inverted").forEach((result) => {
+			result.classList.toggle("invert")	
+		})
+	}
+</script>
