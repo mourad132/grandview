@@ -176,7 +176,7 @@ app.post('/new/post', ensureAuthenticated, function(req, res){
 })
 
 app.get('/new/suggestion', (req, res) => {
-	res.render('newSuggestion')
+	res.render('suggestion')
 })
 
 //New Suggestion Route *
