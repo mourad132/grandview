@@ -928,9 +928,11 @@ app.post('/new/event', (req, res) => {
 		type: req.body.type,
 		comments: [],
 		reserve: [],
+	}, (err, event) => {
+		if(err) throw err
+		//redirect to the home page
+		res.redirect('/home')
 	})
-	//redirect to the home page
-	res.redirect('/home')
 })
 
 //Delete Files Route
