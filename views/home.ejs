@@ -74,7 +74,7 @@
 	<p>
 		<%= suggestion.body %>
 	</p>  
-  <div class="extra content" style="height: 120px">
+  <div class="extra content">
 	  <form action="/comment/Suggestion/<%= suggestion._id %>" method="POST">
 		<div class="ui large transparent left icon input">
       		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
@@ -90,7 +90,7 @@
 			<button class="btn btn-danger btn-block inverted">Delete</button>
 		</form>
 <% } else { %>
-<div class="extra content">
+<div class="extra content" style="height: 120px">
 <form action="/vote/yes/<%= suggestion._id %>" method="POST">	
  <div class="extra content">
       <button class="right floated span vote">
