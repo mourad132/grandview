@@ -365,6 +365,14 @@ app.get('/voters/:id', (req, res) => {
 	})
 })
 
+// Complains Route
+app.get("/complains/:type", (req, res) => {
+	Complain.find({type: req.params.type}, (err, found) => {
+		if(err) throw err
+		res.render('home', {suggestions: [], complains: found, posts: [], services: [], events: []})
+	})
+})
+
 //Voting Route
 app.post('/vote/:type/:id', (req, res) => {
 	//find suggestion using id
