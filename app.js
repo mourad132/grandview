@@ -374,7 +374,7 @@ app.get("/complains/:type", (req, res) => {
 })
 
 //Voting Route
-app.post('/vote/:type/:id', (req, res) => {
+app.post('/vote/:type/:id', ensureAuthenticated, (req, res) => {
 	//find suggestion using id
 	Suggestion.findById(req.params.id, (err, found) => {
 		//if there is an error
