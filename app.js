@@ -238,7 +238,7 @@ app.post('/comment/:type/:id', ensureAuthenticated, (req, res) => {
 			console.log(err)
 		} else {
 			//add the new comment to the comments array(list) 
-			found.comments.push({username: req.user.username, image: req.user.photo, body: req.body.comment, created: 					req.body.created, createdTime: req.body.createdTime})
+			found.comments.push({username: req.user.username, image: req.user.photo, body: req.body.comment, created:req.body.created, createdTime: req.body.createdTime, authorId: req.user._id})
 			//save it
 			found.save()
 			//redirect the user to the home page(the targeted post)
