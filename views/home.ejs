@@ -1,0 +1,415 @@
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"> -->
+<%- include('./partials/header.ejs') %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+  <a class="navbar-brand" href="/">Grand View</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/profiles">Profiles</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		More
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/new">Create A New</a>
+		  <a class="dropdown-item" href="/profile">My Profile</a>
+		  <a onclick="dark()" class="dropdown-item" id="click" style="cursor: pointer">Dark Mode</a>
+          <a class="dropdown-item" href="/users/logout">Logout</a>
+        </div>
+      </li>
+		<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Navigate
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/home#suggestions">Suggestions</a>
+		  <a class="dropdown-item" href="/home#complains">Complains</a>
+          <a class="dropdown-item" href="/home#posts">Posts</a>
+		  <a class="dropdown-item" href="/home#services">Services</a>
+		  <a class="dropdown-item" href="/home#event">Event</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<% suggestions.forEach(suggestion => { %>
+<% if(suggestions.indexOf(suggestion) == 0){ %>
+<div class="ui card" id="suggestions">
+	<div class="content" id="<%= suggestion._id %>">
+		 <div class="right floated meta"><%= suggestion.voteBy %></div>
+		Suggestion
+	</div>
+	<% } else { %>
+	<div class="ui card" id="suggestion._id">
+	<div class="content">
+		 <div class="right floated meta"><%= suggestion.voteBy %></div>
+		Suggestion
+	</div>
+		<% } %>
+		<div class="content">
+    <div class="right floated meta"><%= suggestion.created %> <%= suggestion.createdTime %></div>
+	<a class="inverted" href="/profile/<%= suggestion.author.id %>">
+    <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= suggestion.author.image %>">
+		<%= suggestion.author.username %>
+			</a>
+	</div>
+	<div class="image">
+		<% if(!suggestion.image){ %>
+		<img class="inverted" src="https://semantic-ui.com/images/wireframe/image.png">
+		<% } else { %>
+			<img  class="inverted" src="https://grand-view.herokuapp.com/image/<%= suggestion.image %>" style="max-height: 250px;">
+		<% } %>
+		</div>
+	<h1 style="padding-top: 5px;">
+		<%= suggestion.title %>
+	</h1>  
+	<p>
+		<%= suggestion.body %>
+	</p>  
+  <div class="extra content">
+	  <form action="/comment/Suggestion/<%= suggestion._id %>" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="<%= moment().format('dddd') %>">
+			<input type="hidden" name="createdTime" value="<%= moment().format('h:mm a') %>">
+    	</div>
+	  </form>
+  </div>
+	<% if(suggestion.author.id == user._id){ %>
+		<a class="btn btn-secondary inverted" href="/suggestion/image/<%= suggestion._id %>">Add An Image</a>
+		<a class="btn btn-primary inverted" href="/voters/<%= suggestion._id %>">View Voters</a>
+		<form action="/delete/suggestion/<%= suggestion._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted">Delete</button>
+		</form>
+<% } else { %>
+<div class="extra content" style="height: 120px">
+<form action="/vote/yes/<%= suggestion._id %>" method="POST">	
+ <div class="extra content">
+      <button class="right floated span vote">
+        <img class='voteImage inverted' src="data:image/png;base64,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">
+	</button>
+	</div>
+	 </form>
+	 <form action="/vote/no/<%= suggestion._id %>" method="POST">
+      <button class='vote' name="no">
+        <img class='voteImage inverted' src="https://cdn-icons-png.flaticon.com/512/633/633758.png"></button>
+	</form>
+	</div>
+	<% } %>
+</div>
+<div class="ui threaded comments" id="<%= suggestion._id %>">
+  <h3 class="ui dividing header">Comments</h3>
+	<% for(var i = 0; i < suggestion.comments.length; i++){ %>
+	<% if(suggestion.comments[i].body){ %>
+	<div class="comment">
+			<a class="avatar">
+			  <img src="http://grand-view.herokuapp.com/image/<%= suggestion.comments[i].image %>" class="inverted">
+			</a>
+		<div class="content">
+		  <a class="author"><%= suggestion.comments[i].username %></a>
+		  <div class="metadata">
+			<span class="date"><%= suggestion.comments[i].created %> <%= suggestion.comments[i].createdTime %></span>
+		  </div>
+		  <div class="text">
+		   <%= suggestion.comments[i].body %>
+	  </div>
+</div>
+	</div>
+	<% } %>
+	<% } %>
+</div>
+	
+<% }) %>
+<% complains.forEach(complain => { %>
+<% if(complains.indexOf(complain) == 0){ %>
+<div class="ui card" id="complains">
+	<div class="content" id="<%= complain._id %>">
+		 <div class="right floated meta"><%= complain.type %></div>
+		Complain
+	</div>
+	<% }else { %>
+	<div class="ui card" id="<%= complain._id %>">
+	<div class="content">
+		 <div class="right floated meta"><%= complain.type %></div>
+		Complain
+	</div>
+		<% } %>
+		<div class="content">
+    <div class="right floated meta"><%= complain.created %> <%= complain.createdTime %></div>
+	<a href="/profile/<%= complain.author.id %>" class="inverted">
+    <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= complain.author.image %>">
+		<%= complain.author.username %>
+			</a>
+	</div>
+	<div class="image">
+		<% if(!complain.image){ %>
+			<img src="https://semantic-ui.com/images/wireframe/image.png" class="inverted">
+		<% } else { %>
+			<img src="http://grand-view.herokuapp.com/image/<%= complain.image %>" class="inverted">
+		<% } %>
+	</div>
+	<h1>
+		<%= complain.title %>
+	</h1>
+	<p>
+		<%= complain.body %>
+	</p>
+	<% if(complain.author.id == user._id){ %>
+		<a class="btn btn-secondary inverted" href="/complain/image/<%= complain._id %>">Add An Image</a>
+		<a class="btn btn-primary inverted" href="/complain/status/<%= complain._id %>">View Complain Status</a>
+		<form action="/delete/complain/<%= complain._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted">Delete</button>
+		</form>
+	<% } %>
+<div class="extra content">
+	  <form action="/comment/Complain/<%= complain._id %>" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="<%= moment().format('dddd') %>">
+			<input type="hidden" name="createdTime" value="<%= moment().format('h:mm a') %>">
+    	</div>
+	  </form>
+  </div>
+</div> 
+<div class="ui threaded comments" id="<%= complain._id %>">
+  <h3 class="ui dividing header">Comments</h3>
+	<% for(var i = 0; i < complain.comments.length; i++){ %>
+	<% if(complain.comments[i].body){ %>
+	<div class="comment">
+			<a class="avatar">
+			  <img src="http://grand-view.herokuapp.com/image/<%= complain.comments[i].image %>" class="inverted">
+			</a>
+		<div class="content">
+		  <a class="author"><%= complain.comments[i].username %></a>
+		  <div class="metadata">
+			<span class="date"><%= complain.comments[i].created %> <%= complain.comments[i].createdTime %></span>
+		  </div>
+		  <div class="text">
+		   <%= complain.comments[i].body %>
+	  </div>
+</div>
+	</div>
+	<% } %>
+	<% } %>
+</div>
+<% }) %>
+<% posts.forEach(post => { %>
+<div class="ui card" id="<%= post._id %>">
+  <div class="content">
+  <a href="/profile/<%= post.author.id %>" style="margin-bottom: 20px;" class="inverted">
+		<img class="ui avatar image" style="margin-bottom: 20px;" src="http://grand-view.herokuapp.com/image/<%= post.author.image %>">
+		<%= post.author.username %> 
+	</a> 
+<% if(posts.indexOf(post) == 0){ %>
+    <div class="header" id="posts"><%= post.title %></div>
+<% } else { %>
+    <div class="header"><%= post.title %></div>
+<% } %>
+    <div class='meta'>
+   </div>
+    <div class="meta">
+      <span><%= post.created %> <%= post.createdTime %></span>
+    </div>
+    <p><%= post.post %></p>
+  </div>
+    <div class="extra content">
+	  <form action="/comment/Post/<%= post._id %>" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="<%= moment().format('dddd') %>">
+			<input type="hidden" name="createdTime" value="<%= moment().format('h:mm a') %>">
+    	</div>
+	  </form>
+	  <form action="/delete/post/<%= post._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted" style="margin-top: 20px;">Delete</button>
+	</form>
+  </div>
+</div>
+<div class="ui threaded comments" id="<%= post._id %>">
+  <h3 class="ui dividing header">Comments</h3>
+	<% for(var i = 0; i < post.comments.length; i++){ %>
+	<% if(post.comments[i].body){ %>
+	<div class="comment">
+			<a class="avatar">
+			  <img src="http://grand-view.herokuapp.com/image/<%= post.comments[i].image %>" class="inverted">
+			</a>
+		<div class="content">
+		  <a class="author"><%= post.comments[i].username %></a>
+		  <div class="metadata">
+			<span class="date"><%= post.comments[i].created %> <%= post.comments[i].createdTime %></span>
+		  </div>
+		  <div class="text">
+		   <%= post.comments[i].body %>
+	  </div>
+</div>
+	</div>
+	<% } %>
+	<% } %>
+<% }) %>
+<% services.forEach(service => { %>
+<% if(services.indexOf(service) == 0){ %>
+<div class="ui card" id="services">
+	<div class="content" id="<%= service._id %>">
+		 <div class="right floated meta"><%= service.type %></div>
+		Service
+	</div>
+	<% } else { %>
+	<div class="ui card" id="<%= service._id %>">
+	<div class="content">
+		 <div class="right floated meta"><%= service.type %></div>
+		Service
+	</div>
+		<% } %>
+		<div class="content">
+    <div class="right floated meta"><%= service.created %> <%= service.createdTime %></div>
+	<a href="/profile/<%= service.author.id %>" class="inverted">
+		<img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= service.author.image %>">
+		<%= service.author.username %> 
+	</a>
+	</div>
+	<div class="image">
+		<% if(!service.image){ %>
+		<img src="https://semantic-ui.com/images/wireframe/image.png">
+		<% } else { %>
+			    <img src="http://grand-view.herokuapp.com/image/<%= service.image %>" class="inverted">
+		<% } %>
+	</div>
+	<h1>
+		<%= service.title %>
+	</h1>
+	<p>
+		<%= service.body %>
+	</p>
+   <div class="extra content">
+	  <form action="/service/comment/<%= service._id %>" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="<%= moment().format('dddd') %>">
+			<input type="hidden" name="createdTime" value="<%= moment().format('h:mm a') %>">
+    	</div>
+	  </form>
+  </div>
+	 <div class="extra content">
+	 <% if(service.author.id == user._id){ %>
+		<a class="btn btn-secondary btn-block inverted" href="/service/image/<%= service._id %>" style="color: white">Add An Image</a>
+		<a class="btn btn-primary btn-block inverted" href="/reservers/service/<%= service._id %>" style="color: white">View Who Ordered</a>
+		<form action="/delete/service/<%= service._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted">Delete</button>
+		</form>
+	<% } else { %>
+	 <form action="/reserve/service/<%= service._id %>" method="POST">
+      <button class='reserve'>
+        <img class='reserveImg' src="data:image/png;base64,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">
+	</button>
+		</form>
+      <% } %>
+    </div>
+</div>
+<div class="ui threaded comments" id="service._id">
+  <h3 class="ui dividing header">Comments</h3>
+	<% for(var i = 0; i < service.comments.length; i++){ %>
+	<div class="comment">
+			<a class="avatar">
+			  <img src="http://grand-view.herokuapp.com/image/<%= service.comments[i].image %>" class="inverted">
+			</a>
+		<div class="content">
+		  <a class="author"><%= service.comments[i].username %></a>
+		  <div class="metadata">
+			<span class="date"><%= service.comments[i].created %> <%= service.comments[i].createdTime %></span>
+		  </div>
+		  <div class="text">
+		   <%= service.comments[i].body %>
+	  </div>
+</div>
+<% } %>
+	</div>
+</div>
+<% }) %>
+<div class="container">
+<% events.forEach(event => { %>
+<% if(events.indexOf(event) == 0){ %>
+<div class="ui card" id="event">
+	<div class="content" id="<%= event._id %>">
+		 <div class="right floated meta"><%= event.type %></div>
+		Event
+	</div>
+	<% }else { %>
+	<div class="ui card" id="<%= event._id %>">
+	<div class="content">
+		 <div class="right floated meta"><%= event.type %></div>
+		Event
+	</div>
+		<% } %>
+		<div class="content">
+    <div class="right floated meta"><%= event.created %> <%= event.createdTime %></div>
+	<a href="/profile/<%= event.author.id %>" class="inverted">
+		<img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= event.author.image %>">
+		<%= event.author.username %> 
+	</a>
+	</div>
+	<div class="image">
+		<% if(!event.image){ %>
+			<img src="https://semantic-ui.com/images/wireframe/image.png" class="inverted">
+		<% } else { %>
+			<img src="http://grand-view.herokuapp.com/image/<%= event.image %>" class="inverted">
+		<% } %>
+	</div>
+	<h1>
+		<%= event.title %>
+	</h1>
+	<p>
+		<%= event.body %>
+	</p>
+  <div class="extra content">
+	  <form action="/comment/Event/<%= event._id %>" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="<%= moment().format('dddd') %>">
+			<input type="hidden" name="createdTime" value="<%= moment().format('h:mm a') %>">
+    	</div>
+	  </form>
+  </div>
+		 <div class="extra content">
+		<% if(event.author.id == user._id){ %>
+		<a class="btn btn-secondary btn-block inverted" href="/event/image/<%= event._id %>" style="color: white">Add An Image</a>
+		<a class="btn btn-primary btn-block inverted" href="/reservers/event/<%= event._id %>" style="color: white">View Who Joined</a>
+		<form action="/delete/event/<%= event._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted">Delete</button>
+		</form>
+<% } else { %>
+      <button class='reserve'>
+        <img class='reserveImg inverted' src="data:image/png;base64,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"></button>
+	<% } %>
+    </div>
+</div>
+<div class="ui threaded comments" id="event._id">
+  <h3 class="ui dividing header">Comments</h3>
+	<% for(var i = 0; i < event.comments.length; i++){ %>
+		<div class="comment">
+			<a class="avatar">
+			  <img src="http://grand-view.herokuapp.com/image/<%= event.comments[i].image %>" class="inverted">
+			</a>
+		<div class="content">
+		  <a class="author"><%= event.comments[i].username %></a>
+		  <div class="metadata">
+			<span class="date"><%= event.comments[i].created %> <%= event.comments[i].createdTime %></span>
+		  </div>
+		  <div class="text">
+		   <%= event.comments[i].body %>
+	  </div>
+</div>
+	</div>
+</div> 
+</div>
+<% } %>
+<% }) %>
+
+<%- include("./partials/footer.ejs") %>
