@@ -345,26 +345,6 @@ app.get("/reservers/:type/:id", (req, res) => {
 	}
 })
 
-//Voting Page
-app.get('/voters/:id', (req, res) => {
-	//initiate yes & no variables
-	let yes = 0;
-	let no = 0;
-	//find suggestion by id
-	Suggestion.findById(req.params.id, (err, found) => {
-		found.voteArr.forEach(vote => {
-			if(vote.vote == "yes"){
-				yes = yes + 1
-			} else if(vote.vote == "no"){
-				no = no + 1
-			} else {
-				return undefined
-			}
-		})
-		res.render("voters", {yes: yes, no: no, page: "Voters"})
-	})
-})
-
 // Complains Route
 app.get("/complains/:type", (req, res) => {
 	Complain.find({type: req.params.type}, (err, found) => {
@@ -390,12 +370,17 @@ app.post('/vote/:type/:id', ensureAuthenticated, (req, res) => {
 				if(found.voteArr.indexOf(req.user._id) == -1){
 					found.voteArr.push(req.user._id)
 					found.voteArr.push({user: req.user._id, vote: req.params.type, id: req.user._id})
+					if(req.params.type == "yes"){
+						found.agree++
+					} else {
+						found.disagree++
+					}
 					found.save()
 					res.redirect('/home')
 				} else {
 					//if he already voted
 					//then do nothing
-					res.redirect("/home#${found._id}")
+					res.redirect(`/home#${found._id}`)
 				}
 			} else if(found.voteBy== "Unit"){
 				//if it is by unit then...
@@ -405,17 +390,22 @@ app.post('/vote/:type/:id', ensureAuthenticated, (req, res) => {
 					//let this user vote
 					found.voteArr.push(req.user.apartment)
 					found.voteArr.push({user: req.user.apartment, vote: req.params.type, id: req.user._id})
+					if(req.params.type == "yes"){
+						found.agree++
+					} else {
+						found.disagree++
+					}
 					found.save()
-					res.redirect('/home#${found._id}')
+					res.redirect(`/home#${found._id}`)
 				} else {
 					//if someone voted already
 					//do nothing
-					res.sendStatus(400)
+					res.redirect(`/home#${found._id}`)
 				}
 			} else {
 				res.sendStatus(500)
 			}
-				
+			
 		}
 	})
 })
