@@ -115,7 +115,7 @@
 			  <img src="http://grand-view.herokuapp.com/image/<%= suggestion.comments[i].image %>" class="inverted">
 			</a>
 		<div class="content">
-		  <a class="author" href="/profile/<%= suggestion.author.id %>"><%= suggestion.comments[i].username %></a>
+		  <a class="author" href="/profile/<%= suggestion.comments[i].authorId %>"><%= suggestion.comments[i].username %></a>
 		  <div class="metadata">
 			<span class="date"><%= suggestion.comments[i].created %> <%= suggestion.comments[i].createdTime %></span>
 		  </div>
@@ -189,7 +189,7 @@
 			  <img src="http://grand-view.herokuapp.com/image/<%= complain.comments[i].image %>" class="inverted">
 			</a>
 		<div class="content">
-		  <a class="author" href="/profile/<%= complain.author.id %>"><%= complain.comments[i].username %></a>
+		  <a class="author" href="/profile/<%= complain.comments[i].authorId %>"><%= complain.comments[i].username %></a>
 		  <div class="metadata">
 			<span class="date"><%= complain.comments[i].created %> <%= complain.comments[i].createdTime %></span>
 		  </div>
@@ -243,7 +243,7 @@
 			  <img src="http://grand-view.herokuapp.com/image/<%= post.comments[i].image %>" class="inverted">
 			</a>
 		<div class="content">
-		  <a class="author" href="/profile/<%= post.author.id %>"><%= post.comments[i].username %></a>
+		  <a class="author" href="/profile/<%= post.comments[i].authorId %>"><%= post.comments[i].username %></a>
 		  <div class="metadata">
 			<span class="date"><%= post.comments[i].created %> <%= post.comments[i].createdTime %></span>
 		  </div>
@@ -271,7 +271,7 @@
 		<% } %>
 		<div class="content">
     <div class="right floated meta"><%= service.created %> <%= service.createdTime %></div>
-	<a href="/profile/<%= service.author.id %>" class="inverted">
+	<a href="/profile/<%= service.comments[i].authorId %>" class="inverted">
 		<img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= service.author.image %>">
 		<%= service.author.username %> 
 	</a>
@@ -399,7 +399,7 @@
 			  <img src="http://grand-view.herokuapp.com/image/<%= event.comments[i].image %>" class="inverted">
 			</a>
 		<div class="content">
-		  <a class="author" href="event.author.ids"><%= event.comments[i].username %></a>
+		  <a class="author" href="/profiles/<%= event.comments[i].authorId %>"><%= event.comments[i].username %></a>
 		  <div class="metadata">
 			<span class="date"><%= event.comments[i].created %> <%= event.comments[i].createdTime %></span>
 		  </div>
