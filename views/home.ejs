@@ -229,7 +229,7 @@
 			<input type="hidden" name="createdTime" value="<%= moment().format('h:mm a') %>">
     	</div>
 	  </form>
-	  <%- if(post.author.id == user._id){ %>
+	  <% if(post.author.id == user._id){ %>
 	  <form action="/delete/post/<%= post._id %>?_method=DELETE" method="POST">
 			<button class="btn btn-danger btn-block inverted" style="margin-top: 20px;">Delete</button>
 	</form>
