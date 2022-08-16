@@ -205,65 +205,6 @@
 	<% } %>
 </div>
 <% }) %>
-<% posts.forEach(post => { %>
-<div class="ui card" id="<%= post._id %>">
-  <div class="content" style="padding: 0">
-  <div style="background-color: orangered; padding: 10px; padding-bottom: 0;">
-  <a href="/profile/<%= post.author.id %>" style="margin-bottom: 20px; color: white" class="inverted">
-		<img class="ui avatar image" style="margin-bottom: 20px;" src="http://grand-view.herokuapp.com/image/<%= post.author.image %>">
-		<%= post.author.username %> 
-	</a> 
-</div>
-<div style="padding: 10px;">
-<% if(posts.indexOf(post) == 0){ %>
-    <div class="header" id="posts"><%= post.title %></div>
-<% } else { %>
-    <div class="header"><%= post.title %></div>
-<% } %>
-    <div class='meta'>
-   </div>
-    <div class="meta">
-      <span><%= post.created %> <%= post.createdTime %></span>
-    </div>
-    <p><%= post.post %></p>
-  </div>
-  </div>
-    <div class="extra content">
-	  <form action="/comment/Post/<%= post._id %>" method="POST">
-		<div class="ui large transparent left icon input">
-      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
-			<input type="hidden" name="created" value="<%= moment().format('dddd') %>">
-			<input type="hidden" name="createdTime" value="<%= moment().format('h:mm a') %>">
-    	</div>
-	  </form>
-	  <% if(post.author.id == user._id){ %>
-	  <form action="/delete/post/<%= post._id %>?_method=DELETE" method="POST">
-			<button class="btn btn-danger btn-block inverted" style="margin-top: 20px;">Delete</button>
-	</form>
-	<% } %>
-  </div>
-</div>
-<div class="ui threaded comments" id="<%= post._id %>">
-  <h3 class="ui dividing header">Comments</h3>
-	<% for(var i = 0; i < post.comments.length; i++){ %>
-	<% if(post.comments[i].body){ %>
-	<div class="comment">
-			<a class="avatar">
-			  <img src="http://grand-view.herokuapp.com/image/<%= post.comments[i].image %>" class="inverted">
-			</a>
-		<div class="content">
-		  <a class="author" href="/profile/<%= post.comments[i].authorId %>"><%= post.comments[i].username %></a>
-		  <div class="metadata">
-			<span class="date"><%= post.comments[i].created %> <%= post.comments[i].createdTime %></span>
-		  </div>
-		  <div class="text">
-		   <%= post.comments[i].body %>
-	  </div>
-</div>
-	</div>
-	<% } %>
-	<% } %>
-<% }) %>
 <% events.forEach(event => { %>
 <% if(events.indexOf(event) == 0){ %>
 <div class="ui card" id="events">
@@ -342,5 +283,64 @@
 <% } %>
 	</div>
 </div>
+<% }) %>
+<% posts.forEach(post => { %>
+<div class="ui card" id="<%= post._id %>">
+  <div class="content" style="padding: 0">
+  <div style="background-color: orangered; padding: 10px; padding-bottom: 0;">
+  <a href="/profile/<%= post.author.id %>" style="margin-bottom: 20px; color: white" class="inverted">
+		<img class="ui avatar image" style="margin-bottom: 20px;" src="http://grand-view.herokuapp.com/image/<%= post.author.image %>">
+		<%= post.author.username %> 
+	</a> 
+</div>
+<div style="padding: 10px;">
+<% if(posts.indexOf(post) == 0){ %>
+    <div class="header" id="posts"><%= post.title %></div>
+<% } else { %>
+    <div class="header"><%= post.title %></div>
+<% } %>
+    <div class='meta'>
+   </div>
+    <div class="meta">
+      <span><%= post.created %> <%= post.createdTime %></span>
+    </div>
+    <p><%= post.post %></p>
+  </div>
+  </div>
+    <div class="extra content">
+	  <form action="/comment/Post/<%= post._id %>" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="<%= moment().format('dddd') %>">
+			<input type="hidden" name="createdTime" value="<%= moment().format('h:mm a') %>">
+    	</div>
+	  </form>
+	  <% if(post.author.id == user._id){ %>
+	  <form action="/delete/post/<%= post._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted" style="margin-top: 20px;">Delete</button>
+	</form>
+	<% } %>
+  </div>
+</div>
+<div class="ui threaded comments" id="<%= post._id %>">
+  <h3 class="ui dividing header">Comments</h3>
+	<% for(var i = 0; i < post.comments.length; i++){ %>
+	<% if(post.comments[i].body){ %>
+	<div class="comment">
+			<a class="avatar">
+			  <img src="http://grand-view.herokuapp.com/image/<%= post.comments[i].image %>" class="inverted">
+			</a>
+		<div class="content">
+		  <a class="author" href="/profile/<%= post.comments[i].authorId %>"><%= post.comments[i].username %></a>
+		  <div class="metadata">
+			<span class="date"><%= post.comments[i].created %> <%= post.comments[i].createdTime %></span>
+		  </div>
+		  <div class="text">
+		   <%= post.comments[i].body %>
+	  </div>
+</div>
+	</div>
+	<% } %>
+	<% } %>
 <% }) %>
 <%- include("./partials/footer.ejs") %>
