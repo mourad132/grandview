@@ -204,10 +204,12 @@
 <% posts.forEach(post => { %>
 <div class="ui card" id="<%= post._id %>">
   <div class="content">
+  <div>
   <a href="/profile/<%= post.author.id %>" style="margin-bottom: 20px;" class="inverted">
 		<img class="ui avatar image" style="margin-bottom: 20px;" src="http://grand-view.herokuapp.com/image/<%= post.author.image %>">
 		<%= post.author.username %> 
 	</a> 
+</div>
 <% if(posts.indexOf(post) == 0){ %>
     <div class="header" id="posts"><%= post.title %></div>
 <% } else { %>
