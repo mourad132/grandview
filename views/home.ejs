@@ -271,7 +271,7 @@
 		<% } %>
 		<div class="content">
     <div class="right floated meta"><%= service.created %> <%= service.createdTime %></div>
-	<a href="/profile/<%= service.comments[i].authorId %>" class="inverted">
+	<a href="/profile/<%= service.author.id%>" class="inverted">
 		<img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= service.author.image %>">
 		<%= service.author.username %> 
 	</a>
