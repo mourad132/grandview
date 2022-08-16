@@ -299,7 +299,7 @@
 		<%= event.body %>
 	</p>
    <div class="extra content">
-	  <form action="/event/comment/<%= event._id %>" method="POST">
+	  <form action="/comment/Event/<%= event._id %>" method="POST">
 		<div class="ui large transparent left icon input">
       		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
 			<input type="hidden" name="created" value="<%= moment().format('dddd') %>">
@@ -310,7 +310,7 @@
 	 <div class="extra content">
 	 <% if(event.author.id == user._id){ %>
 		<a class="btn btn-secondary btn-block inverted" href="/event/image/<%= event._id %>" style="color: white">Add An Image</a>
-		<a class="btn btn-primary btn-block inverted" href="/reservers/event/<%= event._id %>" style="color: white">View Who Ordered</a>
+		<a class="btn btn-primary btn-block inverted" href="/reservers/event/<%= event._id %>" style="color: white">View Who Joined</a>
 		<form action="/delete/event/<%= event._id %>?_method=DELETE" method="POST">
 			<button class="btn btn-danger btn-block inverted">Delete</button>
 		</form>
