@@ -7,7 +7,7 @@ const Schema = mongoose.Schema({
 	body: String,
 	title: String,
 	author: {image: String, username: String, id: String},
-	comments: [{username: String, created: String, createdTime: String, body: String, image: String}],
+	comments: [{username: String, created: String, createdTime: String, body: String, image: String, authorId: String}],
 	created: String, 
 	yes: 0,
 	no: 0,
