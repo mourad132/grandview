@@ -41,14 +41,14 @@
 </nav>
 <% suggestions.forEach(suggestion => { %>
 <% if(suggestions.indexOf(suggestion) == 0){ %>
-<div class="ui card" style="background-color: green; color: white;" id="suggestions">
-	<div class="content" id="<%= suggestion._id %>">
+<div class="ui card" id="suggestions">
+	<div class="content" style="background-color: green; color: white;" id="<%= suggestion._id %>">
 		 <div class="right floated meta" style="color: white"><%= suggestion.voteBy %></div>
 		Suggestion
 	</div>
 	<% } else { %>
-	<div class="ui card" style="background-color: green; color: white;" id="<%= suggestion._id %>">
-	<div class="content">
+	<div class="ui card" id="<%= suggestion._id %>">
+	<div class="content" style="background-color: green; color: white;">
 		 <div class="right floated meta" style="color: white"><%= suggestion.voteBy %></div>
 		Suggestion
 	</div>
@@ -130,14 +130,14 @@
 <% }) %>
 <% complains.forEach(complain => { %>
 <% if(complains.indexOf(complain) == 0){ %>
-<div class="ui card" style="background-color: red; color: white;" id="complains">
-	<div class="content" id="<%= complain._id %>">
+<div class="ui card" id="complains">
+	<div class="content" style="background-color: red; color: white;" id="<%= complain._id %>">
 		 <div class="right floated meta"><%= complain.type %></div>
 		Complain
 	</div>
 	<% }else { %>
-	<div class="ui card" style="background-color: red; color: white" id="<%= complain._id %>">
-	<div class="content">
+	<div class="ui card" id="<%= complain._id %>">
+	<div class="content" style="background-color: red; color: white">
 		 <div class="right floated meta" style="color: white"><%= complain.type %></div>
 		Complain
 	</div>
@@ -202,15 +202,15 @@
 </div>
 <% }) %>
 <% posts.forEach(post => { %>
-<div class="ui card" id="<%= post._id %>">
+<div class="ui card" id="<%= post._id %>" style="padding: 0">
   <div class="content">
-  <div style="background-color: saddlebrown">
+  <div style="background-color: saddlebrown; padding: 10px; padding-bottom: 0;">
   <a href="/profile/<%= post.author.id %>" style="margin-bottom: 20px; color: white" class="inverted">
 		<img class="ui avatar image" style="margin-bottom: 20px;" src="http://grand-view.herokuapp.com/image/<%= post.author.image %>">
 		<%= post.author.username %> 
 	</a> 
 </div>
-<div>
+<div style="padding: 10px;">
 <% if(posts.indexOf(post) == 0){ %>
     <div class="header" id="posts"><%= post.title %></div>
 <% } else { %>
@@ -262,15 +262,15 @@
 <% }) %>
 <% services.forEach(service => { %>
 <% if(services.indexOf(service) == 0){ %>
-<div class="ui card" id="services" style="background-color: blue; color: white">
-	<div class="content" id="<%= service._id %>" style="color: white">
-		 <div class="right floated meta"><%= service.type %></div>
+<div class="ui card" id="services">
+	<div class="content" style="background-color: blue; color: white" id="<%= service._id %>">
+		 <div class="right floated meta" style="color: white"><%= service.type %></div>
 		Service
 	</div>
 	<% } else { %>
 	<div class="ui card" id="<%= service._id %>">
-	<div class="content">
-		 <div class="right floated meta"><%= service.type %></div>
+	<div class="content" style="background-color: blue; color: white">
+		 <div class="right floated meta" style="color: white"><%= service.type %></div>
 		Service
 	</div>
 		<% } %>
@@ -342,14 +342,14 @@
 <div class="container">
 <% events.forEach(event => { %>
 <% if(events.indexOf(event) == 0){ %>
-<div class="ui card" style="background-color: orange; color: white;" id="event">
-	<div class="content" id="<%= event._id %>" style="color: white">
-		 <div class="right floated meta"><%= event.type %></div>
+<div class="ui card" id="event">
+	<div class="content" style="background-color: orange; color: white;" id="<%= event._id %>">
+		 <div class="right floated meta" style="color: white"><%= event.type %></div>
 		Event
 	</div>
 	<% }else { %>
 	<div class="ui card" id="<%= event._id %>">
-	<div class="content">
+	<div class="content" style="background-color: orange; color: white;">
 		 <div class="right floated meta"><%= event.type %></div>
 		Event
 	</div>
