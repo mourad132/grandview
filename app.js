@@ -618,7 +618,7 @@ app.put('/edit/profile', (req, res) => {
 	  bio: req.body.bio, 
 	  number: req.body.number,
 	  apartment: req.body.apartment,
-	  username: req.body.username,
+	  username: req.user.username,
 	  date: req.user.date,
 	  photo: req.user.photo,
 	}, (err, updated) => {
