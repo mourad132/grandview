@@ -47,7 +47,7 @@
 <% if(suggestions.indexOf(suggestion) == 0){ %>
 <div class="ui card" id="suggestions">
 	<div class="content" style="background-color: green; color: white;" id="<%= suggestion._id %>">
-		 <div class="right floated meta" style="color: white"><%= suggestion.voteBy %></div>
+		 <div class="right floated meta" style="color: white">Vote By: <%= suggestion.voteBy %></div>
 		Suggestion
 	</div>
 	<% } else { %>
