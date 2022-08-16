@@ -8,7 +8,7 @@ const Schema = mongoose.Schema({
 	createdTime: String,
 	author: {image: String, username: String, id: String},
 	type: String,
-	comments: [{username: String, created: String, createdTime: String, body: String, image: String}],
+	comments: [{username: String, created: String, createdTime: String, body: String, image: String, authorId: String}],
 })
 
 module.exports = mongoose.model("Complain", Schema)
