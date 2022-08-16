@@ -430,7 +430,7 @@ app.delete("/delete/:type/:id", (req, res) => {
 				console.log(err)
 			} else {
 				//then redirect to the home page again
-				res.redirect("/files/" + found.image)
+				res.redirect("/delete/files/" + found.image)
 			}
 		})
 	} else if(req.params.type == "complain"){
@@ -438,7 +438,7 @@ app.delete("/delete/:type/:id", (req, res) => {
 			if(err){
 				console.log(err)
 			} else {
-				res.redirect("/files/" + found.image)
+				res.redirect("/delete/files/" + found.image)
 			}
 		})
 	} else if(req.params.type == "service"){
@@ -446,7 +446,7 @@ app.delete("/delete/:type/:id", (req, res) => {
 			if(err){
 				console.log(err)
 			} else {
-				res.redirect("/files/" + found.image)
+				res.redirect("/delete/files/" + found.image)
 			}
 		})
 	} else if(req.params.type == "event"){
@@ -454,7 +454,7 @@ app.delete("/delete/:type/:id", (req, res) => {
 			if(err){
 				console.log(err)
 			} else {
-				res.redirect("/files/" + found.image)
+				res.redirect("/delete/files/" + found.image)
 			}
 		})
 	} else if(req.params.type == "post"){
@@ -462,7 +462,7 @@ app.delete("/delete/:type/:id", (req, res) => {
 			if(err){
 				console.log(err)
 			} else {
-				res.redirect("/files/" + found.image)
+				res.redirect("/delete/files/" + found.image)
 			}
 		})
 	} else {
@@ -936,7 +936,7 @@ app.post('/new/event', (req, res) => {
 })
 
 //Delete Files Route
-app.get('/files/:filename', (req, res) => {
+app.get('/delete/files/:filename', (req, res) => {
   gfs.remove({ filename: req.params.filename, root: 'uploads' }, (err, gridStore) => {
     if (err) {
       return res.status(404).json({ err: err });
