@@ -37,7 +37,6 @@
           <a class="dropdown-item" href="/home#suggestions">Suggestions</a>
 		  <a class="dropdown-item" href="/home#complains">Complains</a>
           <a class="dropdown-item" href="/home#posts">Posts</a>
-		  <a class="dropdown-item" href="/home#services">Services</a>
 		  <a class="dropdown-item" href="/home#event">Event</a>
         </div>
       </li>
@@ -265,97 +264,17 @@
 	<% } %>
 	<% } %>
 <% }) %>
-<% services.forEach(service => { %>
-<% if(services.indexOf(service) == 0){ %>
-<div class="ui card" id="services">
-	<div class="content" style="background-color: blue; color: white" id="<%= service._id %>">
-		 <div class="right floated meta" style="color: white"><%= service.type %></div>
-		Service
-	</div>
-	<% } else { %>
-	<div class="ui card" id="<%= service._id %>">
-	<div class="content" style="background-color: blue; color: white">
-		 <div class="right floated meta" style="color: white"><%= service.type %></div>
-		Service
-	</div>
-		<% } %>
-		<div class="content">
-    <div class="right floated meta"><%= service.created %> <%= service.createdTime %></div>
-	<a href="/profile/<%= service.author.id %>" class="inverted">
-		<img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= service.author.image %>">
-		<%= service.author.username %> 
-	</a>
-	</div>
-	<div class="image">
-		<% if(!service.image){ %>
-		<img src="https://semantic-ui.com/images/wireframe/image.png">
-		<% } else { %>
-			    <img src="http://grand-view.herokuapp.com/image/<%= service.image %>" class="inverted">
-		<% } %>
-	</div>
-	<h1>
-		<%= service.title %>
-	</h1>
-	<p>
-		<%= service.body %>
-	</p>
-   <div class="extra content">
-	  <form action="/service/comment/<%= service._id %>" method="POST">
-		<div class="ui large transparent left icon input">
-      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
-			<input type="hidden" name="created" value="<%= moment().format('dddd') %>">
-			<input type="hidden" name="createdTime" value="<%= moment().format('h:mm a') %>">
-    	</div>
-	  </form>
-  </div>
-	 <div class="extra content">
-	 <% if(service.author.id == user._id){ %>
-		<a class="btn btn-secondary btn-block inverted" href="/service/image/<%= service._id %>" style="color: white">Add An Image</a>
-		<a class="btn btn-primary btn-block inverted" href="/reservers/service/<%= service._id %>" style="color: white">View Who Ordered</a>
-		<form action="/delete/service/<%= service._id %>?_method=DELETE" method="POST">
-			<button class="btn btn-danger btn-block inverted">Delete</button>
-		</form>
-	<% } else { %>
-	 <form action="/reserve/service/<%= service._id %>" method="POST">
-      <button class='reserve'>
-        <img class='reserveImg' src="data:image/png;base64,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">
-	</button>
-		</form>
-      <% } %>
-    </div>
-</div>
-<div class="ui threaded comments" id="service._id">
-  <h3 class="ui dividing header">Comments</h3>
-	<% for(var i = 0; i < service.comments.length; i++){ %>
-	<div class="comment">
-			<a class="avatar">
-			  <img src="http://grand-view.herokuapp.com/image/<%= service.comments[i].image %>" class="inverted">
-			</a>
-		<div class="content">
-		  <a class="author" href="/profile/<%= service.comments[i].authorId %>"><%= service.comments[i].username %></a>
-		  <div class="metadata">
-			<span class="date"><%= service.comments[i].created %> <%= service.comments[i].createdTime %></span>
-		  </div>
-		  <div class="text">
-		   <%= service.comments[i].body %>
-	  </div>
-</div>
-<% } %>
-	</div>
-</div>
-<% }) %>
-<div class="container">
 <% events.forEach(event => { %>
 <% if(events.indexOf(event) == 0){ %>
-<div class="ui card" id="event">
-	<div class="content" style="background-color: orange; color: white;" id="<%= event._id %>">
+<div class="ui card" id="events">
+	<div class="content" style="background-color: blue; color: white" id="<%= event._id %>">
 		 <div class="right floated meta" style="color: white"><%= event.type %></div>
 		Event
 	</div>
-	<% }else { %>
+	<% } else { %>
 	<div class="ui card" id="<%= event._id %>">
-	<div class="content" style="background-color: orange; color: white;">
-		 <div class="right floated meta"><%= event.type %></div>
+	<div class="content" style="background-color: blue; color: white">
+		 <div class="right floated meta" style="color: white"><%= event.type %></div>
 		Event
 	</div>
 		<% } %>
@@ -368,9 +287,9 @@
 	</div>
 	<div class="image">
 		<% if(!event.image){ %>
-			<img src="https://semantic-ui.com/images/wireframe/image.png" class="inverted">
+		<img src="https://semantic-ui.com/images/wireframe/image.png">
 		<% } else { %>
-			<img src="http://grand-view.herokuapp.com/image/<%= event.image %>" class="inverted">
+			    <img src="http://grand-view.herokuapp.com/image/<%= event.image %>" class="inverted">
 		<% } %>
 	</div>
 	<h1>
@@ -379,8 +298,8 @@
 	<p>
 		<%= event.body %>
 	</p>
-  <div class="extra content">
-	  <form action="/comment/Event/<%= event._id %>" method="POST">
+   <div class="extra content">
+	  <form action="/event/comment/<%= event._id %>" method="POST">
 		<div class="ui large transparent left icon input">
       		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
 			<input type="hidden" name="created" value="<%= moment().format('dddd') %>">
@@ -388,23 +307,26 @@
     	</div>
 	  </form>
   </div>
-		 <div class="extra content">
-		<% if(event.author.id == user._id){ %>
+	 <div class="extra content">
+	 <% if(event.author.id == user._id){ %>
 		<a class="btn btn-secondary btn-block inverted" href="/event/image/<%= event._id %>" style="color: white">Add An Image</a>
-		<a class="btn btn-primary btn-block inverted" href="/reservers/event/<%= event._id %>" style="color: white">View Who Joined</a>
+		<a class="btn btn-primary btn-block inverted" href="/reservers/event/<%= event._id %>" style="color: white">View Who Ordered</a>
 		<form action="/delete/event/<%= event._id %>?_method=DELETE" method="POST">
 			<button class="btn btn-danger btn-block inverted">Delete</button>
 		</form>
-<% } else { %>
+	<% } else { %>
+	 <form action="/reserve/event/<%= event._id %>" method="POST">
       <button class='reserve'>
-        <img class='reserveImg inverted' src="data:image/png;base64,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"></button>
-	<% } %>
+        <img class='reserveImg' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAjVBMVEX///8AAADIyMjW1tb7+/v09PTu7u6srKzg4OD4+PjR0dHCwsKoqKjq6uqRkZHy8vKbm5tpaWktLS1CQkKysrI2Njbi4uJaWlqhoaHMzMy4uLhubm68vLwgICCVlZUVFRWIiIh5eXlTU1M7OztQUFAvLy8cHBxiYmJ/f38MDAxAQEB0dHRISEiLi4slJSVNHKF7AAAKKklEQVR4nO1da1viPBBFQO4gKCooYlHxhvr/f95LV9wt7ZkkbeYkfffZ81k7mdJkZs5c0mj8wz+Y0Bms5tPX3exlj9kumc6HV6ex16SG1mjzeILwfD1ZdWKvzhPtweQCKvcHd7ub/62Wp/Nri3Y/2K5bsRdbATeu6n3jazqOveJSuEpKqfeNp2HsZTtj8FBBvxR33dhLd0ITH5yOGMVevhUD29lpxTy2CkaMyx0vGF/L2GrIWCvol+K6phay9aWk4B61PHI+9fTb4+kstj55dLxOUISaWcemtn57fMZWKosJQcH9l9qOrddvaNgIiF5szb7R9jbyMgaxlUtxpmgkiqjBedN5c1zr/dMmmXZvhqt5d/368Oyq4k10BV1W+bXrtvKsTL938/rh8s+R/VSHX/BpJMe2/eHGrmLUX7F/b1nd49zqmwxfbCo2Q6giwOLIzNxO+46NEYjH4pjf/sadeWlPzSrGolaNnsysZARkfNglRwEbhoYlbct/WB3TFzEjrN+KsWFB00pPNL2yGPzNVlzN3VXFR/YNDm7VZ1aHHPC+eDx1IT51q7ZyR7TEpVT7Qu3PnSit3BV30kJ8XWV5e4cNpURWzd8496UN/qiwbmeI/rbGe25LKoYk4CTTpeReSSqGYzUGwgq0yOpT4fmJ0vPtEGgLvTBHOm5C5RgF6lDzOBdE7BRFmIBjpgdVGcJhHSahscTClY8BzHC86goRgJ1H7UBcOG36ymIQrqDkjbocHGks1OUUgSkHgqmC1QDP+nIKgAoyKD9sMvgJYvjxcFgGSGzwDQZ02Dgvtg1/RIoom9QLkjD4I7IzGauQQqHFuCUJ+8EMyPyiSXuN8JkikTwbBW0vlwGHNAqRkUZRzJonroG5MB9uzYYRkPdElIdtBTP7dYa+GaI8vA2pzjAKMZgbETlSH0R5jQZKSjEZKRR6+zHANqCjLSHKQwcNuSAk8FezA/LIMelTUSIzggL7np28RBkgogEG2Qp27nIONORl2vpAGtfDwEcNrzgD+frsahdkoHgye0AavbYOyOQZRJSvoGf1gu4MZPDpqQRQ45fQhCEN6Tz7ZVEmj/lGGtJr6oEN5vFtUTQETg2PqkE5GfpXGvQ3RGcpvZIHpLz1kyQ/QPaQXhkJZCY0Yci/iGHxeSEp8trYZdiIqeHJRJQ+2/NGO2PFE3delMaOnm6AhsS9HyECRlQU0QZvgDgyi4EYWmJtFGKiyOYCSGR+NuHZRJSbYaaBkUHUrRTKowskUusxgDxuxSAq3qEWK6B9z0w7w6Q69WxDRw0z7YwqP7i1wjBDSnyn6CNNeOJSIA15biJMH5KLMdBG5Nkn2PBFdjEQyc6LoJCwa5awA2CJC0soMob8rllYMUjy3GALLp36QtEMya+BTVDsj1Qqp2Nkg1CmK0iD/gbJZRR+wZIvemliA9MKDDIDd7EF6WDD/STqvClgTE4CtSPAAsyTc2UpuJycXXp5AO491E0ICU0zgXoQoV+jm3sW2v/4puIAoYFU0e7jTRiu3Rla/RPFY0Do6Q7YlQ/ysinulUp5btlv0A6p4/pOJbJBtWUpgnZzS2/5TuFXlJ795v/oEsDeafqhen9J4lyFwGNqsNlP4cf1nYnDKAIZ+z9AjRff8CFspR7qk5CN3AeI3+neLldejGEQT4TJbfIEi6pB3Ngw2o6diIUwTT6aVTAbpuexescsMI6JKjsyZynOEtnjLdagKOM8wa8ynvgAVD5lEG1CpGXgnvN47qFZv5jDEzGjkUFijwY6C9sMxagzvg3264DLtekT6zjcLsBNMlshDFg4xmbeAyZyvErkaVp/EMVOZOGk4h7vu2m32epdja9arWF3unMd6xpdQbPl90eIGQpWWI8bD9RkcvmZwKr4oz4T9jnDoN/Cz9mToXVnQBbVQxQK9IeyRzaDRZxZh+WWwnlNhpVnMbTNFC6FpHZXXCxU9Usxq9M50+fcHHBdl3uuSPr90rEWu1EeqqqBWfSrvIbOA/KrIolqFseW4FwHESfrMzwZhMdIx+rAxI4pI4qDU+V6vOrYBue8x0KSlIeXsCeOUKxgxPPjx8X75df54/vHxdb1ZpMM3kIaDjnxhPDxOhq2TnM8f7+znCclvfVgzHfP3QZer5vmN9/vjWbOLm2oEbSmAf9ZnE9cT4erkeOtl2GshuWyjQMeuuV2TXsope+zCHJRmVQokcX5okp0115ZPaQQN3k4cE631U3X2BamKGoiwM5UTzzrsG+MhpY9RrhtNfMLBbO8fJefT+Y2+rYb1rQo+KV4mZeSAAF9C7X9qehWNfHLzJ004+VqqenomFNhL8p9EJA6yIYY/em3p3A/1Xqzxmvg7vVLsk6Ba5h5i1kKWoexMnodHEtc4NEz+/y4YUgjtDL52s8s1q99fEdBpoA2n5f1P2NNlphZUpf1crIzW/LBl/eUWNhEdgB3YNv8J465zOYSi6NpPY9UQ5b3nh6WLiez2W0uTCl6Hn5EjnTty0nA9oBjaC9EthNhLtQoAAxa8Grwlm9Yi1UoAXaNT/OcXDATjYvW1VDehMRJPxboaiiGvPUqGKyuodQAFPEX1NUQDjVIEfWmZaDhXdVnSd9o3HIzRQ0lajT0fZI5KGoosNHM2xBcADSsOONbSKBpt/yWhpqGUqF69OIBNQ2FqDeiITwAaHhf5TlC8W8kbzsLLQ1xFiH6JmyoaSg0GtSh2kxJQ0yu1aLqU0dDvAsjXVSfA9CwQpMw9tdqUUmno2GomyorQUVDPP4mxC2gx2gtmwUsAbn5Np93U4xSLA5YGahqPMEodH9HzyWlbsZEStug28Cqx2AVsfHWL4XQlQJThYHDekMquBQgKQ+t/Tasgnp9OMgAbJzfBQ3y0IbSQEYc/V2Im3gz0OwWK6ZvIXkRthsX2+OKKNbDwZLBsOWdpnxeaRROEDjyInBYqNvjkP91YB9a4KiJqyHy2EIPpqhShCyiQIijPwrtsKmeNPkZYfDhwUdvaFbK57kzdIxxb6hFcK1EdkDBn0YkYoSucZeaYTcUYihE5cfo6KR53uj+A+6gdwn+0WGKosuGXN5IuaalYwm/AZ+AlkDpmGizDc6W3+TENzvxA1QdsvjFXUz3WO8x2eNzPcIVfaiUO7BeNqAarRJuM/jvONtQBuJy3UkydNDUIBlzBD8NEYERNrq3A2no7nQhj6YO2Zgs/DREHk14ItgMPw1Bc29gks0OLw1RfB/e7bbA7zcE/5zQlloRfhoCFq8m46j+wE9D4ArWZx7VAX4aghbRes1ravhqWPRpAk5Cd4SfhsXYum723lvDfq4fpRbVF8fw1DD3ndbN607hq2GjkwkRazGZMQ9vDRuN4aGJJIk1odgMBQ33u7HVVG1AVYWKhrXG368hyjvULcLzRFHBulFJvigy/jW02l4obsS/7CMtEv61NNt+OO7yDn5/SQhkS6bq6Fkq4DftuQ18xU5ANJPZy+06wvUs/xAN/wEca4MOnpVh8gAAAABJRU5ErkJggg==">
+	</button>
+		</form>
+      <% } %>
     </div>
 </div>
 <div class="ui threaded comments" id="<%= event._id %>">
   <h3 class="ui dividing header">Comments</h3>
 	<% for(var i = 0; i < event.comments.length; i++){ %>
-		<div class="comment">
+	<div class="comment">
 			<a class="avatar">
 			  <img src="http://grand-view.herokuapp.com/image/<%= event.comments[i].image %>" class="inverted">
 			</a>
@@ -417,10 +339,8 @@
 		   <%= event.comments[i].body %>
 	  </div>
 </div>
-	</div>
-</div> 
-</div>
 <% } %>
+	</div>
+</div>
 <% }) %>
-
 <%- include("./partials/footer.ejs") %>
