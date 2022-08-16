@@ -193,7 +193,6 @@ app.post("/new/suggestion", (req, res) => {
 			body: req.body.body,
 			title: req.body.title,
 			author: {image: req.user.photo, username: req.user.username, id: req.user._id},
-			commentsNum: 0,
 			created: req.body.created, 
 			createdTime: req.body.createdTime,
 			vote: true,
@@ -258,7 +257,7 @@ app.post('/service/comment/:id', ensureAuthenticated, (req, res) => {
 			} else {
 				//add new comment to the comments list
 				found.comments.push({username: req.user.username, image: req.user.photo, body: req.body.comment, created:
-				req.body.created, createdTime: req.body.createdTime})
+				req.body.created, createdTime: req.body.createdTime, authorId: req.user._id})
 				//redirect the user to the home page(the targeted service)
 				res.redirect("/home#" + req.params.id)
 				//save it
