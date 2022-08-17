@@ -1,5 +1,5 @@
 <%- include("partials/header.ejs") %>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
   <a class="navbar-brand" href="/">Grand View</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -15,75 +15,774 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          More
+		More
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/new">Create A New Post</a>
-		  <a class="dropdown-item" href="/photo">Profile Picture</a>
+          <a class="dropdown-item" href="/new">Create A New</a>
+		  <a class="dropdown-item" href="/profile">My Profile</a>
           <a class="dropdown-item" href="/users/logout">Logout</a>
+        </div>
+      </li>
+		<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Navigate
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/home#suggestions">Suggestions</a>
+		  <a class="dropdown-item" href="/home#complains">Complains</a>
+          <a class="dropdown-item" href="/home#posts">Posts</a>
+		  <a class="dropdown-item" href="/home#event">Event</a>
         </div>
       </li>
     </ul>
   </div>
 </nav>
-<div class="container">
-  <% for(var i = 0; i < posts.length; i++){ %>
-        <div class="ui card">
-  <div class="content">
-    <div class="right floated meta">14h</div>
-    <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> Elliot
-  </div>
-  <div class="image">
-    <img>
-  </div>
-  <div class="content">
-    <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-    <i class="comment icon"></i>
-    3 comments
-  </div>
+
+
+<div class="ui card" id="suggestions">
+	<div class="content" style="background-color: green; color: white;" id="62fcdad8703c1100160f3ef6">
+		 <div class="right floated meta" style="color: white">Vote Per Unit</div>
+		Suggestion
+	</div>
+	
+		<div class="content">
+    <div class="right floated meta">Wednesday 12:10 pm</div>
+	<a class="inverted" href="/profile/5f5b84113c90da046d1df8fa">
+    <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg">
+		Mourad
+			</a>
+	</div>
+	<div class="image">
+		
+			<img class="inverted" src="https://grand-view.herokuapp.com/image/13eec1e5f70e4706e99bdf06ef43257e.jpg" style="max-height: 250px;">
+		
+		</div>
+	<h1 style="padding-top: 5px;">
+		Suggestion
+	</h1>  
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tempor tristique ante, at facilisis nunc pellentesque sodales. Cras sit amet mattis urna. Nam tristique orci est, sollicitudin rutrum massa fringilla quis. Integer hendrerit dignissim tortor id tincidunt. Mauris eget magna nulla. In egestas consequat ipsum. Nulla a euismod odio, ut laoreet turpis. Duis tincidunt dui non massa maximus, a imperdiet tortor tempus. Quisque pellentesque, odio sed sodales ultrices, sem purus tincidunt nunc, nec viverra lectus sem quis elit. Curabitur porttitor, sem sed tempor vestibulum, urna odio aliquet sapien, ac congue sapien est non orci. Nullam pulvinar, enim vitae dictum vulputate, dolor ipsum vestibulum massa, in ullamcorper elit velit ut arcu. Vestibulum eu ante porta, interdum nisl at, dapibus urna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur maximus gravida ipsum ut fermentum. In nec viverra nulla. Nulla quam mauris, consectetur quis dignissim a, viverra sed leo.
+	</p>  
   <div class="extra content">
-    <div class="ui large transparent left icon input">
-      <i class="heart outline icon"></i>
-      <input type="text" placeholder="Add Comment...">
+	  <form action="/comment/Suggestion/62fcdad8703c1100160f3ef6" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="Wednesday">
+			<input type="hidden" name="createdTime" value="1:04 pm">
+    	</div>
+	  </form>
+  </div>
+<div class="extra content" style="height: 150px">
+<form action="/vote/yes/62fcdad8703c1100160f3ef6" method="POST">	
+ <div class="extra content">
+      <button class="right floated span vote">
+        <img class="voteImage inverted" style="margin-bottom: 15px;" src="data:image/png;base64,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">
+		<span style="color: green; font-size: 15px">2</span>
+	</button>
+	</div>
+	 </form>
+	 <form action="/vote/no/62fcdad8703c1100160f3ef6" method="POST">
+      <button class="vote" name="no">
+        <img class="voteImage inverted" src="https://cdn-icons-png.flaticon.com/512/633/633758.png" style="margin-bottom: 15px;">
+	<span style="color: red; font-size: 15px">0</span></button>
+	</form>
+	</div>
+	
+		<a class="btn btn-secondary inverted" href="/suggestion/image/62fcdad8703c1100160f3ef6">Add An Image</a>
+		<form action="/delete/suggestion/62fcdad8703c1100160f3ef6?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted">Delete</button>
+		</form>
+	
+
+</div>
+<div class="ui threaded comments" id="62fcdad8703c1100160f3ef6">
+  <h3 class="ui dividing header">Comments</h3>
+	
+</div>
+	
+
+
+	<div class="ui card" id="62fcd185eedb4e0016d4d919">
+	<div class="content" style="background-color: green; color: white;">
+		 <div class="right floated meta" style="color: white">Vote Per Unit</div>
+		Suggestion
+	</div>
+		
+		<div class="content">
+    <div class="right floated meta">Wednesday 11:30 am</div>
+	<a class="inverted" href="/profile/5f5b84113c90da046d1df8fa">
+    <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg">
+		Mourad
+			</a>
+	</div>
+	<div class="image">
+		
+		<img class="inverted" src="https://semantic-ui.com/images/wireframe/image.png">
+		
+		</div>
+	<h1 style="padding-top: 5px;">
+		Another Suggestion
+	</h1>  
+	<p>
+		This is another suggestion 
+	</p>  
+  <div class="extra content">
+	  <form action="/comment/Suggestion/62fcd185eedb4e0016d4d919" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="Wednesday">
+			<input type="hidden" name="createdTime" value="1:04 pm">
+    	</div>
+	  </form>
+  </div>
+<div class="extra content" style="height: 150px">
+<form action="/vote/yes/62fcd185eedb4e0016d4d919" method="POST">	
+ <div class="extra content">
+      <button class="right floated span vote">
+        <img class="voteImage inverted" style="margin-bottom: 15px;" src="data:image/png;base64,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">
+		<span style="color: green; font-size: 15px">0</span>
+	</button>
+	</div>
+	 </form>
+	 <form action="/vote/no/62fcd185eedb4e0016d4d919" method="POST">
+      <button class="vote" name="no">
+        <img class="voteImage inverted" src="https://cdn-icons-png.flaticon.com/512/633/633758.png" style="margin-bottom: 15px;">
+	<span style="color: red; font-size: 15px">1</span></button>
+	</form>
+	</div>
+	
+		<a class="btn btn-secondary inverted" href="/suggestion/image/62fcd185eedb4e0016d4d919">Add An Image</a>
+		<form action="/delete/suggestion/62fcd185eedb4e0016d4d919?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted">Delete</button>
+		</form>
+	
+
+</div>
+<div class="ui threaded comments" id="62fcd185eedb4e0016d4d919">
+  <h3 class="ui dividing header">Comments</h3>
+	
+</div>
+	
+
+
+	<div class="ui card" id="62fcd155eedb4e0016d4d916">
+	<div class="content" style="background-color: green; color: white;">
+		 <div class="right floated meta" style="color: white">Vote Per Person</div>
+		Suggestion
+	</div>
+		
+		<div class="content">
+    <div class="right floated meta">Wednesday 11:30 am</div>
+	<a class="inverted" href="/profile/5f5b84113c90da046d1df8fa">
+    <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg">
+		Mourad
+			</a>
+	</div>
+	<div class="image">
+		
+		<img class="inverted" src="https://semantic-ui.com/images/wireframe/image.png">
+		
+		</div>
+	<h1 style="padding-top: 5px;">
+		Suggestion
+	</h1>  
+	<p>
+		this is a suggestion
+	</p>  
+  <div class="extra content">
+	  <form action="/comment/Suggestion/62fcd155eedb4e0016d4d916" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="Wednesday">
+			<input type="hidden" name="createdTime" value="1:04 pm">
+    	</div>
+	  </form>
+  </div>
+<div class="extra content" style="height: 150px">
+<form action="/vote/yes/62fcd155eedb4e0016d4d916" method="POST">	
+ <div class="extra content">
+      <button class="right floated span vote">
+        <img class="voteImage inverted" style="margin-bottom: 15px;" src="data:image/png;base64,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">
+		<span style="color: green; font-size: 15px">0</span>
+	</button>
+	</div>
+	 </form>
+	 <form action="/vote/no/62fcd155eedb4e0016d4d916" method="POST">
+      <button class="vote" name="no">
+        <img class="voteImage inverted" src="https://cdn-icons-png.flaticon.com/512/633/633758.png" style="margin-bottom: 15px;">
+	<span style="color: red; font-size: 15px">1</span></button>
+	</form>
+	</div>
+	
+		<a class="btn btn-secondary inverted" href="/suggestion/image/62fcd155eedb4e0016d4d916">Add An Image</a>
+		<form action="/delete/suggestion/62fcd155eedb4e0016d4d916?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted">Delete</button>
+		</form>
+	
+
+</div>
+<div class="ui threaded comments" id="62fcd155eedb4e0016d4d916">
+  <h3 class="ui dividing header">Comments</h3>
+	
+</div>
+	
+
+
+	<div class="ui card" id="62fb86cfc3740d001667fdd5">
+	<div class="content" style="background-color: green; color: white;">
+		 <div class="right floated meta" style="color: white">Vote Per Person</div>
+		Suggestion
+	</div>
+		
+		<div class="content">
+    <div class="right floated meta">Tuesday 12:00 pm</div>
+	<a class="inverted" href="/profile/5f5b84113c90da046d1df8fa">
+    <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg">
+		Mourad
+			</a>
+	</div>
+	<div class="image">
+		
+		<img class="inverted" src="https://semantic-ui.com/images/wireframe/image.png">
+		
+		</div>
+	<h1 style="padding-top: 5px;">
+		Suggestion
+	</h1>  
+	<p>
+		this is a suggestion
+	</p>  
+  <div class="extra content">
+	  <form action="/comment/Suggestion/62fb86cfc3740d001667fdd5" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="Wednesday">
+			<input type="hidden" name="createdTime" value="1:04 pm">
+    	</div>
+	  </form>
+  </div>
+<div class="extra content" style="height: 150px">
+<form action="/vote/yes/62fb86cfc3740d001667fdd5" method="POST">	
+ <div class="extra content">
+      <button class="right floated span vote">
+        <img class="voteImage inverted" style="margin-bottom: 15px;" src="data:image/png;base64,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">
+		<span style="color: green; font-size: 15px">2</span>
+	</button>
+	</div>
+	 </form>
+	 <form action="/vote/no/62fb86cfc3740d001667fdd5" method="POST">
+      <button class="vote" name="no">
+        <img class="voteImage inverted" src="https://cdn-icons-png.flaticon.com/512/633/633758.png" style="margin-bottom: 15px;">
+	<span style="color: red; font-size: 15px">0</span></button>
+	</form>
+	</div>
+	
+		<a class="btn btn-secondary inverted" href="/suggestion/image/62fb86cfc3740d001667fdd5">Add An Image</a>
+		<form action="/delete/suggestion/62fb86cfc3740d001667fdd5?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted">Delete</button>
+		</form>
+	
+
+</div>
+<div class="ui threaded comments" id="62fb86cfc3740d001667fdd5">
+  <h3 class="ui dividing header">Comments</h3>
+	
+	
+	<div class="comment">
+			<a class="avatar">
+			  <img src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg" class="inverted">
+			</a>
+		<div class="content">
+		  <a class="author" href="/profile/5f5b84113c90da046d1df8fa">Mourad</a>
+		  <div class="metadata">
+			<span class="date">Tuesday 12:16 pm</span>
+		  </div>
+		  <div class="text">
+		   this is a comment
+	  </div>
+</div>
+	</div>
+	
+	
+	
+	<div class="comment">
+			<a class="avatar">
+			  <img src="http://grand-view.herokuapp.com/image/974b774b2288748fb57c2668708493eb.jpg" class="inverted">
+			</a>
+		<div class="content">
+		  <a class="author" href="/profile/62fb8b11be3ce700167400b4">Example</a>
+		  <div class="metadata">
+			<span class="date">Tuesday 12:18 pm</span>
+		  </div>
+		  <div class="text">
+		   this is a comment
+	  </div>
+</div>
+	</div>
+	
+	
+	
+	<div class="comment">
+			<a class="avatar">
+			  <img src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg" class="inverted">
+			</a>
+		<div class="content">
+		  <a class="author" href="/profile/5f5b84113c90da046d1df8fa">Mourad</a>
+		  <div class="metadata">
+			<span class="date">Tuesday 2:32 pm</span>
+		  </div>
+		  <div class="text">
+		   this is a comment
+	  </div>
+</div>
+	</div>
+	
+	
+</div>
+	
+
+
+
+<div class="ui card" id="complains">
+	<div class="content" style="background-color: red; color: white;" id="62fcdac5703c1100160f3ef3">
+		 <div class="right floated meta">Pool</div>
+		Complain
+	</div>
+	
+		<div class="content">
+    <div class="right floated meta">Wednesday 12:10 pm</div>
+	<a href="/profile/5f5b84113c90da046d1df8fa" class="inverted">
+    <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg">
+		Mourad
+			</a>
+	</div>
+	<div class="image">
+		
+			<img src="https://semantic-ui.com/images/wireframe/image.png" class="inverted">
+		
+	</div>
+	<h1>
+		Complain
+	</h1>
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tempor tristique ante, at facilisis nunc pellentesque sodales. Cras sit amet mattis urna. Nam tristique orci est, sollicitudin rutrum massa fringilla quis. Integer hendrerit dignissim tortor id tincidunt. Mauris eget magna nulla. In egestas consequat ipsum. Nulla a euismod odio, ut laoreet turpis. Duis tincidunt dui non massa maximus, a imperdiet tortor tempus. Quisque pellentesque, odio sed sodales ultrices, sem purus tincidunt nunc, nec viverra lectus sem quis elit. Curabitur porttitor, sem sed tempor vestibulum, urna odio aliquet sapien, ac congue sapien est non orci. Nullam pulvinar, enim vitae dictum vulputate, dolor ipsum vestibulum massa, in ullamcorper elit velit ut arcu. Vestibulum eu ante porta, interdum nisl at, dapibus urna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur maximus gravida ipsum ut fermentum. In nec viverra nulla. Nulla quam mauris, consectetur quis dignissim a, viverra sed leo.
+	</p>
+	
+		<a class="btn btn-secondary inverted" href="/complain/image/62fcdac5703c1100160f3ef3">Add An Image</a>
+		<a class="btn btn-primary inverted" href="/complain/status/62fcdac5703c1100160f3ef3">View Complain Status</a>
+		<form action="/delete/complain/62fcdac5703c1100160f3ef3?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted">Delete</button>
+		</form>
+	
+<div class="extra content">
+	  <form action="/comment/Complain/62fcdac5703c1100160f3ef3" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="Wednesday">
+			<input type="hidden" name="createdTime" value="1:04 pm">
+    	</div>
+	  </form>
+  </div>
+</div> 
+<div class="ui threaded comments" id="62fcdac5703c1100160f3ef3">
+  <h3 class="ui dividing header">Comments</h3>
+	
+</div>
+
+
+	<div class="ui card" id="62fb8a8dbe3ce7001674009d">
+	<div class="content" style="background-color: red; color: white">
+		 <div class="right floated meta" style="color: white">Club House</div>
+		Complain
+	</div>
+		
+		<div class="content">
+    <div class="right floated meta">Tuesday 12:14 pm</div>
+	<a href="/profile/5f5b84113c90da046d1df8fa" class="inverted">
+    <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg">
+		Mourad
+			</a>
+	</div>
+	<div class="image">
+		
+			<img src="http://grand-view.herokuapp.com/image/36091c7c0bee94a28bc50cb6cda7f5da.jpg" class="inverted">
+		
+	</div>
+	<h1>
+		Complain
+	</h1>
+	<p>
+		this is a complain
+	</p>
+	
+		<a class="btn btn-secondary inverted" href="/complain/image/62fb8a8dbe3ce7001674009d">Add An Image</a>
+		<a class="btn btn-primary inverted" href="/complain/status/62fb8a8dbe3ce7001674009d">View Complain Status</a>
+		<form action="/delete/complain/62fb8a8dbe3ce7001674009d?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted">Delete</button>
+		</form>
+	
+<div class="extra content">
+	  <form action="/comment/Complain/62fb8a8dbe3ce7001674009d" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="Wednesday">
+			<input type="hidden" name="createdTime" value="1:04 pm">
+    	</div>
+	  </form>
+  </div>
+</div> 
+<div class="ui threaded comments" id="62fb8a8dbe3ce7001674009d">
+  <h3 class="ui dividing header">Comments</h3>
+	
+	
+	<div class="comment">
+			<a class="avatar">
+			  <img src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg" class="inverted">
+			</a>
+		<div class="content">
+		  <a class="author" href="/profile/5f5b84113c90da046d1df8fa">Mourad</a>
+		  <div class="metadata">
+			<span class="date">Tuesday 12:16 pm</span>
+		  </div>
+		  <div class="text">
+		   this is a comment
+	  </div>
+</div>
+	</div>
+	
+	
+	
+	<div class="comment">
+			<a class="avatar">
+			  <img src="http://grand-view.herokuapp.com/image/974b774b2288748fb57c2668708493eb.jpg" class="inverted">
+			</a>
+		<div class="content">
+		  <a class="author" href="/profile/62fb8b11be3ce700167400b4">Example</a>
+		  <div class="metadata">
+			<span class="date">Tuesday 12:18 pm</span>
+		  </div>
+		  <div class="text">
+		   this is a comment
+	  </div>
+</div>
+	</div>
+	
+	
+	
+	<div class="comment">
+			<a class="avatar">
+			  <img src="http://grand-view.herokuapp.com/image/974b774b2288748fb57c2668708493eb.jpg" class="inverted">
+			</a>
+		<div class="content">
+		  <a class="author" href="/profile/62fb8b11be3ce700167400b4">Example</a>
+		  <div class="metadata">
+			<span class="date">Tuesday 12:44 pm</span>
+		  </div>
+		  <div class="text">
+		   this is a comment
+	  </div>
+</div>
+	</div>
+	
+	
+	
+	<div class="comment">
+			<a class="avatar">
+			  <img src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg" class="inverted">
+			</a>
+		<div class="content">
+		  <a class="author" href="/profile/5f5b84113c90da046d1df8fa">Mourad</a>
+		  <div class="metadata">
+			<span class="date">Tuesday 2:33 pm</span>
+		  </div>
+		  <div class="text">
+		   this is a comment
+	  </div>
+</div>
+	</div>
+	
+	
+</div>
+
+
+
+<div class="ui card" id="events">
+	<div class="content" style="background-color: blue; color: white" id="62fcdb10703c1100160f3ef9">
+		 <div class="right floated meta" style="color: white">Repeated</div>
+		Event
+	</div>
+	
+		<div class="content">
+    <div class="right floated meta">Wednesday 12:11 pm</div>
+	<a href="/profile/5f5b84113c90da046d1df8fa" class="inverted">
+		<img class="ui avatar image" src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg">
+		Mourad 
+	</a>
+	</div>
+	<div class="image">
+		
+			    <img src="http://grand-view.herokuapp.com/image/00f1b400e1e3be22dd36d8bc12391f8d.jpg" class="inverted">
+		
+	</div>
+	<h1>
+		Event
+	</h1>
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tempor tristique ante, at facilisis nunc pellentesque sodales. Cras sit amet mattis urna. Nam tristique orci est, sollicitudin rutrum massa fringilla quis. Integer hendrerit dignissim tortor id tincidunt. Mauris eget magna nulla. In egestas consequat ipsum. Nulla a euismod odio, ut laoreet turpis. Duis tincidunt dui non massa maximus, a imperdiet tortor tempus. Quisque pellentesque, odio sed sodales ultrices, sem purus tincidunt nunc, nec viverra lectus sem quis elit. Curabitur porttitor, sem sed tempor vestibulum, urna odio aliquet sapien, ac congue sapien est non orci. Nullam pulvinar, enim vitae dictum vulputate, dolor ipsum vestibulum massa, in ullamcorper elit velit ut arcu. Vestibulum eu ante porta, interdum nisl at, dapibus urna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur maximus gravida ipsum ut fermentum. In nec viverra nulla. Nulla quam mauris, consectetur quis dignissim a, viverra sed leo.
+	</p>
+   <div class="extra content">
+	  <form action="/comment/Event/62fcdb10703c1100160f3ef9" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="Wednesday">
+			<input type="hidden" name="createdTime" value="1:04 pm">
+    	</div>
+	  </form>
+  </div>
+	 <div class="extra content">
+	 
+		<a class="btn btn-secondary btn-block inverted" href="/event/image/62fcdb10703c1100160f3ef9" style="color: white">Add An Image</a>
+		<a class="btn btn-primary btn-block inverted" href="/reservers/event/62fcdb10703c1100160f3ef9" style="color: white">View Who Joined</a>
+		<form action="/delete/event/62fcdb10703c1100160f3ef9?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted">Delete</button>
+		</form>
+	
     </div>
+</div>
+<div class="ui threaded comments" id="62fcdb10703c1100160f3ef9">
+  <h3 class="ui dividing header">Comments</h3>
+	
+	</div>
+<div class="ui card" id="62fcd129eedb4e0016d4d913">
+	<div class="content" style="background-color: blue; color: white">
+		 <div class="right floated meta" style="color: white">Repeated</div>
+		Event
+	</div>
+		
+		<div class="content">
+    <div class="right floated meta">Wednesday 11:29 am</div>
+	<a href="/profile/5f5b84113c90da046d1df8fa" class="inverted">
+		<img class="ui avatar image" src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg">
+		Mourad 
+	</a>
+	</div>
+	<div class="image">
+		
+		<img src="https://semantic-ui.com/images/wireframe/image.png">
+		
+	</div>
+	<h1>
+		Event
+	</h1>
+	<p>
+		
+	</p>
+   <div class="extra content">
+	  <form action="/comment/Event/62fcd129eedb4e0016d4d913" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="Wednesday">
+			<input type="hidden" name="createdTime" value="1:04 pm">
+    	</div>
+	  </form>
+  </div>
+	 <div class="extra content">
+	 
+		<a class="btn btn-secondary btn-block inverted" href="/event/image/62fcd129eedb4e0016d4d913" style="color: white">Add An Image</a>
+		<a class="btn btn-primary btn-block inverted" href="/reservers/event/62fcd129eedb4e0016d4d913" style="color: white">View Who Joined</a>
+		<form action="/delete/event/62fcd129eedb4e0016d4d913?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted">Delete</button>
+		</form>
+	
+    </div>
+</div><div class="ui threaded comments" id="62fcd129eedb4e0016d4d913">
+  <h3 class="ui dividing header">Comments</h3>
+	
+	</div><div class="ui card" id="62fbac24729738001674688f">
+	<div class="content" style="background-color: blue; color: white">
+		 <div class="right floated meta" style="color: white">Repeated</div>
+		Event
+	</div>
+		
+		<div class="content">
+    <div class="right floated meta">Tuesday 2:39 pm</div>
+	<a href="/profile/5f5b84113c90da046d1df8fa" class="inverted">
+		<img class="ui avatar image" src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg">
+		Mourad 
+	</a>
+	</div>
+	<div class="image">
+		
+		<img src="https://semantic-ui.com/images/wireframe/image.png">
+		
+	</div>
+	<h1>
+		New event
+	</h1>
+	<p>
+		
+	</p>
+   <div class="extra content">
+	  <form action="/comment/Event/62fbac24729738001674688f" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="Wednesday">
+			<input type="hidden" name="createdTime" value="1:04 pm">
+    	</div>
+	  </form>
+  </div>
+	 <div class="extra content">
+	 
+		<a class="btn btn-secondary btn-block inverted" href="/event/image/62fbac24729738001674688f" style="color: white">Add An Image</a>
+		<a class="btn btn-primary btn-block inverted" href="/reservers/event/62fbac24729738001674688f" style="color: white">View Who Joined</a>
+		<form action="/delete/event/62fbac24729738001674688f?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted">Delete</button>
+		</form>
+	
+    </div>
+</div><div class="ui threaded comments" id="62fbac24729738001674688f">
+  <h3 class="ui dividing header">Comments</h3>
+	
+	<div class="comment">
+			<a class="avatar">
+			  <img src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg" class="inverted">
+			</a>
+		<div class="content">
+		  <a class="author" href="/profile/5f5b84113c90da046d1df8fa">Mourad</a>
+		  <div class="metadata">
+			<span class="date">Wednesday 11:28 am</span>
+		  </div>
+		  <div class="text">
+		   this is a commnet
+	  </div>
+</div>
+
+	<div class="comment">
+			<a class="avatar">
+			  <img src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg" class="inverted">
+			</a>
+		<div class="content">
+		  <a class="author" href="/profile/5f5b84113c90da046d1df8fa">Mourad</a>
+		  <div class="metadata">
+			<span class="date">Wednesday 11:28 am</span>
+		  </div>
+		  <div class="text">
+		   this is a commnet
+	  </div>
+</div>
+
+	<div class="comment">
+			<a class="avatar">
+			  <img src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg" class="inverted">
+			</a>
+		<div class="content">
+		  <a class="author" href="/profile/5f5b84113c90da046d1df8fa">Mourad</a>
+		  <div class="metadata">
+			<span class="date">Wednesday 11:29 am</span>
+		  </div>
+		  <div class="text">
+		   this is a commnet
+	  </div>
+</div>
+
+	</div>
+</div>
+
+
+
+</div></div><div class="ui threaded comments" id="62fcdaae703c1100160f3ef0">
+  <h3 class="ui dividing header">Comments</h3>
+	
+
+<div class="ui card" id="62fcd118eedb4e0016d4d910">
+  <div class="content" style="padding: 0">
+  <div style="background-color: orangered; padding: 10px; padding-bottom: 0;">
+  <a href="/profile/5f5b84113c90da046d1df8fa" style="margin-bottom: 20px; color: white" class="inverted">
+		<img class="ui avatar image" style="margin-bottom: 20px;" src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg">
+		Mourad 
+	</a> 
+</div>
+<div style="padding: 10px;">
+
+    <div class="header">Post</div>
+
+    <div class="meta">
+   </div>
+    <div class="meta">
+      <span>Wednesday 11:29 am</span>
+    </div>
+    <p></p>
+  </div>
+  </div>
+    <div class="extra content">
+	  <form action="/comment/Post/62fcd118eedb4e0016d4d910" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="Wednesday">
+			<input type="hidden" name="createdTime" value="1:04 pm">
+    	</div>
+	  </form>
+	  
+	  <form action="/delete/post/62fcd118eedb4e0016d4d910?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted" style="margin-top: 20px;">Delete</button>
+	</form>
+	
   </div>
 </div>
-		<% //for(var i = 0; i < posts[i].comments.length; i++){ %>
-			<div class="ui comments">
-			  <div class="comment">
-				<a class="avatar">
-				  <img src="/images/avatar/small/joe.jpg">
-				</a>
-				<div class="content">
-				  <a class="author">Joe Henderson</a>
-				  <div class="metadata">
-					<div class="date">1 day ago</div>
-				  </div>
-				  <div class="text">
-					<p>The hours, minutes and seconds stand as visible reminders that your effort put them all there. 						
-					  </p>
-					<p>Preserve until your next run, when the watch lets you see how Impermanent your efforts are.						</p>
-				  </div>
-				  <div class="actions">
-					<a class="reply">Reply</a>
-				  </div>
-				</div>
-			  </div>
-			  <form class="ui reply form">
-				<div class="field">
-				  <textarea></textarea>
-				</div>
-				<div class="ui primary submit labeled icon button">
-				  <i class="icon edit"></i> Add Comment
-				</div>
-			  </form>
-			</div>
-<% //} %>
-<% } %> 
-	</div>
+<div class="ui threaded comments" id="62fcd118eedb4e0016d4d910">
+  <h3 class="ui dividing header">Comments</h3>
+	
 
+<script>
+	const root = document.querySelector(":root");
+	function dark() {
+		root.classList.toggle("dark-mode");
+		document.querySelectorAll(".inverted").forEach((result) => {
+			result.classList.toggle("invert")	
+		})
+	}
+</script>
 
+</div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  
+
+</div><div class="ui card" id="62fcdaae703c1100160f3ef0">
+  <div class="content" style="padding: 0">
+  <div style="background-color: orangered; padding: 10px; padding-bottom: 0;">
+  <a href="/profile/5f5b84113c90da046d1df8fa" style="margin-bottom: 20px; color: white" class="inverted">
+		<img class="ui avatar image" style="margin-bottom: 20px;" src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg">
+		Mourad 
+	</a> 
+</div>
+<div style="padding: 10px;">
+
+    <div class="header" id="posts">Post</div>
+
+    <div class="meta">
+   </div>
+    <div class="meta">
+      <span>Wednesday 12:10 pm</span>
+    </div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tempor tristique ante, at facilisis nunc pellentesque sodales. Cras sit amet mattis urna. Nam tristique orci est, sollicitudin rutrum massa fringilla quis. Integer hendrerit dignissim tortor id tincidunt. Mauris eget magna nulla. In egestas consequat ipsum. Nulla a euismod odio, ut laoreet turpis. Duis tincidunt dui non massa maximus, a imperdiet tortor tempus. Quisque pellentesque, odio sed sodales ultrices, sem purus tincidunt nunc, nec viverra lectus sem quis elit. Curabitur porttitor, sem sed tempor vestibulum, urna odio aliquet sapien, ac congue sapien est non orci. Nullam pulvinar, enim vitae dictum vulputate, dolor ipsum vestibulum massa, in ullamcorper elit velit ut arcu. Vestibulum eu ante porta, interdum nisl at, dapibus urna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur maximus gravida ipsum ut fermentum. In nec viverra nulla. Nulla quam mauris, consectetur quis dignissim a, viverra sed leo. </p>
+  </div>
+  </div>
+    <div class="extra content">
+	  <form action="/comment/Post/62fcdaae703c1100160f3ef0" method="POST">
+		<div class="ui large transparent left icon input">
+      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="Wednesday">
+			<input type="hidden" name="createdTime" value="1:04 pm">
+    	</div>
+	  </form>
+	  
+	  <form action="/delete/post/62fcdaae703c1100160f3ef0?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-block inverted" style="margin-top: 20px;">Delete</button>
+	</form>
+	
+  </div>
+</div>
 <%- include("partials/footer.ejs") %>
