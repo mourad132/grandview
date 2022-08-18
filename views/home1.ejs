@@ -118,168 +118,71 @@
 	<% } %>
 	<% } %>
 <div class="ui card" id="complains">
-	<div class="content" style="background-color: red; color: white;" id="62fcdac5703c1100160f3ef3">
-		 <div class="right floated meta">Pool</div>
+	<div class="content" style="background-color: red; color: white;" id="<%= complain._id %>">
+		 <div class="right floated meta" style="color: white"><%= complain.type %></div>
 		Complain
 	</div>
 	
 		<div class="content">
-    <div class="right floated meta">Wednesday 12:10 pm</div>
-	<a href="/profile/5f5b84113c90da046d1df8fa" class="inverted">
-    <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg">
-		Mourad
+    <div class="right floated meta"><%= complain.created %> <%= complain.createdTime %></div>
+	<a href="/profile/<%= complain.author.id %>" class="inverted">
+    <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/<%= complain.author.image %>">
+		<%= complain.author.username %>
 			</a>
 	</div>
+	<% if(!complain.image){ %>
 	<div class="image">
-		
 			<img src="https://semantic-ui.com/images/wireframe/image.png" class="inverted">
-		
 	</div>
+	<% } else { %>
+		<div class="image">
+			<img src="https://grand-view.herokuapp.com/image/<%= complain._id %>" class="inverted">
+		</div>
+	<% } %>
 	<h1>
-		Complain
+		<%= complain.title %>
 	</h1>
 	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tempor tristique ante, at facilisis nunc pellentesque sodales. Cras sit amet mattis urna. Nam tristique orci est, sollicitudin rutrum massa fringilla quis. Integer hendrerit dignissim tortor id tincidunt. Mauris eget magna nulla. In egestas consequat ipsum. Nulla a euismod odio, ut laoreet turpis. Duis tincidunt dui non massa maximus, a imperdiet tortor tempus. Quisque pellentesque, odio sed sodales ultrices, sem purus tincidunt nunc, nec viverra lectus sem quis elit. Curabitur porttitor, sem sed tempor vestibulum, urna odio aliquet sapien, ac congue sapien est non orci. Nullam pulvinar, enim vitae dictum vulputate, dolor ipsum vestibulum massa, in ullamcorper elit velit ut arcu. Vestibulum eu ante porta, interdum nisl at, dapibus urna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur maximus gravida ipsum ut fermentum. In nec viverra nulla. Nulla quam mauris, consectetur quis dignissim a, viverra sed leo.
+		<%= complain.body %>
 	</p>
 	
-		<a class="btn btn-secondary inverted" href="/complain/image/62fcdac5703c1100160f3ef3">Add An Image</a>
-		<a class="btn btn-primary inverted" href="/complain/status/62fcdac5703c1100160f3ef3">View Complain Status</a>
-		<form action="/delete/complain/62fcdac5703c1100160f3ef3?_method=DELETE" method="POST">
+		<a class="btn btn-secondary inverted" href="/complain/image/<%= complain._id %>">Add An Image</a>
+		<a class="btn btn-primary inverted" href="/complain/status/<%= complain._id %>">View Complain Status</a>
+		<form action="/delete/complain/<%= complain._id %>?_method=DELETE" method="POST">
 			<button class="btn btn-danger btn-block inverted">Delete</button>
 		</form>
 	
 <div class="extra content">
-	  <form action="/comment/Complain/62fcdac5703c1100160f3ef3" method="POST">
+	  <form action="/comment/Complain/<%= complain._id %>" method="POST">
 		<div class="ui large transparent left icon input">
-      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
-			<input type="hidden" name="created" value="Wednesday">
-			<input type="hidden" name="createdTime" value="1:04 pm">
-    	</div>
+      			<i class="comment icon"></i> 
+			<input type="text" placeholder="Add Comment..." name="comment">
+			<input type="hidden" name="created" value="<%= moment().format('dddd') %>">
+			<input type="hidden" name="createdTime" value="<%= moment().format('h:mm a') %>">
+    		</div>
 	  </form>
   </div>
 </div> 
-<div class="ui threaded comments" id="62fcdac5703c1100160f3ef3">
+<div class="ui threaded comments" id="<%= complain._id %>">
   <h3 class="ui dividing header">Comments</h3>
 	
 </div>
-
-
-	<div class="ui card" id="62fb8a8dbe3ce7001674009d">
-	<div class="content" style="background-color: red; color: white">
-		 <div class="right floated meta" style="color: white">Club House</div>
-		Complain
-	</div>
-		
-		<div class="content">
-    <div class="right floated meta">Tuesday 12:14 pm</div>
-	<a href="/profile/5f5b84113c90da046d1df8fa" class="inverted">
-    <img class="ui avatar image" src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg">
-		Mourad
-			</a>
-	</div>
-	<div class="image">
-		
-			<img src="http://grand-view.herokuapp.com/image/36091c7c0bee94a28bc50cb6cda7f5da.jpg" class="inverted">
-		
-	</div>
-	<h1>
-		Complain
-	</h1>
-	<p>
-		this is a complain
-	</p>
-	
-		<a class="btn btn-secondary inverted" href="/complain/image/62fb8a8dbe3ce7001674009d">Add An Image</a>
-		<a class="btn btn-primary inverted" href="/complain/status/62fb8a8dbe3ce7001674009d">View Complain Status</a>
-		<form action="/delete/complain/62fb8a8dbe3ce7001674009d?_method=DELETE" method="POST">
-			<button class="btn btn-danger btn-block inverted">Delete</button>
-		</form>
-	
-<div class="extra content">
-	  <form action="/comment/Complain/62fb8a8dbe3ce7001674009d" method="POST">
-		<div class="ui large transparent left icon input">
-      		<i class="comment icon"></i> <input type="text" placeholder="Add Comment..." name="comment">
-			<input type="hidden" name="created" value="Wednesday">
-			<input type="hidden" name="createdTime" value="1:04 pm">
-    	</div>
-	  </form>
-  </div>
-</div> 
-<div class="ui threaded comments" id="62fb8a8dbe3ce7001674009d">
-  <h3 class="ui dividing header">Comments</h3>
-	
-	
-	<div class="comment">
+<% complain.comments.forEach(comment => { %>
+<div class="comment">
 			<a class="avatar">
-			  <img src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg" class="inverted">
+			  <img src="http://grand-view.herokuapp.com/image/<%= comment.author.image %>" class="inverted">
 			</a>
 		<div class="content">
-		  <a class="author" href="/profile/5f5b84113c90da046d1df8fa">Mourad</a>
+		  <a class="author" href="/profile/<%= comment.authorId %>"><%= comment.author.username %></a>
 		  <div class="metadata">
-			<span class="date">Tuesday 12:16 pm</span>
+			<span class="date"><%= comment.created %> <%= comment.createdTime %></span>
 		  </div>
 		  <div class="text">
-		   this is a comment
+		   <%= comment.body %>
 	  </div>
 </div>
 	</div>
-	
-	
-	
-	<div class="comment">
-			<a class="avatar">
-			  <img src="http://grand-view.herokuapp.com/image/974b774b2288748fb57c2668708493eb.jpg" class="inverted">
-			</a>
-		<div class="content">
-		  <a class="author" href="/profile/62fb8b11be3ce700167400b4">Example</a>
-		  <div class="metadata">
-			<span class="date">Tuesday 12:18 pm</span>
-		  </div>
-		  <div class="text">
-		   this is a comment
-	  </div>
-</div>
-	</div>
-	
-	
-	
-	<div class="comment">
-			<a class="avatar">
-			  <img src="http://grand-view.herokuapp.com/image/974b774b2288748fb57c2668708493eb.jpg" class="inverted">
-			</a>
-		<div class="content">
-		  <a class="author" href="/profile/62fb8b11be3ce700167400b4">Example</a>
-		  <div class="metadata">
-			<span class="date">Tuesday 12:44 pm</span>
-		  </div>
-		  <div class="text">
-		   this is a comment
-	  </div>
-</div>
-	</div>
-	
-	
-	
-	<div class="comment">
-			<a class="avatar">
-			  <img src="http://grand-view.herokuapp.com/image/5e454283298b4b96c34c4d9bbdcc8ba7.jpg" class="inverted">
-			</a>
-		<div class="content">
-		  <a class="author" href="/profile/5f5b84113c90da046d1df8fa">Mourad</a>
-		  <div class="metadata">
-			<span class="date">Tuesday 2:33 pm</span>
-		  </div>
-		  <div class="text">
-		   this is a comment
-	  </div>
-</div>
-	</div>
-	
-	
-</div>
-
-
-
+<% }) %>
 <div class="ui card" id="events">
 	<div class="content" style="background-color: blue; color: white" id="62fcdb10703c1100160f3ef9">
 		 <div class="right floated meta" style="color: white">Repeated</div>
