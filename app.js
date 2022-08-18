@@ -141,7 +141,7 @@ app.get("/home", ensureAuthenticated, (req, res) => {
 											// reverse events to be from newest
 											const invevents = events.reverse(); 
 											//renders the home page and sends all posts, suggestions, etc... along
-											res.render("home1", {suggestions: invsuggestion, posts: invposts, complains: invcomplain, 												services: invservice, events: invevents, user: req.user, page: "home"})
+											res.render("home", {suggestions: invsuggestion, posts: invposts, complains: invcomplain, 												services: invservice, events: invevents, user: req.user, page: "home"})
 										}
 									})
 								}
