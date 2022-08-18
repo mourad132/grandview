@@ -462,7 +462,7 @@ app.delete("/delete/:type/:id", (req, res) => {
 			if(err){
 				console.log(err)
 			} else {
-				res.redirect("/delete/files/" + found.image)
+				res.redirect("/home")
 			}
 		})
 	} else {
