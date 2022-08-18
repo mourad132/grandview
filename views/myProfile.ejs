@@ -30,11 +30,11 @@
 	<a class="btn btn-primary" href="/photo" style="display: block">Change My Profile Picture</a>
   <div class="form-group">
     <label for="name">Name</label>
-    <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="<%= user.name %>">
+    <input type="text" required class="form-control" id="name" name="name" placeholder="Name" value="<%= user.name %>">
   </div>
 	  <div class="form-group">
     <label for="number">Phone Number</label>
-    <input type="number" class="form-control" id="number" name="number" placeholder="Phone Number" value="<%= user.number %>">
+    <input type="number" required class="form-control" id="number" name="number" placeholder="Phone Number" value="<%= user.number %>">
   </div>
 	  <div class="form-group">
          <label for="bio">bio</label>
@@ -49,7 +49,7 @@
   </div>
 	  <div class="form-group">
     <label for="apartment">Apartment Number</label>
-    <input type="text" class="form-control" id="apartment" name="apartment" placeholder="Apartment Number" value="<%= user.apartment %>">
+    <input type="text" required class="form-control" id="apartment" name="apartment" placeholder="Apartment Number" value="<%= user.apartment %>">
   </div>
 	<input type="submit" class="btn btn-success">
 </form>
