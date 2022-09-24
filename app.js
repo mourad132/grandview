@@ -93,6 +93,13 @@ app.get('/', (req, res) => {
 	res.render('beta', {page: "Landing", user: req.user})
 })
 
+app.get('/profiles/api', (req, res) => {
+	User.find({}, (err, users) => {
+		if(err) throw err;
+		res.send(users)
+	})
+})
+
 //Home Page *
 app.get("/home", ensureAuthenticated, (req, res) => {
 	// find all Suggestions
