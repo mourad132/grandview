@@ -27,11 +27,11 @@ const Admin = require('../models/asdekaa/Admin.js');
 // Routes
 
 app.get('/', (req, res) => {
-    res.render('/asdekaa/landing')
+    res.render('e-landing')
 });
 
 app.get('/products', (req, res) => {
-    res.render('/asdekaa/categories')
+    res.render('categories')
 });
 
 app.get('/products/:category', (req, res) => {
@@ -41,12 +41,12 @@ app.get('/products/:category', (req, res) => {
         status: 'In Progress'
     }, (err, order) => {
         if(err) throw err;
-        res.render('/asdekaa/products')
+        res.render('products')
     })
 });
 
 app.get('/done', (req, res) => {
-    res.render('/asdekaa/done')
+    res.render('done')
 });
 
 app.post('/cart/:id', (req, res) => {
@@ -60,7 +60,7 @@ app.post('/cart/:id', (req, res) => {
 app.get('/checkout/:id', (req, res) => {
     Order.findById(req.params.id, (err, orders) => {
         if(err) throw err;
-        res.render('/asdekaa/checkout', { orders })
+        res.render('checkout', { orders })
     })
 });
 
@@ -86,7 +86,7 @@ app.post('/login', passport.authenticate('local', {
 }));
 
 app.get('/login', (req, res) => {
-    res.render('/asdekaa/login')
+    res.render('e-login')
 })
 
 app.get('/checked/:id', ensureAdmin, (req, res) => {
