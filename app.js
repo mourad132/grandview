@@ -86,6 +86,7 @@ app.use(function(req, res, next) {
 
 // Users Routes
 app.use('/users', require('./routes/users.js'));
+app.use('/el-asdekaa', require('/./routes/asdekaa.js'))
 
 // Landing Page
 app.get('/', (req, res) => {
