@@ -1,6 +1,6 @@
 //Node Modules
 var express = require("express");
-const sanitizer  = require('sanitizer');
+const sanitizer = require('sanitizer');
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 const path = require('path');
