@@ -21,7 +21,7 @@ function ensureAdmin(req, res, next){
 
 const Order = require('../models/asdekaa/Order.js');
 const Products = require('../models/asdekaa/Products.js');
-const History = require('../models/asdekaa/history.js');
+const History = require('../models/asdekaa/History.js');
 const Admin = require('../models/asdekaa/Admin.js');
 
 // App Configuration
