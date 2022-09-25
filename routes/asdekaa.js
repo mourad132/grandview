@@ -144,6 +144,10 @@ app.get('/checked/:id', ensureAdmin, (req, res) => {
     })
 });
 
+app.get('/history', (req, res) => {
+    res.render('history')
+})
+
 app.delete('/delete/:id', ensureAdmin, (req, res) => {
     History.findOneAndDelete({ _id: req.params.id }, (err, deleted) => {
         if(err) throw err;
