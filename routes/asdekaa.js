@@ -24,49 +24,6 @@ const Products = require('../models/asdekaa/Products.js');
 const History = require('../models/asdekaa/History.js');
 const Admin = require('../models/asdekaa/Admin.js');
 
-// App Configuration
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.set('view engine', 'ejs');
-
-//Passport Configuration
-
-passport.use(new localStrategy(function verify(username, password, done){
-    Admin.findOne({ username }, (err, admin) => {
-    if(err) throw done(null, false, err);
-    if(admin == null) return done(null, false, "Invalid Username Or Password")
-    if(admin.password == null) return done(null, false, 'Invalid Username Or Password')
-    if(admin.password == password) { 
-        return done(null, admin)
-    } else {
-        return done(null, false, 'Invalid Username Or Password')
-    }
-})
-}));
-
-passport.serializeUser(function(user, cb) {
-  process.nextTick(function() {
-    cb(null, { id: user.id, username: user.username, status: user.status });
-  });
-});
-
-passport.deserializeUser(function(user, cb) {
-  process.nextTick(function() {
-    return cb(null, user);
-  });
-});
-
-// Session Configuration
-app.use(session({
-  secret: 'this is a secret that no one will know',
-  resave: false,
-  saveUninitialized: false,
-}))
-
-//Connect To Database
-mongoose.connect('mongodb://localhost:27017/El-Asdekaa');
-
 // Routes
 
 app.get('/', (req, res) => {
