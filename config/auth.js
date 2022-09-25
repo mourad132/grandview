@@ -12,4 +12,10 @@ module.exports = {
     }
     res.redirect('/home');      
   },
+  ensureAdmin: function ensureAdmin(req, res, next){
+    if(req.user.status == 'admin'){
+        return next()
+    }
+    res.redirect('/login')
+},
 	};
