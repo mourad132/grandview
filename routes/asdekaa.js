@@ -7,7 +7,6 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const localStrategy = require('passport-local');
 const session = require('express-session');
-const Admin = require('./models/Admin');
 
 // Helper
 
@@ -20,11 +19,10 @@ function ensureAdmin(req, res, next){
 
 // Local Models
 
-const Order = require('./models/Order');
-const Products = require('./models/Products');
-const Database = require('./database');
-const History = require('./models/history')
-
+const Order = require('./models/asdekaa/Order');
+const Products = require('./models/asdekaa/Products');
+const History = require('./models/asdekaa/history');
+const Admin = require('./models/asdekaa/Admin');
 
 // App Configuration
 
