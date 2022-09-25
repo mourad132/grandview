@@ -72,11 +72,11 @@ mongoose.connect('mongodb://localhost:27017/El-Asdekaa');
 // Routes
 
 app.get('/', (req, res) => {
-    res.render('landing')
+    res.render('/asdekaa/landing')
 });
 
 app.get('/products', (req, res) => {
-    res.render('categories')
+    res.render('/asdekaa/categories')
 });
 
 app.get('/products/:category', (req, res) => {
@@ -86,12 +86,12 @@ app.get('/products/:category', (req, res) => {
         status: 'In Progress'
     }, (err, order) => {
         if(err) throw err;
-        res.render('products')
+        res.render('/asdekaa/products')
     })
 });
 
 app.get('/done', (req, res) => {
-    res.render('done')
+    res.render('/asdekaa/done')
 });
 
 app.post('/cart/:id', (req, res) => {
@@ -105,7 +105,7 @@ app.post('/cart/:id', (req, res) => {
 app.get('/checkout/:id', (req, res) => {
     Order.findById(req.params.id, (err, orders) => {
         if(err) throw err;
-        res.render('checkout', { orders })
+        res.render('/asdekaa/checkout', { orders })
     })
 });
 
@@ -131,7 +131,7 @@ app.post('/login', passport.authenticate('local', {
 }));
 
 app.get('/login', (req, res) => {
-    res.render('login')
+    res.render('/asdekaa/login')
 })
 
 app.get('/checked/:id', ensureAdmin, (req, res) => {
