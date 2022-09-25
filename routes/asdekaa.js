@@ -19,10 +19,10 @@ function ensureAdmin(req, res, next){
 
 // Local Models
 
-const Order = require('./models/asdekaa/Order');
-const Products = require('./models/asdekaa/Products');
-const History = require('./models/asdekaa/history');
-const Admin = require('./models/asdekaa/Admin');
+const Order = require('./models/asdekaa/Order.js');
+const Products = require('./models/asdekaa/Products.js');
+const History = require('./models/asdekaa/history.js');
+const Admin = require('./models/asdekaa/Admin.js');
 
 // App Configuration
 
